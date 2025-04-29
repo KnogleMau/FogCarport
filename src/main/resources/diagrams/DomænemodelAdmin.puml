@@ -1,0 +1,28 @@
+@startuml
+'https://plantuml.com/object-diagram
+
+object AdminPage
+object AdminLogin
+object AdminViewRequest
+object AdminDisplayOrders
+object AdminProducts
+object AddAdminUser
+object Calculator
+object BOM{
+Bill of materials
+}
+object OrderCarport
+
+
+AdminLogin *-- AdminPage
+AdminPage *-- AdminViewRequest
+AdminPage *-- AdminDisplayOrders
+AdminPage *-- AdminProducts
+AdminPage *-- AddAdminUser
+AdminViewRequest *-- Calculator
+AdminViewRequest *-- BOM
+Calculator *-- BOM
+AdminDisplayOrders *-- BOM
+
+OrderCarport --* AdminViewRequest
+@enduml

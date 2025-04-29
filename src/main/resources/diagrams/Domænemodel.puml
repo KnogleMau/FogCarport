@@ -1,0 +1,26 @@
+@startuml
+'https://plantuml.com/object-diagram
+
+object FogCarport
+object FrontPage
+object LoginPage
+object CarportPage
+object CreateUserPage
+object CarportFlatRoof
+object CarportTriangleRoof
+object ConfirmationPage
+
+FogCarport *-- FrontPage
+FrontPage *-- LoginPage
+FrontPage *-- CarportPage
+LoginPage *-- CreateUserPage
+CarportPage *-- CarportFlatRoof
+CarportPage *-- CarportTriangleRoof
+CarportTriangleRoof *-- ConfirmationPage
+CarportFlatRoof *-- ConfirmationPage
+
+
+
+
+
+@enduml
