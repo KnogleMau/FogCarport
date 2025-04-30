@@ -1,0 +1,26 @@
+@startuml
+'https://plantuml.com/object-diagram
+object Kunde
+object Carport
+object Order
+object TagType
+object Materiale
+object Trætype
+object Sælger
+object MaterialeType
+object Stykliste
+
+
+
+Carport --* Materiale
+MaterialeType --> TagType
+MaterialeType --> Trætype
+Kunde --* Order
+Materiale --> MaterialeType
+Order --> Sælger
+Order --> Carport
+Sælger --> Stykliste
+
+
+
+@enduml
