@@ -1,5 +1,6 @@
 package app.persistence;
 
+import app.entities.AdminUser;
 import app.exceptions.DatabaseException;
 
 import java.sql.Connection;
@@ -12,7 +13,7 @@ import static app.Main.connectionPool;
 public class AdminUserMapper {
 
 
-    public static void login(String email, String password, boolean admin){
+    public static AdminUser login(String email, String password, ConnectionPool connectionPool) throws DatabaseException {
 
         String sql = "SELECT * FROM admin_users WHERE email = ? AND password = ? AND admin = true";
 
@@ -22,15 +23,18 @@ public class AdminUserMapper {
 
                 ResultSet rs = ps.executeQuery();
                 if(rs.next()){
+                    return new AdminUser(email);
+                } else {
+                    throw new DatabaseException("Forkert Login, ellers har du ikke Admin permission");
                 }
-        }
-        catch(SQLException e) {
+        } catch(SQLException e) {
         System.out.println(e.getMessage());
+        throw new DatabaseException("Databasefejl", e.getMessage());
         }
     }
 
 
-    public static void CreateUser(String email, String password, boolean admin) throws DatabaseException {
+    public static void createUser(String email, String password, boolean admin, ConnectionPool connectionPool) throws DatabaseException {
 
         String sql = "INSERT INTO admin_users (email, password, admin) values (?,?,?)";
 
