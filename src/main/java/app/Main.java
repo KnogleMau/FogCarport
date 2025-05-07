@@ -25,14 +25,18 @@ public class Main {
         // Initializing Javalin and Jetty webserver
 
         Javalin app = Javalin.create(config -> {
-            config.staticFiles.add("/public");
+            config.staticFiles.add("public");
             config.jetty.modifyServletContextHandler(handler -> handler.setSessionHandler(SessionConfig.sessionConfig()));
             config.fileRenderer(new JavalinThymeleaf(ThymeleafConfig.templateEngine()));
         }).start(7070);
 
         //render.routes(app, connectionPool);
-        app.get("/", ctx -> {
+      /*  app.get("/", ctx -> {
             ctx.render("adminlogin.html");
+        }); */
+
+        app.get("/", ctx -> {
+            ctx.render("adminCarportForespørgsler.html");
         });
 
 

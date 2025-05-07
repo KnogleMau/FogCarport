@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Admin forespørgsler</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="../public/css/adminCarportForespørgsler.css" th:href="@{/css/adminCarportForespørgsler.css}" rel="stylesheet"/>
+</head>
+
+<body>
+<div class="adminForespørgsler">
+    <h1 class="admin-h1">Carport forespørgsler</h1>
+
+    <div class ="diaplayCurrentAdminPlusBack">
+        <div class="emailPlacement">
+      <!--  <span class="email"  th:text="${user.email}">brugernavn@email.com</span> -->
+        </div>
+        <div class ="backAdminMain">
+            <a href="/adminMain">
+                <button type="button" class="anybutton">Hovedmenu</button>
+            </a>
+        </div>
+    </div>
+
+    <div class="display">
+        <tr>
+            <th class="orderTableDescription">Fornavn</th>
+            <th class="orderTableDescription">Efternavn</th>
+            <th class="orderTableDescription">Mobilnummer</th>
+            <th class="orderTableDescription">Ordre nummer</th>
+        </tr>
+        <tr>
+       <!--     <td th:text="${taskOne['orderID']}"></td>
+            <td th:text="${taskOne['currentOrderID']}"></td>
+            <td th:text="${taskOne['currentTotalPrice']}"></td>
+            <td th:text="${taskOne['currentDate']}"></td>  -->
+<!-- form action route skal ændres  -->
+            <form th:action="@{/adminMain}" method="post">
+          <!--      <input type="hidden" name="orderID" th:value="${taskOne['orderID']}">  -->
+                <button class="anybutton" type="submit">Se ordren</button>
+            </form>
+        </tr>
+
+
+    </div>
+</div>
+
+</body>
+</html>
