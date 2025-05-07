@@ -31,5 +31,10 @@ public class Main {
         }).start(7070);
 
         //render.routes(app, connectionPool);
+        app.get("/", ctx -> {
+            ctx.render("adminlogin.html");
+        });
+
+
     }
 }
