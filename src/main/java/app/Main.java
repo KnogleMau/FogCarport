@@ -35,11 +35,13 @@ public class Main {
             ctx.render("adminlogin.html");
         });  */
 
-      /*  app.get("/", ctx -> {
+       /* app.get("/", ctx -> {
             ctx.render("adminCarportRequests.html");
         }); */
 
-
+        app.get("/", ctx -> {
+            ctx.render("adminMainMenu.html");
+        });
 
     }
 }
