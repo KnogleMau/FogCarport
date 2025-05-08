@@ -88,6 +88,14 @@
             <scope>test</scope>
         </dependency>
 
+        <!--Tilføjelse af Sendgrid pom -->
+
+        <dependency>
+            <groupId>com.sendgrid</groupId>
+            <artifactId>sendgrid-java</artifactId>
+            <version>4.10.1</version> <!-- Use the latest version -->
+        </dependency>
+
 
     </dependencies>
 
