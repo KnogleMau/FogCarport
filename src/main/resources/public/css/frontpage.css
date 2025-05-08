@@ -22,12 +22,14 @@
     height: 150px;
     /* Marquee settings */
     overflow: hidden;
+    position: relative;
 }
 
 .marquee-images{
     display: flex;
-    width: fit-content;
+    width: max-content;
     animation: image-marquee 80s linear infinite;
+    will-change: transform;
 }
 
 .frontpage-topbar:hover .marquee-images {
@@ -43,12 +45,20 @@
         flex-shrink: 0;
 }
 
+.marquee-images img.smallFoglogo {
+    height: auto;
+    max-height: 30px;
+    align-self: center;
+}
+
+
+
 @keyframes image-marquee {
     0% {
-        transform: translateX(100%);  /* Start completely off the screen to the right */
+        transform: translateX(65%);  /* Start completely off the screen to the right */
     }
     100% {
-        transform: translateX(-100%); /* End completely off the screen to the left */
+        transform: translateX(-50%); /* End completely off the screen to the left */
     }
 }
 
