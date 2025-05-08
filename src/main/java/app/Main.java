@@ -30,6 +30,6 @@ public class Main {
             config.fileRenderer(new JavalinThymeleaf(ThymeleafConfig.templateEngine()));
         }).start(7070);
 
-        //render.routes(app, connectionPool);
+        render.routes(app, connectionPool);
     }
 }
