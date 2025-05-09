@@ -12,8 +12,7 @@ import java.io.IOException;
 
 public class Sendgrid {
 
-    public void sendGridAction(String template) throws IOException {
-        // Erstat xyx@gmail.com med din egen email, som er afsender
+    public void sendGridAction(String email, String name, String template) throws IOException {
         Email from = new Email("mav.solver@hotmail.com");
         from.setName("Johannes Fog Byggemarked");
 
@@ -24,10 +23,8 @@ public class Sendgrid {
 
         Personalization personalization = new Personalization();
 
-        /* Erstat kunde@gmail.com, name, email og zip med egne værdier ****/
-        /* I test-fasen - brug din egen email, så du kan modtage beskeden */
-        personalization.addTo(new Email("mav.simonsen@gmail.com"));
-        personalization.addDynamicTemplateData("name", "Magnus Simonsen");
+        personalization.addTo(new Email(email));
+        personalization.addDynamicTemplateData("name", name);
         //personalization.addDynamicTemplateData("email", "anders@and.dk");
         //personalization.addDynamicTemplateData("zip", "2100");
         mail.addPersonalization(personalization);
