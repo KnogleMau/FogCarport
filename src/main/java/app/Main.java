@@ -3,6 +3,7 @@ package app;
 import app.config.SessionConfig;
 import app.config.ThymeleafConfig;
 import app.javaCode.Sendgrid;
+import app.controllers.render;
 import app.persistence.ConnectionPool;
 import io.javalin.Javalin;
 import io.javalin.rendering.template.JavalinThymeleaf;
@@ -25,13 +26,13 @@ public class Main {
         // Initializing Javalin and Jetty webserver
 
         Javalin app = Javalin.create(config -> {
-            config.staticFiles.add("/public");
+            config.staticFiles.add("public");
             config.jetty.modifyServletContextHandler(handler -> handler.setSessionHandler(SessionConfig.sessionConfig()));
             config.fileRenderer(new JavalinThymeleaf(ThymeleafConfig.templateEngine()));
         }).start(7070);
 
 
-
        // CupcakeController.routes(app, connectionPool);
+
     }
 }
