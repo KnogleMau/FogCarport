@@ -20,6 +20,46 @@
     background-color: #D9D9D9;
     flex: 1;
     height: 150px;
+    /* Marquee settings */
+    overflow: hidden;
+    position: relative;
+}
+
+.marquee-images{
+    display: flex;
+    width: max-content;
+    animation: image-marquee 80s linear infinite;
+    will-change: transform;
+}
+
+.frontpage-topbar:hover .marquee-images {
+    animation-play-state: paused;
+}
+
+.marquee-images img{
+        height: 100%;
+        max-height: 150px;
+        width: auto;
+        object-fit: contain;
+        margin-right: 2rem;
+        flex-shrink: 0;
+}
+
+.marquee-images img.smallFoglogo {
+    height: auto;
+    max-height: 30px;
+    align-self: center;
+}
+
+
+
+@keyframes image-marquee {
+    0% {
+        transform: translateX(65%);  /* Start completely off the screen to the right */
+    }
+    100% {
+        transform: translateX(-50%); /* End completely off the screen to the left */
+    }
 }
 
 .frontpage-descriptionbox{

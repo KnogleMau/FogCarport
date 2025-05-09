@@ -30,18 +30,6 @@ public class Main {
             config.fileRenderer(new JavalinThymeleaf(ThymeleafConfig.templateEngine()));
         }).start(7070);
 
-     //   render.routes(app, connectionPool);
-      /*  app.get("/", ctx -> {
-            ctx.render("adminlogin.html");
-        });  */
-
-       /* app.get("/", ctx -> {
-            ctx.render("adminCarportRequests.html");
-        }); */
-
-      /*  app.get("/", ctx -> {
-            ctx.render("adminMainMenu.html");
-        }); */
 
     }
 }
