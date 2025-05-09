@@ -9,5 +9,13 @@ public class render {
     app.get("/", ctx -> {
         ctx.render("frontpage.html");
     });
+
+        app.get("/carportBuilder", ctx -> {
+            ctx.render("carportBuilder.html");
+        });
+
+        app.get("/frontpage", ctx -> {
+            ctx.render("frontpage.html");
+        });
     }
 }
