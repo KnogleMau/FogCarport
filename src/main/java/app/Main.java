@@ -39,9 +39,9 @@ public class Main {
             ctx.render("adminCarportRequests.html");
         }); */
 
-        app.get("/", ctx -> {
+      /*  app.get("/", ctx -> {
             ctx.render("adminMainMenu.html");
-        });
+        }); */
 
     }
 }
