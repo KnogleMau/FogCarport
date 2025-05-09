@@ -2,6 +2,7 @@ package app;
 
 import app.config.SessionConfig;
 import app.config.ThymeleafConfig;
+import app.javaCode.Sendgrid;
 import app.controllers.render;
 import app.persistence.ConnectionPool;
 import io.javalin.Javalin;
@@ -20,7 +21,7 @@ public class Main {
     public static final ConnectionPool connectionPool = ConnectionPool.getInstance(USER, PASSWORD, URL, DB);
 
     public static void main(String[] args) {
-
+        Sendgrid sendgrid = new Sendgrid();
 
         // Initializing Javalin and Jetty webserver
 
@@ -30,6 +31,8 @@ public class Main {
             config.fileRenderer(new JavalinThymeleaf(ThymeleafConfig.templateEngine()));
         }).start(7070);
 
+
+       // CupcakeController.routes(app, connectionPool);
 
     }
 }
