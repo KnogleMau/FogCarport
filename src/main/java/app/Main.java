@@ -2,6 +2,7 @@ package app;
 
 import app.config.SessionConfig;
 import app.config.ThymeleafConfig;
+import app.javaCode.CarportBeregner;
 import app.javaCode.Sendgrid;
 import app.controllers.render;
 import app.persistence.ConnectionPool;
@@ -30,7 +31,8 @@ public class Main {
             config.jetty.modifyServletContextHandler(handler -> handler.setSessionHandler(SessionConfig.sessionConfig()));
             config.fileRenderer(new JavalinThymeleaf(ThymeleafConfig.templateEngine()));
         }).start(7070);
-
+        CarportBeregner c = new CarportBeregner();
+        c.carportStolpeBeregner(780,360);
 
        // CupcakeController.routes(app, connectionPool);
 
