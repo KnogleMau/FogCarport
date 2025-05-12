@@ -14,8 +14,12 @@ public class render {
             ctx.render("carportBuilder.html");
         });
 
-        app.get("/frontpage", ctx -> {
-            ctx.render("frontpage.html");
+        app.get("/customerContactInformation", ctx -> {
+            ctx.render("customerContactInformation.html");
+        });
+
+        app.get("/confirmationPageUser", ctx -> {
+            ctx.render("confirmationPageUser.html");
         });
     }
 }
