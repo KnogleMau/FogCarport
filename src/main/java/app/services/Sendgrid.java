@@ -1,4 +1,4 @@
-package app.javaCode;
+package app.services;
 
 import com.sendgrid.Method;
 import com.sendgrid.Request;
