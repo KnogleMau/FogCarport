@@ -1,7 +1,7 @@
 package app.services;
 
 public class CarportCalculator {
-    private static final int POSTS = 1;
+    private static final int POSTS = 3;
 
     // Stolper
     public int calculatePole(int lenght, boolean addShed) {
