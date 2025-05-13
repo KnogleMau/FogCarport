@@ -11,7 +11,7 @@ import java.util.logging.Logger;
 /***
  * Singleton pattern applied to handling a Hikari ConnectionPool
  */
-public class  ConnectionPool {
+public class   ConnectionPool {
 
     private static volatile ConnectionPool instance = null;
     private static HikariDataSource ds = null;
@@ -24,6 +24,12 @@ public class  ConnectionPool {
         // Prevent instantiation
     }
 
+   /* public static ConnectionPool getInstance() {
+
+        return getInstance("","" , "", "");
+    } */
+
+
     /***
      * Getting a singleton instance of a Hikari Connection Pool with specific credentials
      * and connection string. If an environment variable "DEPLOYED" exists, then environment variables
@@ -34,6 +40,8 @@ public class  ConnectionPool {
      * @param db Database name
      * @return Singleton instance of ConnectionPool
      */
+
+
     public static ConnectionPool getInstance(String user, String password, String url, String db) {
         if (instance == null) {
             synchronized (ConnectionPool.class) {
@@ -53,6 +61,8 @@ public class  ConnectionPool {
         }
         return instance;
     }
+
+
 
     /***
      * Getting a live connection from the Hikari Connection Pool
