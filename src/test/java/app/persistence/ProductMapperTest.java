@@ -1,6 +1,6 @@
 package app.persistence;
 
-import app.entities.Product;
+import app.entities.Material;
 import app.exceptions.DatabaseException;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
@@ -34,7 +34,7 @@ class ProductMapperTest {
     void SelectProduct() throws DatabaseException {
         int testId = 1;
         String expectedVariant = "Beam";
-            Product product = instance.selectProduct(testId);
+            Material product = instance.selectProduct(testId);
             assertNotNull(product);
             assertEquals(testId, product.getId());
             assertEquals(expectedVariant, product.getVariant());
