@@ -1,13 +1,13 @@
 package app.entities;
 
-public class Product {
+public class Material {
     private int id;
     private String name;
     private double price;
     private String variant;
 
 
-    public Product(int id, String name,String variant, double price) {
+    public Material(int id, String name, String variant, double price) {
         this.id = id;
         this.name = name;
         this.price = price;

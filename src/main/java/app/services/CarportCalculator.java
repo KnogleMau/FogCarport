@@ -1,19 +1,42 @@
 package app.services;
 
+import app.entities.Material;
+import app.entities.MaterialVariant;
+import app.exceptions.DatabaseException;
+import app.persistence.ConnectionPool;
+import app.persistence.ProductMapper;
+
+import java.util.List;
+
 public class CarportCalculator {
     private static final int POSTS = 3;
-
+    private ConnectionPool connectionPool;
+    private int lenght;
+    private int width;
+    ProductMapper productMapper = new ProductMapper();
     // Stolper
-    public int calculatePole(int lenght, boolean addShed) {
-        return poleCalc(lenght, addShed);
+
+
+    public CarportCalculator(int lenght, int width, ConnectionPool connectionPool) {
+        this.lenght = lenght;
+        this.width = width;
+        this.connectionPool = connectionPool;
     }
 
-    private int poleCalc(int lenght, boolean addShed) {
-        if (addShed == true) {
-            return 2 * (2 + (lenght - 140) / 340) + 4;
-        } else {
-            return 2 * (2 + (lenght - 140) / 340);
-        }
+    public void calcCarport() throws DatabaseException {
+        calculatePole();
+    }
+
+    public void calculatePole() throws DatabaseException {
+
+        int quantity = poleCalc();
+        List<MaterialVariant> materialVariants = productMapper.selectMaterialVariant(POSTS, 300, connectionPool);
+
+
+    }
+
+    private int poleCalc() {
+            return 2 * (2 + (lenght - 130) / 340);
     }
 
     public int raftersCalculator(int beamLengthCentimeters){

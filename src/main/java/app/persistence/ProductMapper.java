@@ -1,12 +1,17 @@
 package app.persistence;
 
-import app.entities.Product;
+import app.entities.Material;
+import app.entities.MaterialVariant;
 import app.exceptions.DatabaseException;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.List;
+import java.util.ArrayList;
+import java.util.ArrayList;
+import java.util.List;
 
 import static app.Main.connectionPool;
 
@@ -14,7 +19,7 @@ import static app.Main.connectionPool;
 public class ProductMapper {
 
 
-    public Product selectProduct(int id) throws DatabaseException {
+    public static Material selectProduct(int id, ConnectionPool connectionPool) throws DatabaseException {
         String sql = "select * from material_list WHERE material_id = ?";
 
         try(Connection connection = connectionPool.getConnection(); PreparedStatement ps = connection.prepareStatement(sql)) {
@@ -22,11 +27,12 @@ public class ProductMapper {
 
             ResultSet rs = ps.executeQuery();
             if(rs.next()){
-                int productId = rs.getInt("material_id");
+                int materialId = rs.getInt("material_id");
                 String name = rs.getString("material_name");
                 String variant = rs.getString("material_type");
                 int price = rs.getInt("material_price");
-                return new Product(productId, name, variant, price);
+
+                return new Material(materialId, name, variant, price);
             } else{
                 throw new DatabaseException("Product with ID" + id + " not found");
             }
@@ -35,6 +41,36 @@ public class ProductMapper {
             throw new RuntimeException(e);
         }
     }
+    public List<MaterialVariant> selectMaterialVariant(int productId, int minLength, ConnectionPool connectionPool) throws DatabaseException {
+        String sql = "SELECT * FROM material_length WHERE material_id = ? AND matelial_length >= ?";
 
+        List<MaterialVariant> variants = new ArrayList<>();
+
+        try (Connection connection = connectionPool.getConnection();
+             PreparedStatement ps = connection.prepareStatement(sql)) {
+
+            ps.setInt(1, productId);
+            ps.setInt(2, minLength);
+
+            ResultSet rs = ps.executeQuery();
+
+            Material material = selectProduct(productId, connectionPool); // kun én gang
+
+            while (rs.next()) {
+                int lengthId = rs.getInt("length_id");
+                int length = rs.getInt("matelial_length");
+
+                variants.add(new MaterialVariant(lengthId, length, material));
+            }
+
+            for(MaterialVariant variant : variants){
+                System.out.println(variant);
+            }
+            return variants;
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
 
 }

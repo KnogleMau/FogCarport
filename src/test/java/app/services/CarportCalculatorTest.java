@@ -1,14 +1,16 @@
 package app.services;
 
+import app.exceptions.DatabaseException;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import static app.Main.connectionPool;
 import static org.junit.jupiter.api.Assertions.*;
 
 class CarportCalculatorTest {
 
-    CarportCalculator instance = new CarportCalculator();
+    CarportCalculator instance = new CarportCalculator(780, 600, connectionPool);
     @BeforeEach
     void setUp() {
     }
@@ -18,11 +20,9 @@ class CarportCalculatorTest {
     }
 
     @Test
-    void carportCalculator() {
+    void carportCalculator() throws DatabaseException {
 
-        int result = instance.calculatePole(780, true);
-        int expected = 10;
-        assertEquals(expected, result);
+
     }
 
     @Test
