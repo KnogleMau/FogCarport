@@ -69,14 +69,14 @@ public class CarportSVG {
 
         /* Assuming two thirds of the overhang is added to the front and ont third to the back.
        Postdimension added to bring the value into the 30-times table */
-        System.out.println("carport længde: " + width + " maksimal stolpe afstand: " + maxPostDistanceBeamPostsOuterMeassure);
+
         int totalOverhang = (width - maxPostDistanceBeamPostsOuterMeassure + postDimension);
 
         double addedFrontOverHang = (2.0 / 3.0) * totalOverhang;
         System.out.println((width - (maxPostDistanceBeamPostsOuterMeassure+postDimension)));
-        System.out.println("Front udhæng: " + addedFrontOverHang);
+
         double addedBackOverHang = (1.0 / 3.0) * totalOverhang;
-        System.out.println("Back udhæng: " + addedBackOverHang);
+
 
         if (width <= maxPostDistanceBeamPostsOuterMeassure) {
             // Post one
@@ -105,7 +105,7 @@ public class CarportSVG {
             // post three front bottom beaam row from topview
             carportSVGElements.addRectangle(scopeDisSide + addedFrontOverHang, scopeDisTop + height - 0.5*postDimension, postDimension, postDimension, "stroke-width:1px; stroke:#000000; fill: #ffffff");
             // post four
-            System.out.println("ok");
+
             carportSVGElements.addRectangle(scopeDisSide + width - addedBackOverHang - postDimension, scopeDisTop + height - 0.5*postDimension, postDimension, postDimension, "stroke-width:1px; stroke:#000000; fill: #ffffff");
         } else if (width > maxCarportLenghtFourPosts) {
             // 20 is added to the distance calculated on, to make sure that roof over hang are even number at 2/# and 1/3 distributions
@@ -146,8 +146,6 @@ public class CarportSVG {
 
         }
     }
-
-
 
 /*
 private void addArrows(int width, int height) {
