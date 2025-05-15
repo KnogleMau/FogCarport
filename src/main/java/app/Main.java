@@ -2,6 +2,7 @@ package app;
 
 import app.config.SessionConfig;
 import app.config.ThymeleafConfig;
+import app.controllers.render;
 import app.services.Sendgrid;
 import app.persistence.ConnectionPool;
 import app.services.CarportCalculator;
@@ -32,7 +33,7 @@ public class Main {
         }).start(7070);
 
 
-       // CupcakeController.routes(app, connectionPool);
+       render.routes(app, connectionPool);
 
     }
 }
