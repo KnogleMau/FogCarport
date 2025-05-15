@@ -43,37 +43,35 @@ public class RequestMapper {
         }
     }
 
-    public static CarportRequest getCarportRequest(int userID) throws DatabaseException {
 
-        int requestID;
-        int requestLength;
-        int requestWidth;
-        int requestHeight;
-        int customerID;
-CarportRequest carportRequest = null;
+    public static CarportRequest getCarportRequest(int userID) throws DatabaseException {
+        CarportRequest carportRequest;
 
         String sql = "SELECT * FROM requests WHERE customer_id = ?";
         try (
                 Connection connection = connectionPool.getConnection();
-                PreparedStatement ps = connection.prepareStatement(sql);
+                PreparedStatement ps = connection.prepareStatement(sql)
         ) {
             ps.setInt(1, userID);
 
             ResultSet rs = ps.executeQuery();
-
             if (rs.next()) {
-                requestID = rs.getInt("request_id");
-                requestLength = rs.getInt("request_length");
-                requestWidth = rs.getInt("request_width");
-                requestHeight = rs.getInt("request_height");
-                customerID = rs.getInt("customer_id");
+                int requestID = rs.getInt("request_id");
+                int requestLength = rs.getInt("request_length");
+                int requestWidth = rs.getInt("request_width");
+                int requestHeight = rs.getInt("request_height");
+                int customerID = rs.getInt("customer_id");
 
-               carportRequest = new  CarportRequest(requestID, requestLength, requestWidth, requestHeight, customerID);
+                carportRequest = new CarportRequest(requestID, requestLength, requestWidth, requestHeight, customerID);
+            } else {
+                throw new DatabaseException("Ingen forespørgsel fundet for bruger-id: " + userID);
             }
         } catch (SQLException e) {
-            throw new DatabaseException("Fejl ved hentning af alt i requests", e.getMessage());
+            throw new DatabaseException("Fejl ved hentning af data fra requests", e.getMessage());
         }
+
         return carportRequest;
     }
+
 
 }
