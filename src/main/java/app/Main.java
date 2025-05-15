@@ -2,6 +2,8 @@ package app;
 
 import app.config.SessionConfig;
 import app.config.ThymeleafConfig;
+import app.exceptions.DatabaseException;
+import app.persistence.ProductMapper;
 import app.services.Sendgrid;
 import app.persistence.ConnectionPool;
 import app.services.CarportCalculator;
@@ -21,7 +23,7 @@ public class Main {
 
     public static final ConnectionPool connectionPool = ConnectionPool.getInstance(USER, PASSWORD, URL, DB);
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws DatabaseException {
 
         // Initializing Javalin and Jetty webserver
 
