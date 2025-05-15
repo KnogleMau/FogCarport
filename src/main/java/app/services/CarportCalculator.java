@@ -1,19 +1,46 @@
 package app.services;
 
-public class CarportCalculator {
-    private static final int POSTS = 1;
+import app.entities.Material;
+import app.entities.MaterialVariant;
+import app.entities.OrderDetail;
+import app.exceptions.DatabaseException;
+import app.persistence.ConnectionPool;
+import app.persistence.ProductMapper;
 
+import java.util.HashMap;
+import java.util.List;
+
+public class CarportCalculator {
+    private static final int POLE = 3;
+    private ConnectionPool connectionPool;
+    private int lenght;
+    private int width;
+    ProductMapper productMapper = new ProductMapper();
     // Stolper
-    public int calculatePole(int lenght, boolean addShed) {
-        return poleCalc(lenght, addShed);
+
+
+    public CarportCalculator(int lenght, int width, ConnectionPool connectionPool) {
+        this.lenght = lenght;
+        this.width = width;
+        this.connectionPool = connectionPool;
     }
 
-    private int poleCalc(int lenght, boolean addShed) {
-        if (addShed == true) {
-            return 2 * (2 + (lenght - 140) / 340) + 4;
-        } else {
-            return 2 * (2 + (lenght - 140) / 340);
-        }
+   // public List<MaterialVariant> calcCarport() throws DatabaseException {
+      //  calculatePole();
+    //}
+
+    public void calculatePole() throws DatabaseException {
+
+        int quantity = poleCalc();
+        List<MaterialVariant> materialVariants = productMapper.selectMaterialVariant(POLE, 300, connectionPool);
+        HashMap<MaterialVariant, Integer> hs = new HashMap<>();
+        hs.put(materialVariants.get(0),quantity);
+
+
+    }
+
+    private int poleCalc() {
+            return 2 * (2 + (lenght - 130) / 340);
     }
 
     public int raftersCalculator(int beamLengthCentimeters){
