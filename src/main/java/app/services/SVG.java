@@ -5,10 +5,10 @@ public class SVG {
 
 
     private static final String SVG_Template = "<SVG version=\"1.1\"\n" +
-            " x=\"%f\" y=\"%f\"\n" + " viewBox=\"%s\" width=\"%s\" height=\"auto\" \n" +
+            " x=\"%d\" y=\"%d\"\n" + " viewBox=\"%s\" width=\"%s\" height=\"auto\" \n" +
             "     preserveAspectRatio=\"xMinYMin\">\n";
 
-    private static final String SVG_Rectangle_Template ="<rect x=\"%.2f\" y=\"%.2f\" height=\"%f\" width=\"%f\"\n" +
+    private static final String SVG_Rectangle_Template ="<rect x=\"%f\" y=\"%f\" height=\"%f\" width=\"%f\"\n" +
             " style=\"%s\"/>";
 
     private static final String SVG_Line_Template ="<line x1=\"%.2f\" y1=\"%.2f\" x2=\"%.2f\" y2=\"%.2f\" " +
@@ -34,12 +34,13 @@ public class SVG {
     public SVG(int x, int y, String viewBox, String width){
 
         svg.append(String.format(SVG_Template, x, y, viewBox, width));
-        svg.append(SVG_Arrow_Def);
+      //  svg.append(SVG_Arrow_Def);
     }
 
     public void addRectangle(double x, double y, double height, double width, String style){
 
         svg.append(String.format(SVG_Rectangle_Template, x, y, height, width, style));
+
     }
 
     public void addLine(double x1, double y1, double x2, double y2, String style) {
@@ -69,7 +70,6 @@ public class SVG {
     @Override
     public String toString() {
 
-        System.out.println("SVG content: " + svg.toString());
         return svg.append("</svg>").toString();
     }
   /*  SVG carportSVG = new SVG(0, 0, "0, 0, 855, 690", "100%", "auto" );
