@@ -2,14 +2,16 @@ package app.services;
 
 import app.entities.Material;
 import app.entities.MaterialVariant;
+import app.entities.OrderDetail;
 import app.exceptions.DatabaseException;
 import app.persistence.ConnectionPool;
 import app.persistence.ProductMapper;
 
+import java.util.HashMap;
 import java.util.List;
 
 public class CarportCalculator {
-    private static final int POSTS = 3;
+    private static final int POLE = 3;
     private ConnectionPool connectionPool;
     private int lenght;
     private int width;
@@ -23,14 +25,16 @@ public class CarportCalculator {
         this.connectionPool = connectionPool;
     }
 
-    public void calcCarport() throws DatabaseException {
-        calculatePole();
-    }
+   // public List<MaterialVariant> calcCarport() throws DatabaseException {
+      //  calculatePole();
+    //}
 
     public void calculatePole() throws DatabaseException {
 
         int quantity = poleCalc();
-        List<MaterialVariant> materialVariants = productMapper.selectMaterialVariant(POSTS, 300, connectionPool);
+        List<MaterialVariant> materialVariants = productMapper.selectMaterialVariant(POLE, 300, connectionPool);
+        HashMap<MaterialVariant, Integer> hs = new HashMap<>();
+        hs.put(materialVariants.get(0),quantity);
 
 
     }
