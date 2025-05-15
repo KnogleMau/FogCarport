@@ -2,6 +2,7 @@ package app;
 
 import app.config.SessionConfig;
 import app.config.ThymeleafConfig;
+import app.controllers.render;
 import app.exceptions.DatabaseException;
 import app.persistence.ProductMapper;
 import app.services.Sendgrid;
@@ -9,7 +10,6 @@ import app.persistence.ConnectionPool;
 import app.services.CarportCalculator;
 import io.javalin.Javalin;
 import io.javalin.rendering.template.JavalinThymeleaf;
-
 import java.util.logging.Logger;
 
 public class Main {
@@ -34,7 +34,7 @@ public class Main {
         }).start(7070);
 
 
-       // CupcakeController.routes(app, connectionPool);
+        render.routes(app, connectionPool);
 
     }
 }

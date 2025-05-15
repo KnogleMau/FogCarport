@@ -45,11 +45,10 @@ public class AdminUserMapper {
 
             ps.executeUpdate();
 
-
         } catch(SQLException e){
             System.out.println(e.getMessage());
         }
-
-
     }
+
+
 }

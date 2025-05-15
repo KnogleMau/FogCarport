@@ -2,9 +2,35 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Vis Carport</title>
 </head>
 <body>
+
+<div>
+    <h2 class="headerOne">Bestillinger</h2>
+
+    <!-- Rette formularstruktur og route -->
+    <form th:action="@{/carport-top-svg}" method="post">
+        <!-- Hvis du vil sende et orderID, tilføj det her -->
+        <!-- <input type="hidden" name="orderID" value="123"> -->
+        <button type="submit" class="buttonShape colorBlue">Se tegning</button>
+
+
+    </form>
+</div>
+
+<div>
+    <h3>Ordre detaljer</h3>
+
+    <p>This is where we show the order details and the drawing when the customer has accepted the offer</p>
+
+    <p>Tegning</p>
+
+    <div class="carport-svg-topview">
+        <div th:utext="${svg}"></div>
+
+    </div>
+</div>
 
 </body>
 </html>
