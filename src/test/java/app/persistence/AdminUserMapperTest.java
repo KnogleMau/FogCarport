@@ -30,18 +30,18 @@ class AdminUserMapperTest {
     @AfterEach
     void tearDown() {
     }
-/*
+
     @Test
     void loginTest() throws DatabaseException {
             AdminUser user = instance.login("Fog@fog.dk", "1234", connectionPool);
             assertEquals("Fog@fog.dk", user.getEmail());
     }
 
- */
+
 
     @Test
     void createUser() throws DatabaseException{
-        String testMail = "fog@fog.dk";
+        String testMail = "fog12@fog.dk";
         String testPassword = "1234";
         boolean testAdmin = true;
 
