@@ -21,9 +21,11 @@ class RequestMapperTest {
     static void setUpBeforeAllClass() throws SQLException {
 
         {
+             /* Sets up a connectionPool using empty parameters because we want the main getInstance method to use the hidden environment variabels so digital ocean username, password, and ip are hidden
+        when we display the project on Github for CramerShoupPublicKeyParameters display. */
             ConnectionPool connectionPool = ConnectionPool.getInstance();
             try (Connection connection = connectionPool.getConnection()) {
-                // same as prepares statement because we are just making a intern testing
+                // same as prepare statement because we are just making an intern testing
                 try (Statement stmt = connection.createStatement()) {
                     // The test schema is already created, so we only need to delete/create test tables
                     stmt.execute("DROP TABLE IF EXISTS test_requests.customer_information");
@@ -32,7 +34,6 @@ class RequestMapperTest {
                     stmt.execute("DROP SEQUENCE IF EXISTS test_requests.customer_information_customer_id_seq CASCADE;");
                     stmt.execute("DROP SEQUENCE IF EXISTS test_requests.requests_request_id_seq CASCADE;");
 
-
                     // Create tables as copy of original public schema structure
                     stmt.execute("CREATE TABLE test_requests.customer_information AS (SELECT * from public.customer_information) WITH NO DATA");
                     stmt.execute("CREATE TABLE test_requests.requests AS (SELECT * from public.requests) WITH NO DATA");
@@ -40,7 +41,6 @@ class RequestMapperTest {
                     // Create sequences for auto generating id's for users and orders
                     stmt.execute("CREATE SEQUENCE test_requests.customer_information_customer_id_seq");
                     stmt.execute("ALTER TABLE test_requests.customer_information ALTER COLUMN customer_id SET DEFAULT nextval('test_requests.customer_information_customer_id_seq')");
-
 
                     stmt.execute("CREATE SEQUENCE test_requests.requests_request_id_seq");
                     stmt.execute("ALTER TABLE test_requests.requests ALTER COLUMN request_id SET DEFAULT nextval('test_requests.requests_request_id_seq')");
@@ -91,7 +91,7 @@ class RequestMapperTest {
         CarportRequest actualRequest1 = RequestMapper.getCarportRequest(1);
         CarportRequest actualRequest2 = RequestMapper.getCarportRequest(2);
 
-        // Assert  Check if the expectet results match with requests in the database
+        // Assert  Check if the expected results match with requests in the database
         assertEquals(expectedRequest1.getRequestID(), actualRequest1.getRequestID());
         assertEquals(expectedRequest1.getRequestLength(), actualRequest1.getRequestLength());
         assertEquals(expectedRequest1.getRequestWidth(), actualRequest1.getRequestWidth());
