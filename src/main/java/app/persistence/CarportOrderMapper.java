@@ -6,13 +6,9 @@ import java.util.ArrayList;
 
 public class CarportOrderMapper {
 
-    ArrayList<OrderDetail> orderDetails = new ArrayList<>();
+    public static ArrayList<OrderDetail> getOrderDetailsMapper(int orderId) throws DatabaseException{
+        ArrayList<OrderDetail> orderDetails = new ArrayList<>();
 
-
-
-    public void getOrderDetailsMapper(int orderid) throws DatabaseException{
-
-
-
+return orderDetails;
     }
 }

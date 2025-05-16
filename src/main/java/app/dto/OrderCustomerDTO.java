@@ -43,7 +43,7 @@ String email;
         return lastName;
     }
 
-    public String getPhonenumber() {
+    public String getPhoneNumber() {
         return phoneNumber;
     }
 
@@ -60,6 +60,6 @@ String email;
 
     @Override
     public int hashCode() {
-        return Objects.hash(getOrderID(), getTotalPrice(), getOrderStatus(), getFirstName(), getLastName(), phoneNumber, getEmail());
+        return Objects.hash(getOrderID(), getTotalPrice(), getOrderStatus(), getFirstName(), getLastName(), getPhoneNumber(), getEmail());
     }
 }
