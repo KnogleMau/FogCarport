@@ -97,10 +97,8 @@ class DTOMapperTest {
        } catch (DatabaseException e) {
            throw new RuntimeException(e);
        }
-
-        // Assert Check if the expected results match with data from the database
+       // Assert Check if the expected results match with data from the database
         assertEquals(expectedDTO1, actualRequest1);
         assertEquals(expectedDTO2, actualRequest2);
-
     }
 }
