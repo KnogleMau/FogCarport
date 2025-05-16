@@ -29,9 +29,4 @@ public class render {
         });
     }
 
-        app.get("/frontpage", ctx -> {
-            ctx.render("frontpage.html");
-        });   
-        }
-
 }

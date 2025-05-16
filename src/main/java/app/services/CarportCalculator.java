@@ -7,10 +7,11 @@ import app.exceptions.DatabaseException;
 import app.persistence.ConnectionPool;
 import app.persistence.ProductMapper;
 
-import java.util.HashMap;
+import java.util.ArrayList;
 import java.util.List;
 
 public class CarportCalculator {
+    private final List<OrderDetail> orderDetails = new ArrayList<>();
     private static final int POLE = 3;
     private ConnectionPool connectionPool;
     private int lenght;
@@ -25,18 +26,19 @@ public class CarportCalculator {
         this.connectionPool = connectionPool;
     }
 
-   // public List<MaterialVariant> calcCarport() throws DatabaseException {
-      //  calculatePole();
-    //}
+    public void calcCarport() throws DatabaseException {
+        calculatePole();
+    }
 
     public void calculatePole() throws DatabaseException {
 
         int quantity = poleCalc();
+        Material material = productMapper.selectProduct(POLE, connectionPool);
         List<MaterialVariant> materialVariants = productMapper.selectMaterialVariant(POLE, 300, connectionPool);
-        HashMap<MaterialVariant, Integer> hs = new HashMap<>();
-        hs.put(materialVariants.get(0),quantity);
 
+        OrderDetail detail = new OrderDetail(0, material, quantity, materialVariants.get(0), material.getPrice() * materialVariants.get(0).getLength() / 100);
 
+        orderDetails.add(detail);
     }
 
     private int poleCalc() {
@@ -62,6 +64,10 @@ public class CarportCalculator {
         numberOfRafters = (int) Math.ceil(decimalNumberOfRafters);
 
         return numberOfRafters;
+    }
+
+    public List<OrderDetail> getOrderDetails() {
+        return orderDetails;
     }
 
 }

@@ -40,10 +40,22 @@ private double price;
     }
 
     public double getPrice() {
-        return price * quantity;
+        return price;
     }
 
     public void setPrice(double price) {
         this.price = price;
+    }
+
+
+    @Override
+    public String toString() {
+        return "OrderDetail{" +
+                "orderId=" + orderId +
+                ", material=" + material +
+                ", quantity=" + quantity +
+                ", materialVariant=" + materialVariant +
+                ", price=" + price +
+                '}';
     }
 }
