@@ -2,14 +2,11 @@ package app.persistence;
 
 import app.entities.CarportRequest;
 import app.exceptions.DatabaseException;
-import org.eclipse.jetty.util.thread.TryExecutor;
 
-import java.nio.channels.SelectableChannel;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
 
 import static app.Main.connectionPool;
 

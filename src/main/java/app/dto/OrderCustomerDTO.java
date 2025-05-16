@@ -5,14 +5,14 @@ import java.util.Objects;
 public class OrderCustomerDTO {
 
 int orderID;
-float totalPrice;
+double totalPrice;
 String orderStatus;
 String firstName;
 String lastName;
 String phoneNumber;
 String email;
 
-    public OrderCustomerDTO(int orderID, float totalPrice, String orderStatus, String firstName, String lastName, String phoneNumber, String email) {
+    public OrderCustomerDTO(int orderID, double totalPrice, String orderStatus, String firstName, String lastName, String phoneNumber, String email) {
 
         this.orderID = orderID;
         this.totalPrice = totalPrice;
@@ -27,7 +27,7 @@ String email;
         return orderID;
     }
 
-    public float getTotalPrice() {
+    public double getTotalPrice() {
         return totalPrice;
     }
 
@@ -55,7 +55,7 @@ String email;
     public boolean equals(Object o) {
         if (this == o) return true;
         if (!(o instanceof OrderCustomerDTO that)) return false;
-        return getOrderID() == that.getOrderID() && Float.compare(getTotalPrice(), that.getTotalPrice()) == 0 && Objects.equals(getOrderStatus(), that.getOrderStatus()) && Objects.equals(getFirstName(), that.getFirstName()) && Objects.equals(getLastName(), that.getLastName()) && Objects.equals(phoneNumber, that.phoneNumber) && Objects.equals(getEmail(), that.getEmail());
+        return getOrderID() == that.getOrderID() && Double.compare(getTotalPrice(), that.getTotalPrice()) == 0 && Objects.equals(getOrderStatus(), that.getOrderStatus()) && Objects.equals(getFirstName(), that.getFirstName()) && Objects.equals(getLastName(), that.getLastName()) && Objects.equals(phoneNumber, that.phoneNumber) && Objects.equals(getEmail(), that.getEmail());
     }
 
     @Override
