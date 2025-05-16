@@ -35,8 +35,6 @@ public class CarportCalculator {
         List<MaterialVariant> materialVariants = productMapper.selectMaterialVariant(POLE, 300, connectionPool);
         HashMap<MaterialVariant, Integer> hs = new HashMap<>();
         hs.put(materialVariants.get(0),quantity);
-
-
     }
 
     private int poleCalc() {

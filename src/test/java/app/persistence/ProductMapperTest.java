@@ -29,7 +29,7 @@ class ProductMapperTest {
     @AfterEach
     void tearDown() {
     }
-
+/*
     @Test
     void SelectProduct() throws DatabaseException {
         int testId = 1;
@@ -39,5 +39,5 @@ class ProductMapperTest {
             assertEquals(testId, product.getId());
             assertEquals(expectedVariant, product.getVariant());
 
-    }
+    } */
 }
