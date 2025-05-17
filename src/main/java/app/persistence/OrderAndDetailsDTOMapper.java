@@ -61,24 +61,17 @@ public class OrderAndDetailsDTOMapper {
         try (
                 Connection connection = connectionPool.getConnection();
                 PreparedStatement ps = connection.prepareStatement(sqlOrderDetails)) {
-            System.out.println("2");
-            System.out.println("1");
+
             ps.setInt(1, orderId);
-            System.out.println("0");
+
             ResultSet rs = ps.executeQuery();
 
             while (rs.next()) {
                 String materialName = rs.getString("material_name");
-                System.out.println("materialName: " + materialName);
                 int materialLength = rs.getInt("material_length");
-                System.out.println("mmaterialLength: " + materialLength);
                 int quantity = rs.getInt("quantity");
-                System.out.println("quantity: " + quantity);
                 String materialUnit = rs.getString("material_unit");
-                System.out.println("materialUnit: " + materialUnit);
                 String materialDescription = rs.getString("material_description");
-                System.out.println("materialDescription: " + materialDescription);
-
 
                 orderDetails.add(new OrderDetailsMaterialLengthDTO(materialName, materialLength, quantity, materialUnit, materialDescription));
             }

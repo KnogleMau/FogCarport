@@ -88,13 +88,13 @@ void setUp() {
             stmt.execute("INSERT INTO test_orderdetails_dto.material_lengths (length_id, material_id, material_length) " +
                     "VALUES ( 1, 1, 300)");
             stmt.execute("INSERT INTO test_orderdetails_dto.material_lengths (length_id, material_id, material_length) " +
-                    "VALUES ( 1, 2, 300)");
+                    "VALUES ( 2, 2, 300)");
             stmt.execute("INSERT INTO test_orderdetails_dto.material_lengths (length_id, material_id, material_length) " +
-                    "VALUES ( 1, 3, 300)");
+                    "VALUES ( 3, 3, 300)");
             // Set sequence to continue from the largest member_id
-           stmt.execute("SELECT setval('orderdetails_dto.orders_order_id_seq', COALESCE((SELECT MAX(order_id) + 1 FROM test_orderdetails_dto.orders), 1), false)");
-           stmt.execute("SELECT setval('orderdetails_dto.material_lengths_length_id_seq', COALESCE((SELECT MAX(length_id) + 1 FROM test_orderdetails_dto.material_lengths), 1), false)");
-            stmt.execute("SELECT setval('orderdetails_dto.material_list_material_id_seq', COALESCE((SELECT MAX(material_id) + 1 FROM test_orderdetails_dto.material_list), 1), false)");
+           stmt.execute("SELECT setval('test_orderdetails_dto.orders_order_id_seq', COALESCE((SELECT MAX(order_id) + 1 FROM test_orderdetails_dto.orders), 1), false)");
+           stmt.execute("SELECT setval('test_orderdetails_dto.material_lengths_length_id_seq', COALESCE((SELECT MAX(length_id) + 1 FROM test_orderdetails_dto.material_lengths), 1), false)");
+            stmt.execute("SELECT setval('test_orderdetails_dto.material_list_material_id_seq', COALESCE((SELECT MAX(material_id) + 1 FROM test_orderdetails_dto.material_list), 1), false)");
 
         }
     } catch (SQLException e) {
@@ -111,7 +111,7 @@ void setUp() {
         // Arrange Makes a OrderDetailsDTO list with the expected values
         OrderDetailsMaterialLengthDTO expectedDTO1 = new  OrderDetailsMaterialLengthDTO("Rem", 300,2,"stk","Remme");
         OrderDetailsMaterialLengthDTO expectedDTO2 = new  OrderDetailsMaterialLengthDTO("Spær", 300,7,"stk","Spær, monteres");
-        OrderDetailsMaterialLengthDTO expectedDTO3 = new  OrderDetailsMaterialLengthDTO("Stolpe", 300,2,"stk","Stolper nedgraves");
+        OrderDetailsMaterialLengthDTO expectedDTO3 = new  OrderDetailsMaterialLengthDTO("Stolpe", 300,4,"stk","Stolper nedgraves");
 
         // Act Look after Order detail rows in the test database to make DTO objects that correspond with order and order details. orderId has to be set to 1 based on filled data
         try {
