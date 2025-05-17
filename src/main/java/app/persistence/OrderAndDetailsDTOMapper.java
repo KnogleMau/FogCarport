@@ -11,8 +11,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-
-
 public class OrderAndDetailsDTOMapper {
 
     public static ArrayList<OrderCustomerDTO> getAllOrderCustomerDTOsMapper() throws DatabaseException {
