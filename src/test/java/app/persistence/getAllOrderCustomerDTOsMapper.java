@@ -14,7 +14,7 @@ import java.util.ArrayList;
 import static app.Main.connectionPool;
 import static org.junit.jupiter.api.Assertions.*;
 
-class DTOMapperTest {
+class getAllOrderCustomerDTOsMapper {
 
     @BeforeAll
     static void setUpBeforeAllClass() throws SQLException {
@@ -83,16 +83,16 @@ class DTOMapperTest {
         OrderCustomerDTO actualRequest1;
         OrderCustomerDTO actualRequest2;
 
-// Arrange  Makes to OrderCustomerDTO with the expected values
+// Arrange Makes two OrderCustomerDTO with the expected values
         OrderCustomerDTO expectedDTO1 = new OrderCustomerDTO(1,24000,"Payed","Benny","Jensen", "12312332", "bygselv@stort.dk");
         OrderCustomerDTO expectedDTO2 = new OrderCustomerDTO(2,36000,"Send","Bøje","Lassen", "54334566","byg@nu.dk" );
 
-        // Act Look after Orders rows in the test database to make DTO objects that correspond with  customers in customer_information        CarportRequest actualRequest1 = RequestMapper.getCarportRequest(1);
+        // Act Look after Orders rows in the test database to make DTO objects that correspond with  customers in customer_information
        try {
-           ArrayList<OrderCustomerDTO> expectedList = DTOMapper.getAllOrderCustomerDTOs();
+           ArrayList<OrderCustomerDTO> actualList = OrderAndDetailsDTOMapper.getAllOrderCustomerDTOsMapper();
 
-           actualRequest1 = expectedList.get(0);
-           actualRequest2 = expectedList.get(1);
+           actualRequest1 = actualList.get(0);
+           actualRequest2 = actualList.get(1);
 
        } catch (DatabaseException e) {
            throw new RuntimeException(e);
