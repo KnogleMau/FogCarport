@@ -92,8 +92,8 @@ void setUp() {
             stmt.execute("INSERT INTO test_orderdetails_dto.material_lengths (length_id, material_id, material_length) " +
                     "VALUES ( 1, 3, 300)");
             // Set sequence to continue from the largest member_id
-            stmt.execute("SELECT setval('orderdetails_dto.orders_order_id_seq', COALESCE((SELECT MAX(order_id) + 1 FROM test_orderdetails_dto.orders), 1), false)");
-            stmt.execute("SELECT setval('orderdetails_dto.material_lengths_length_id_seq', COALESCE((SELECT MAX(length_id) + 1 FROM test_orderdetails_dto.material_lengths), 1), false)");
+           stmt.execute("SELECT setval('orderdetails_dto.orders_order_id_seq', COALESCE((SELECT MAX(order_id) + 1 FROM test_orderdetails_dto.orders), 1), false)");
+           stmt.execute("SELECT setval('orderdetails_dto.material_lengths_length_id_seq', COALESCE((SELECT MAX(length_id) + 1 FROM test_orderdetails_dto.material_lengths), 1), false)");
             stmt.execute("SELECT setval('orderdetails_dto.material_list_material_id_seq', COALESCE((SELECT MAX(material_id) + 1 FROM test_orderdetails_dto.material_list), 1), false)");
 
         }
