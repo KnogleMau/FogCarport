@@ -2,25 +2,33 @@ package app.entities;
 
 public class OrderDetail {
 private int orderId;
-private Material material;
+private int materialId;
 private int quantity;
-private MaterialVariant materialVariant;
+private int materialLength;
 private double price;
 
-    public OrderDetail(int orderId, Material material, int quantity, MaterialVariant materialVariant, double price) {
+    public OrderDetail(int orderId, int materialId, int quantity, int materialLength, double price) {
         this.orderId = orderId;
-        this.material = material;
+        this.materialId = materialId;
         this.quantity = quantity;
-        this.materialVariant = materialVariant;
+        this.materialLength = materialLength;
         this.price = price;
     }
 
-    public Material getMaterial() {
-        return material;
+    public int getOrderId() {
+        return orderId;
     }
 
-    public void setMaterial(Material material) {
-        this.material = material;
+    public void setOrderId(int orderId) {
+        this.orderId = orderId;
+    }
+
+    public int getMaterialId() {
+        return materialId;
+    }
+
+    public void setMaterialId(int materialId) {
+        this.materialId = materialId;
     }
 
     public int getQuantity() {
@@ -31,12 +39,12 @@ private double price;
         this.quantity = quantity;
     }
 
-    public MaterialVariant getMaterialVariant() {
-        return materialVariant;
+    public int getMaterialLength() {
+        return materialLength;
     }
 
-    public void setMaterialVariant(MaterialVariant materialVariant) {
-        this.materialVariant = materialVariant;
+    public void setMaterialLength(int materialLength) {
+        this.materialLength = materialLength;
     }
 
     public double getPrice() {
@@ -52,9 +60,9 @@ private double price;
     public String toString() {
         return "OrderDetail{" +
                 "orderId=" + orderId +
-                ", material=" + material +
+                ", materialId=" + materialId +
                 ", quantity=" + quantity +
-                ", materialVariant=" + materialVariant +
+                ", materialLength=" + materialLength +
                 ", price=" + price +
                 '}';
     }

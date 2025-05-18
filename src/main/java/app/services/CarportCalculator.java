@@ -12,6 +12,8 @@ import java.util.List;
 
 public class CarportCalculator {
     private final List<OrderDetail> orderDetails = new ArrayList<>();
+    private static final int BEAM = 1;
+    private static final int RAFTER = 2;
     private static final int POLE = 3;
     private ConnectionPool connectionPool;
     private int lenght;
@@ -28,6 +30,7 @@ public class CarportCalculator {
 
     public void calcCarport() throws DatabaseException {
         calculatePole();
+        raftersCalculator(width);
     }
 
     public void calculatePole() throws DatabaseException {
@@ -36,7 +39,7 @@ public class CarportCalculator {
         Material material = productMapper.selectProduct(POLE, connectionPool);
         List<MaterialVariant> materialVariants = productMapper.selectMaterialVariant(POLE, 300, connectionPool);
 
-        OrderDetail detail = new OrderDetail(0, material, quantity, materialVariants.get(0), material.getPrice() * materialVariants.get(0).getLength() / 100);
+        OrderDetail detail = new OrderDetail(0, material.getId(), quantity, materialVariants.get(0).getLength(), material.getPrice() * (materialVariants.get(0).getLength() / 100 * quantity));
 
         orderDetails.add(detail);
     }
@@ -45,7 +48,7 @@ public class CarportCalculator {
             return 2 * (2 + (lenght - 130) / 340);
     }
 
-    public int raftersCalculator(int beamLengthCentimeters){
+    public void raftersCalculator(int beamLengthCentimeters) throws DatabaseException {
         int numberOfRafters;
         double decimalNumberOfRafters;
         //Stand width for used rafters
@@ -61,9 +64,14 @@ public class CarportCalculator {
                 module length (even if the calculation resultet in 11.07 rafters the criteria for the given module
     length would notify() have been meet) */
 
-        numberOfRafters = (int) Math.ceil(decimalNumberOfRafters);
+        int quantity = numberOfRafters = (int) Math.ceil(decimalNumberOfRafters);
+        Material material = productMapper.selectProduct(BEAM, connectionPool);
+        List<MaterialVariant> materialVariants = productMapper.selectMaterialVariant(BEAM, width, connectionPool);
 
-        return numberOfRafters;
+        OrderDetail detail = new OrderDetail(0, material.getId(), quantity, materialVariants.get(0).getLength(), material.getPrice() * (materialVariants.get(0).getLength() / 100) * quantity);
+
+        orderDetails.add(detail);
+
     }
 
     public List<OrderDetail> getOrderDetails() {

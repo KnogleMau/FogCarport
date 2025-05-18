@@ -14,7 +14,10 @@ public class AdminCalculatorController {
 CarportCalculator calculator = new CarportCalculator(780, 600, connectionPool);
         calculator.calcCarport();
         List<OrderDetail> details = calculator.getOrderDetails();
-        System.out.println(details);
+
+        for(OrderDetail detail : details){
+            System.out.println(detail);
+        }
 
     }
 
