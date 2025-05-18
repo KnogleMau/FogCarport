@@ -2,7 +2,7 @@ package app.controllers;
 
 import app.exceptions.DatabaseException;
 import app.persistence.ConnectionPool;
-import app.services.CarportSVG;
+//import app.services.CarportSVG;
 import io.javalin.Javalin;
 import io.javalin.http.Context;
 
@@ -11,7 +11,7 @@ import java.util.Locale;
 
 
 public class AdminUserController {
-
+/*
     public static void addAdminRoutes(Javalin app, ConnectionPool connectionPool){
         app.post("carport-top-svg", ctx -> showDrawingAtOrders(ctx, connectionPool));
 
@@ -30,5 +30,5 @@ public class AdminUserController {
             ctx.attribute("svg", topViewCarportSVG.toString());
             ctx.render("adminViewOrders.html");
     }
-
+*/
 }

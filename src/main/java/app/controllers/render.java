@@ -9,7 +9,7 @@ public class render {
         app.get("/", ctx -> {
             ctx.render("adminViewOrders");});
 
-            AdminUserController.addAdminRoutes(app, connectionPool);
+          //  AdminUserController.addAdminRoutes(app, connectionPool);
 
     app.get("/", ctx -> {
         ctx.render("frontpage.html");
