@@ -10,11 +10,11 @@
 
 <div class="frontpage">
 
-<header class ="frontpage-header">
-    <div class ="FOG-imgLogo">
-        <img src="/images/fogLogo.png" alt="FogLogo img" class="fogLogo">
-    </div>
-    <div class ="frontpage-topbar">
+    <header class ="frontpage-header">
+        <div class ="FOG-imgLogo">
+            <img src="/images/fogLogo.png" alt="FogLogo img" class="fogLogo">
+        </div>
+        <div class ="frontpage-topbar">
             <div class="marquee-images">
                 <img src="/images/fogLogo.png" alt="smallFogLogo img" class="smallFoglogo">
                 <img src="/images/Scene_1.png" alt="Scene_1 img">
@@ -31,34 +31,37 @@
             </div>
 
 
-    </div>
-</header> <!-- Fronpage-header -->
+        </div>
+    </header> <!-- Fronpage-header -->
 
-<section class ="frontpage-descriptionbox">
+    <section class ="frontpage-descriptionbox">
         <h2> Vælg mellem "Byg-selv carport" & Færdigbyggede carporte:</h2>
         <p>Nedenfor har du mulighed for at vælge mellem at bygge din egen carport,
-        eller at vælge en allerede færdigbygget carport.
+            eller at vælge en allerede færdigbygget carport.
         </p>
-</section>
+    </section>
 
 
-<section class ="frontpage-carportDecision">
-    <div class="frontpage-buildYourself">
-        <div class="bygSelvText">
-            <h2>Byg-selv carport</h2>
+    <section class ="frontpage-carportDecision">
+        <div class="frontpage-buildYourself">
+            <div class="bygSelvText">
+                <h2>Byg-selv carport</h2>
+            </div>
+            <img src="/images/DIYcarport.png" alt="DYIcarport img" class="DYIcarport">
         </div>
-        <img src="/images/DIYcarport.png" alt="DYIcarport img" class="DYIcarport">
-    </div>
-    <div class="frontpage-standardBuild">
-        <div class="standardBuildText">
-            <h2>Standard carport</h2>
+        <div class="frontpage-standardBuild">
+            <div class="standardBuildText">
+                <h2>Standard carport</h2>
+            </div>
+            <img src="/images/standardCarport.png" alt="standardCarport img" class="standardCarport">
         </div>
-        <img src="/images/standardCarport.png" alt="standardCarport img" class="standardCarport">
-    </div>
-</section>
+    </section>
     <div class="chooseButtons">
         <div class="button-selvbyg">
-            <button onclick="window.location.href='/carportBuilder'">Vælg</button>
+            <form method="get">
+                <button type="submit" formaction="/carportBuilder" class="button-selvbyg">Vælg</button>
+            </form>
+
         </div>
         <div class="button-standard">
             <button onclick="window.location.href='https://www.johannesfog.dk/have-fritid/carporte/enkelt-carporte'">Vælg</button>

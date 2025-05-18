@@ -30,7 +30,6 @@
                 <img src="/images/Scene_5.png" alt="Scene_5 img">
             </div>
 
-
         </div>
     </header> <!-- customerContactInformation-header -->
 
@@ -39,54 +38,55 @@
             <h2 class="h2-text">Indtast venligst dine kontaktoplysninger nedenfor:</h2>
         </div>
     </section>
+    <form method="post" >
+        <section class="contactInformationWrapper">
+            <div class="contactInformationFields">
 
-    <section class="contactInformationWrapper">
-        <div class="contactInformationFields">
-            <div class="row">
-            <div class="form-field">
-                <label for="firstname">Navn: <span class="required">*</span></label>
-                <input type="text" id="firstname" name="firstname">
-            </div>
-                <div class="form-field">
-                <label for="lastname">Efternavn: <span class="required">*</span></label>
-                <input type="text" id="lastname" name="lastname">
-            </div>
-                </div>
-            <div class="row">
-            <div class="form-field">
-                <label for="address">Adresse: <span class="required">*</span></label>
-                <input type="text" id="address" name="address">
-                </div>
-
-                <div class="form-field">
-                <label for="city">By: <span class="required">*</span></label>
-                <input type="text" id="city" name="city">
-            </div>
+                <div class="row">
+                    <div class="form-field">
+                        <label for="first-name">Navn: <span class="required">*</span></label>
+                        <input type="text" id="first-name" name="first-name">
+                    </div>
+                    <div class="form-field">
+                        <label for="last-name">Efternavn: <span class="required">*</span></label>
+                        <input type="text" id="last-name" name="last-name">
+                    </div>
                 </div>
                 <div class="row">
-            <div class="form-field">
-                <label for="phonenumber">Telefonnummer: <span class="required">*</span></label>
-                <input type="text" id="phonenumber" name="phonenumber">
-            </div>
-                <div class="form-field">
-                <label for="zipcode">Postnummer: <span class="required">*</span></label>
-                <input type="text" id="zipcode" name="zipcode">
-            </div>
+                    <div class="form-field">
+                        <label for="address">Adresse: <span class="required">*</span></label>
+                        <input type="text" id="address" name="address">
                     </div>
+
+                    <div class="form-field">
+                        <label for="city">By: <span class="required">*</span></label>
+                        <input type="text" id="city" name="city">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-field">
+                        <label for="phone-number">Telefonnummer: <span class="required">*</span></label>
+                        <input type="text" id="phone-number" name="phone-number">
+                    </div>
+                    <div class="form-field">
+                        <label for="zip-code">Postnummer: <span class="required">*</span></label>
+                        <input type="text" id="zip-code" name="zip-code">
+                    </div>
+                </div>
                 <div class="row center-email">
-            <div class="form-field">
-                <label for="email">E-mail: <span class="required">*</span></label>
-                <input type="text" id="email" name="email">
+                    <div class="form-field">
+                        <label for="e-mail">E-mail: <span class="required">*</span></label>
+                        <input type="text" id="e-mail" name="e-mail">
+                    </div>
+                </div>
             </div>
-            </div>
-        </div>
-    </section>
+        </section>
+
+        <button type="submit"  formaction="/sendRequest" class="button-selvbyg">Bestil tilbud</button>
+
+    </form>
 
 
-
-    <div class="next-button-container">
-        <button class="next-button" onclick="window.location.href='/confirmationPageUser'">Bestil tilbud</button>
-    </div>
 
 </div> <!-- Frontpage div -->
 
