@@ -2,9 +2,11 @@
 <html lang="en" xmlns="http://www.w3.org/1999/html">
 <head>
     <meta charset="UTF-8">
+    <link href="/css/adminViewOrders.css" rel="stylesheet">
     <title>Vis Carport</title>
 </head>
 <body>
+<div class="background">
 <div>
     <form th:action="@{/admin}" method="post">
         <button class="buttonShape colorRed placement" type="submit">Admin menu</button>
@@ -13,6 +15,7 @@
 <div class="message">
 
 </div>
+    <div class="display">
 <div>
     <h2 class="headerOne">Ordre</h2>
 
@@ -79,6 +82,7 @@
 
     </div>
 </div>
-
+</div>
+</div>
 </body>
 </html>

@@ -31,7 +31,6 @@ public class AdminUserController {
     public static void displayAllOrders( Context ctx, ConnectionPool connectionPool){
 
         try {
-            System.out.println("displayAllOrders m1");
             ArrayList<OrderCustomerDTO> allOrders = OrderAndDetailsDTOMapper.getAllOrderCustomerDTOsMapper();
 
            ctx.attribute("allOrders", allOrders);
@@ -58,7 +57,7 @@ public class AdminUserController {
         double width = 0;
 
         int orderId = Integer.parseInt(ctx.formParam("orderId"));
-        System.out.println("showDrawingAtOrders m1 orderID: " + orderId);
+
         try {
             ArrayList<OrderDetailsMaterialLengthDTO> detailsDTO = OrderAndDetailsDTOMapper.getOrderDetailsMapper(orderId);
         for(OrderDetailsMaterialLengthDTO dto : detailsDTO){
