@@ -6,9 +6,12 @@ body {
     text-align: center;
 }
 
+.carport-svg{
+
+    background-color: #BBBBBB;
+}
 .display{
     background-color: #A2A2A2;
-
 }
 
 table {
