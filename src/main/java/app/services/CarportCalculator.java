@@ -30,7 +30,7 @@ public class CarportCalculator {
 
     public void calcCarport() throws DatabaseException {
         calculatePole();
-        raftersCalculator(width);
+        calculateRafter();
     }
 
     public void calculatePole() throws DatabaseException {
@@ -48,8 +48,18 @@ public class CarportCalculator {
             return 2 * (2 + (lenght - 130) / 340);
     }
 
-    public void raftersCalculator(int beamLengthCentimeters) throws DatabaseException {
-        int numberOfRafters;
+    private void calculateRafter() throws DatabaseException {
+        int quantity = raftersCalculator(width);
+
+        Material material = productMapper.selectProduct(BEAM, connectionPool);
+        List<MaterialVariant> materialVariants = productMapper.selectMaterialVariant(BEAM, width, connectionPool);
+
+        OrderDetail detail = new OrderDetail(1, material.getId(), quantity, materialVariants.get(0).getLengthId(), material.getPrice() * (materialVariants.get(0).getLength() / 100) * quantity);
+
+        orderDetails.add(detail);
+    }
+
+    public int raftersCalculator(int beamLengthCentimeters) throws DatabaseException {
         double decimalNumberOfRafters;
         //Stand width for used rafters
         final double rafterWidth = 4.5;
@@ -64,14 +74,7 @@ public class CarportCalculator {
                 module length (even if the calculation resultet in 11.07 rafters the criteria for the given module
     length would notify() have been meet) */
 
-        int quantity = (int) Math.ceil(decimalNumberOfRafters);
-        Material material = productMapper.selectProduct(BEAM, connectionPool);
-        List<MaterialVariant> materialVariants = productMapper.selectMaterialVariant(BEAM, width, connectionPool);
-
-        OrderDetail detail = new OrderDetail(1, material.getId(), quantity, materialVariants.get(0).getLengthId(), material.getPrice() * (materialVariants.get(0).getLength() / 100) * quantity);
-
-        orderDetails.add(detail);
-
+        return (int) Math.ceil(decimalNumberOfRafters);
     }
 
     public List<OrderDetail> getOrderDetails() {

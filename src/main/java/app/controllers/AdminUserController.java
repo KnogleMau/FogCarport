@@ -2,7 +2,6 @@ package app.controllers;
 
 import app.exceptions.DatabaseException;
 import app.persistence.ConnectionPool;
-//import app.services.CarportSVG;
 import app.services.CarportSVG;
 import io.javalin.Javalin;
 import io.javalin.http.Context;
@@ -18,7 +17,7 @@ public class AdminUserController {
 
     }
 
-    public static void showDrawingAtOrders(Context ctx, ConnectionPool connectionPool){
+    public static void showDrawingAtOrders(Context ctx, ConnectionPool connectionPool) throws DatabaseException {
         Locale.setDefault(new Locale("US")); // Makes sure that decimals are displayed with . instead of so it can be read by the SVG templates
 // skal evt laves så det hele ligger her og bliver kaldt med eller uden  topViewCarportSVG
         // afhængigt af kaldet

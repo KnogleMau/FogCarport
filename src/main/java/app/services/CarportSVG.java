@@ -16,7 +16,7 @@ public class CarportSVG {
     double scopeDisTop = 100; // Distance from top of scope to where carport drawing begin
     double scopeDisSide = 150; // Distance from top of scope to where carport drawing begin
 
-    public CarportSVG(double length, double width) {
+    public CarportSVG(double length, double width) throws DatabaseException {
         this.length = length;
         this.width = width;
 
