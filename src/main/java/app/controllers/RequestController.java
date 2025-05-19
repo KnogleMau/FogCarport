@@ -8,15 +8,23 @@ import app.services.CarportRequestSVG;
 import io.javalin.Javalin;
 import io.javalin.http.Context;
 
+import java.util.Locale;
+
 
 public class RequestController {
 
     public static void AddRequestRoutes(Javalin app, ConnectionPool connectionPool){
 
         app.get("/carportBuilder", ctx -> {
-            // requestController(ctx, connectionPool);
+            System.out.println("markør route 0: ");
+            ctx.render("carportBuilder.html");
+            });
+
+        app.post("/showDrawing", ctx -> {
+            System.out.println("markør route 1: ");
             selectAndDisplayCarport(ctx, connectionPool);
-            ctx.render("carportBuilder.html");});
+        });
+
 
         app.post("/customerContactInformation", ctx ->
                 typeCustomerContactInformation(ctx, connectionPool) );
@@ -25,20 +33,34 @@ public class RequestController {
                 requestController(ctx, connectionPool));
     }
 
-    public static void carportBuilder(Javalin app, ConnectionPool connectionPool ){
+ /*   public static void carportBuilder(Javalin app, ConnectionPool connectionPool ){
         app.post("/activeCarportBuilder", ctx -> {
 
             selectAndDisplayCarport(ctx, connectionPool);
         });
-    }
+    }  */
 
     public static void selectAndDisplayCarport(Context ctx, ConnectionPool connectionPool){
-        int width = 400;
-        int height = 300;
-        CarportRequestSVG carportRequestSVG = new CarportRequestSVG(width, height);
-        String carportSideView = carportRequestSVG.toString();
+        Locale.setDefault(new Locale("US")); // Makes sure that decimals are displayed with.
+        // Instead of so it can be read by the SVG templates
+       // int width = 400;
+     //   int height = 300;
 
-        ctx.sessionAttribute("drawing", carportSideView);
+      //  double width = 300;
+    //    double height = 300;
+
+
+        System.out.println("markør 1: ");
+        int width = Integer.parseInt(ctx.formParam("carport-width"));
+       int length = Integer.parseInt(ctx.formParam("carport-length"));
+        System.out.println("carport-width: " + width);
+        System.out.println("carport-height: " + length);
+        System.out.println("markør 2: ");
+        CarportRequestSVG carportRequestSVG = new CarportRequestSVG(width, length);
+        String carportSideView = carportRequestSVG.toString();
+        System.out.println("markør 3: ");
+        ctx.attribute("drawing", carportSideView);
+        System.out.println("markør 4: ");
         ctx.render("carportBuilder.html");
     }
 

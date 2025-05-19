@@ -41,7 +41,7 @@
     </section>
 
     <section class="carportBuilder-content">
-        <form method="post" action="/activeCarportBuilder">
+        <form method="post" action="/carportBuilder">
             <div class="chooseDimensions-content">
                 <div class="chooseLength">
                     <label for="request-length">Vælg længde:</label>
@@ -91,22 +91,25 @@
                         <option value="690">690 cm</option>
                         <option value="720">720 cm</option>
                         <option value="750">750 cm</option>
-
                         <option value="780">780 cm</option>
                     </select>
 
                 </div>
             </div>
+<div class="drawingButton">
+            <button type="submit" formaction="/showDrawing" >Se tegning af carport dimensionerne</button>
 
+</div>
             <button type="submit" formaction="/customerContactInformation" class="next-button-container">Videre</button>
-            <div><p th:text="${drawing}"></p></div>
+
 
         </form>
         <div class="drawing-content">
             <div class="drawing-from-side">
                 <p>Set fra siden</p>
 
-                <div><p th:text="${drawing}"></p></div>
+                <div><p th:utext="${drawing}"></p></div>
+
                 <div class="drawing-box-side"></div>
             </div>
             <div class="drawing-from-top">
@@ -120,3 +123,4 @@
 
 </body>
 </html>
+
