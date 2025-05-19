@@ -25,7 +25,6 @@ public class AdminUserController {
         app.post("/displayOrderDetails", ctx -> showOrderDetailsAndDrawing(ctx, connectionPool));
 
         app.get("/adminViewOrders", ctx -> displayAllOrders(ctx, connectionPool));
-
     }
 
     public static void displayAllOrders( Context ctx, ConnectionPool connectionPool){
