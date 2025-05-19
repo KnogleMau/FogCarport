@@ -1,28 +1,83 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns="http://www.w3.org/1999/html">
 <head>
     <meta charset="UTF-8">
     <title>Vis Carport</title>
 </head>
 <body>
-
 <div>
-    <h2 class="headerOne">Bestillinger</h2>
-
-    <!-- Rette formularstruktur og route -->
-    <form th:action="@{/carport-top-svg}" method="post">
-        <!-- Hvis du vil sende et orderID, tilføj det her -->
-        <!-- <input type="hidden" name="orderID" value="123"> -->
-        <button type="submit" class="buttonShape colorBlue">Se tegning</button>
-
-
+    <form th:action="@{/admin}" method="post">
+        <button class="buttonShape colorRed placement" type="submit">Admin menu</button>
     </form>
+</div>
+<div class="message">
+    <div th:text="${message}"></div>
+
+</div>
+<div>
+    <h2 class="headerOne">Ordre</h2>
+
+    <table class="orderTable">
+        <tr class="orderTable">
+            <th class="orderTableDescription">ID-nr</th>
+            <th class="orderTableDescription">pris</th>
+            <th class="orderTableDescription">Status</th>
+            <th class="orderTableDescription">Navn</th>
+            <th class="orderTableDescription">Efternavn</th>
+            <th class="orderTableDescription">MobilNr</th>
+            <th class="orderTableDescription">E-mail</th>
+        </tr>
+        <tr th:each= "OrderCustomerDTO : ${allOrders}">
+
+            <td name="orderID" th:text="${ordOrderCustomerDTO.orderID}"></td>
+            <td th:text="${OrderCustomerDTO.totalPrice}"></td>
+            <td th:text="${OrderCustomerDTO.orderStatus}"></td>
+            <td th:text="${OrderCustomerDTO.firstName}"></td>
+            <td th:text="${OrderCustomerDTO.lastName}"></td>
+            <td th:text="${OrderCustomerDTO.phoneNumber}"></td>
+            <td th:text="${OrderCustomerDTO.email}"></td>
+
+            <td>
+                <form th:action="@{/displayOrderDetails}" method="post">
+                    <input type="hidden" name="button" th:value="${OrderCustomerDTO.orderID}">
+                    <button class="buttonShape colorBlue" type="submit">Se ordren</button>
+                </form>
+            </td>
+            </td>
+        </tr>
+    </table>
+    <!-- Rette formularstruktur og route -->
 </div>
 
 <div>
     <h3>Ordre detaljer</h3>
 
-    <p>This is where we show the order details and the drawing when the customer has accepted the offer</p>
+    <div  th:if="${allOrders}">
+        <table>
+            <tr>
+                <th class="orderTableDescription">materiale</th>
+                <th class="orderTableDescription">Længde</th>
+                <th class="orderTableDescription">Antal</th>
+                <th class="orderTableDescription">stk</th>
+                <th class="orderTableDescription">Beskrivelse</th>
+            </tr>
+            <tr th:each="OrderDetailsMaterialLengthDTO : ${detailsDTO}">
+                <td th:text="${OrderDetailsMaterialLengthDTO.materialName}"></td>
+                <td th:text="${OrderDetailsMaterialLengthDTO.materialLength}"></td>
+                <td th:text="${OrderDetailsMaterialLengthDTO.quantity}"></td>
+                <td th:text="${OrderDetailsMaterialLengthDTO.materialUnit}"></td>
+                <td th:text="${OrderDetailsMaterialLengthDTO.materialDescription}"></td>
+                <td>
+                    <td th:action="@{/carport-top-svg}" method="post">
+                        <!-- Hvis du vil sende et orderID, tilføj det her -->
+                        <!-- <input type="hidden" name="orderID" value="123"> -->
+                        <input type="hidden" name="button" th:value="${order.orderID}">
+                        <button type="submit" class="buttonShape colorBlue">Se tegning</button>
+                    </td>
+            </tr>
+        </table>
+    </div>
+
 
     <p>Tegning</p>
 

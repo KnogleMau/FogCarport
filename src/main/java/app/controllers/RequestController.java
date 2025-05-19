@@ -5,6 +5,7 @@ import app.persistence.CarportOrderMapper;
 import app.persistence.ConnectionPool;
 import app.persistence.CustomerMapper;
 import app.persistence.RequestMapper;
+import app.services.CarportRequestSVG;
 import io.javalin.Javalin;
 import io.javalin.http.Context;
 import org.bouncycastle.crypto.signers.Ed25519ctxSigner;
@@ -22,10 +23,11 @@ public class RequestController {
 
         app.get("/carportBuilder", ctx -> {
             // requestController(ctx, connectionPool);
+            selectAndDisplayCarport(ctx, connectionPool);
             ctx.render("carportBuilder.html");});
 
         app.post("/customerContactInformation", ctx ->
-                typeCustomerContactInformation(ctx, connectionPool)  );
+                typeCustomerContactInformation(ctx, connectionPool) );
 
         app.post("/sendRequest", ctx ->
                 requestController(ctx, connectionPool));
@@ -39,7 +41,12 @@ public class RequestController {
     }
 
     public static void selectAndDisplayCarport(Context ctx, ConnectionPool connectionPool){
-
+        int width = 400;
+        int height = 300;
+        CarportRequestSVG carportRequestSVG = new CarportRequestSVG(width, height);
+        String carportSideView = carportRequestSVG.toString();
+        System.out.println(carportSideView.toString());
+        ctx.sessionAttribute("drawing", carportSideView);
         ctx.render("carportBuilder.html");
     }
 
@@ -49,8 +56,7 @@ public class RequestController {
 
         int width = Integer.parseInt(ctx.formParam("carport-width"));
         int length = Integer.parseInt(ctx.formParam("carport-length"));
-        System.out.println("i typeCustomerContactInformation width: " + width);
-        System.out.println("i typeCustomerContactInformation length: " + length);
+
         ctx.sessionAttribute("carport-width", width);
         ctx.sessionAttribute("carport-length", length);
     }
