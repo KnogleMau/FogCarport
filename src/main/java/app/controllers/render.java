@@ -7,10 +7,10 @@ public class render {
 
     public static void routes(Javalin app, ConnectionPool connectionPool) {
 
-     //   RequestController.AddRequestRoutes(app, connectionPool);
+        RequestController.AddRequestRoutes(app, connectionPool);
 
-        app.get("/", ctx ->
-                ctx.render("adminlogin"));
+      /*  app.get("/", ctx ->
+                ctx.render("adminlogin"));  */
 
         /*
         app.get("/", ctx -> {

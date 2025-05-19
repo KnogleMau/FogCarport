@@ -37,7 +37,6 @@ public class AdminUserController {
            ctx.attribute("allOrders", allOrders);
 
             ctx.render("adminViewOrders");
-
         }
         catch (DatabaseException e ){
 

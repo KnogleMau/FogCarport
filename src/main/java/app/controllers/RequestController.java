@@ -1,21 +1,13 @@
 package app.controllers;
 
 import app.exceptions.DatabaseException;
-import app.persistence.CarportOrderMapper;
 import app.persistence.ConnectionPool;
 import app.persistence.CustomerMapper;
 import app.persistence.RequestMapper;
 import app.services.CarportRequestSVG;
 import io.javalin.Javalin;
 import io.javalin.http.Context;
-import org.bouncycastle.crypto.signers.Ed25519ctxSigner;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-
-import static app.persistence.CustomerMapper.getCustomerId;
 
 public class RequestController {
 
@@ -45,7 +37,7 @@ public class RequestController {
         int height = 300;
         CarportRequestSVG carportRequestSVG = new CarportRequestSVG(width, height);
         String carportSideView = carportRequestSVG.toString();
-        System.out.println(carportSideView.toString());
+
         ctx.sessionAttribute("drawing", carportSideView);
         ctx.render("carportBuilder.html");
     }
