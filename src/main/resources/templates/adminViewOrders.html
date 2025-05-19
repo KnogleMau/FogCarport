@@ -11,7 +11,7 @@
     </form>
 </div>
 <div class="message">
-    <div th:text="${message}"></div>
+
 
 </div>
 <div>
@@ -29,7 +29,7 @@
         </tr>
         <tr th:each= "OrderCustomerDTO : ${allOrders}">
 
-            <td name="orderID" th:text="${ordOrderCustomerDTO.orderID}"></td>
+            <td th:text="${OrderCustomerDTO.orderID}"></td>
             <td th:text="${OrderCustomerDTO.totalPrice}"></td>
             <td th:text="${OrderCustomerDTO.orderStatus}"></td>
             <td th:text="${OrderCustomerDTO.firstName}"></td>
@@ -39,11 +39,11 @@
 
             <td>
                 <form th:action="@{/displayOrderDetails}" method="post">
-                    <input type="hidden" name="button" th:value="${OrderCustomerDTO.orderID}">
+                    <input  type="hidden" name="orderId" th:value="${OrderCustomerDTO.orderID}">
                     <button class="buttonShape colorBlue" type="submit">Se ordren</button>
                 </form>
             </td>
-            </td>
+
         </tr>
     </table>
     <!-- Rette formularstruktur og route -->
@@ -52,7 +52,7 @@
 <div>
     <h3>Ordre detaljer</h3>
 
-    <div  th:if="${allOrders}">
+    <div  th:if="${detailsDTO}">
         <table>
             <tr>
                 <th class="orderTableDescription">materiale</th>
@@ -67,22 +67,18 @@
                 <td th:text="${OrderDetailsMaterialLengthDTO.quantity}"></td>
                 <td th:text="${OrderDetailsMaterialLengthDTO.materialUnit}"></td>
                 <td th:text="${OrderDetailsMaterialLengthDTO.materialDescription}"></td>
-                <td>
-                    <td th:action="@{/carport-top-svg}" method="post">
-                        <!-- Hvis du vil sende et orderID, tilføj det her -->
-                        <!-- <input type="hidden" name="orderID" value="123"> -->
-                        <input type="hidden" name="button" th:value="${order.orderID}">
-                        <button type="submit" class="buttonShape colorBlue">Se tegning</button>
-                    </td>
+
             </tr>
+
         </table>
+
     </div>
 
 
     <p>Tegning</p>
 
     <div class="carport-svg-topview">
-        <div th:utext="${svg}"></div>
+        <div type="hidden" th:utext="${svg}"></div>
 
     </div>
 </div>
