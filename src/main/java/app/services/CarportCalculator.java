@@ -42,6 +42,7 @@ public class CarportCalculator {
         OrderDetail detail = new OrderDetail(1, material.getId(), quantity, materialVariants.get(0).getLengthId(), material.getPrice() * (materialVariants.get(0).getLength() / 100 * quantity));
 
         orderDetails.add(detail);
+
     }
 
     private int poleCalc() {

@@ -1,8 +1,9 @@
 package app.services;
 
-import app.exceptions.DatabaseException;
-import app.services.SVG;
 
+import app.exceptions.DatabaseException;
+import app.persistence.ConnectionPool;
+import app.services.SVG;
 import static app.Main.connectionPool;
 
 public class CarportSVG {
@@ -37,7 +38,9 @@ public class CarportSVG {
     private void addRafters(int width, int height) throws DatabaseException {
 
         double raftersWidth = 4.5; // With of rafters in the order details of the construct manual we got from the customer
-        CarportCalculator carportCalculator = new CarportCalculator(240, 240 , connectionPool);
+   
+        CarportCalculator carportCalculator = new CarportCalculator(240,240, connectionPool); // Needed to use che raftersCalculator from the object
+
         int ammountOFRafters = carportCalculator.raftersCalculator(width);
         double actModDist = (width - raftersWidth) / (ammountOFRafters -1);    // Actual module distance. Ammount of rafters is reduced by one
         //because the first is placed at 0 width
