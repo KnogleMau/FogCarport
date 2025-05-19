@@ -39,7 +39,7 @@ public class CarportCalculator {
         Material material = productMapper.selectProduct(POLE, connectionPool);
         List<MaterialVariant> materialVariants = productMapper.selectMaterialVariant(POLE, 300, connectionPool);
 
-        OrderDetail detail = new OrderDetail(0, material.getId(), quantity, materialVariants.get(0).getLength(), material.getPrice() * (materialVariants.get(0).getLength() / 100 * quantity));
+        OrderDetail detail = new OrderDetail(1, material.getId(), quantity, materialVariants.get(0).getLengthId(), material.getPrice() * (materialVariants.get(0).getLength() / 100 * quantity));
 
         orderDetails.add(detail);
     }
@@ -64,11 +64,11 @@ public class CarportCalculator {
                 module length (even if the calculation resultet in 11.07 rafters the criteria for the given module
     length would notify() have been meet) */
 
-        int quantity = numberOfRafters = (int) Math.ceil(decimalNumberOfRafters);
+        int quantity = (int) Math.ceil(decimalNumberOfRafters);
         Material material = productMapper.selectProduct(BEAM, connectionPool);
         List<MaterialVariant> materialVariants = productMapper.selectMaterialVariant(BEAM, width, connectionPool);
 
-        OrderDetail detail = new OrderDetail(0, material.getId(), quantity, materialVariants.get(0).getLength(), material.getPrice() * (materialVariants.get(0).getLength() / 100) * quantity);
+        OrderDetail detail = new OrderDetail(1, material.getId(), quantity, materialVariants.get(0).getLengthId(), material.getPrice() * (materialVariants.get(0).getLength() / 100) * quantity);
 
         orderDetails.add(detail);
 

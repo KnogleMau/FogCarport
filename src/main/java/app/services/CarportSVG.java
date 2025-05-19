@@ -4,7 +4,7 @@ import app.exceptions.DatabaseException;
 import app.services.SVG;
 
 import static app.Main.connectionPool;
-/*
+
 public class CarportSVG {
 
  //   private int width;
@@ -61,14 +61,14 @@ public class CarportSVG {
         int maxBackRoofOverhang = 30;  // Max distance from back corner post to end of roof horizontally
         int maxRoofOverhang = maxBackRoofOverhang + maxFrontRoofOverhang;
 
- */
-/*
+
+
         int maxPostDistanceBeamPostsOuterMeassure = 130 + 210; // From fist post begin to second post end.
             /* Assuming post number 2 from left (on side view drawing of carport in the delivered carport build manual)
             would have the same placement if there wasn´t any shed added 130 is the distance between end of arrows on same
             drawing between arrow heads on double arrow set number 3 and 210 is the next distance on arrow set 4 under the displayed shed*/
 
-       /* int maxCarportLenghtFourPosts = maxPostDistanceBeamPostsOuterMeassure + maxRoofOverhang; // assuming max total roof over hang is 130
+       int maxCarportLenghtFourPosts = maxPostDistanceBeamPostsOuterMeassure + maxRoofOverhang; // assuming max total roof over hang is 130
 
         int maxInnerPostDistBeamOrientedPosts = maxPostDistanceBeamPostsOuterMeassure - 2 * postDimension; // Longest accepted distance between based on side view sketch
         // if we assume post placement would be the same without shed
@@ -77,7 +77,7 @@ public class CarportSVG {
         /* Assuming two thirds of the overhang is added to the front and ont third to the back.
        Postdimension added to bring the value into the 30-times table */
 
-      /*  int totalOverhang = (width - maxPostDistanceBeamPostsOuterMeassure + postDimension);
+        int totalOverhang = (width - maxPostDistanceBeamPostsOuterMeassure + postDimension);
 
         double addedFrontOverHang = (2.0 / 3.0) * totalOverhang;
         System.out.println((width - (maxPostDistanceBeamPostsOuterMeassure+postDimension)));
@@ -154,14 +154,14 @@ public class CarportSVG {
         }
     }
 
-/*
+
 private void addArrows(int width, int height) {
 
         carportSVGElements.addArrow(1,1,1,1,"ok");
 
  //   public void addArrow(int x1, int y1, int x2, int y2, String style)
-}  */
-/*
+}
+
     @Override
     public String toString()
     {
@@ -170,7 +170,7 @@ private void addArrows(int width, int height) {
     }
 }
 
- */
+
 
 
 

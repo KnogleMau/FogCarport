@@ -4,14 +4,14 @@ public class OrderDetail {
 private int orderId;
 private int materialId;
 private int quantity;
-private int materialLength;
+private int lengthId;
 private double price;
 
-    public OrderDetail(int orderId, int materialId, int quantity, int materialLength, double price) {
+    public OrderDetail(int orderId, int materialId, int quantity, int lengthId, double price) {
         this.orderId = orderId;
         this.materialId = materialId;
         this.quantity = quantity;
-        this.materialLength = materialLength;
+        this.lengthId = lengthId;
         this.price = price;
     }
 
@@ -39,12 +39,12 @@ private double price;
         this.quantity = quantity;
     }
 
-    public int getMaterialLength() {
-        return materialLength;
+    public int getLengthId() {
+        return lengthId;
     }
 
-    public void setMaterialLength(int materialLength) {
-        this.materialLength = materialLength;
+    public void setLengthId(int lengthId) {
+        this.lengthId = lengthId;
     }
 
     public double getPrice() {
@@ -62,7 +62,7 @@ private double price;
                 "orderId=" + orderId +
                 ", materialId=" + materialId +
                 ", quantity=" + quantity +
-                ", materialLength=" + materialLength +
+                ", lengthId=" + lengthId +
                 ", price=" + price +
                 '}';
     }
