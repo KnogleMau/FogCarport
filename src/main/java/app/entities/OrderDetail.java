@@ -2,25 +2,33 @@ package app.entities;
 
 public class OrderDetail {
 private int orderId;
-private Material material;
+private int materialId;
 private int quantity;
-private MaterialVariant materialVariant;
+private int lengthId;
 private double price;
 
-    public OrderDetail(int orderId, Material material, int quantity, MaterialVariant materialVariant, double price) {
+    public OrderDetail(int orderId, int materialId, int quantity, int lengthId, double price) {
         this.orderId = orderId;
-        this.material = material;
+        this.materialId = materialId;
         this.quantity = quantity;
-        this.materialVariant = materialVariant;
+        this.lengthId = lengthId;
         this.price = price;
     }
 
-    public Material getMaterial() {
-        return material;
+    public int getOrderId() {
+        return orderId;
     }
 
-    public void setMaterial(Material material) {
-        this.material = material;
+    public void setOrderId(int orderId) {
+        this.orderId = orderId;
+    }
+
+    public int getMaterialId() {
+        return materialId;
+    }
+
+    public void setMaterialId(int materialId) {
+        this.materialId = materialId;
     }
 
     public int getQuantity() {
@@ -31,19 +39,31 @@ private double price;
         this.quantity = quantity;
     }
 
-    public MaterialVariant getMaterialVariant() {
-        return materialVariant;
+    public int getLengthId() {
+        return lengthId;
     }
 
-    public void setMaterialVariant(MaterialVariant materialVariant) {
-        this.materialVariant = materialVariant;
+    public void setLengthId(int lengthId) {
+        this.lengthId = lengthId;
     }
 
     public double getPrice() {
-        return price * quantity;
+        return price;
     }
 
     public void setPrice(double price) {
         this.price = price;
+    }
+
+
+    @Override
+    public String toString() {
+        return "OrderDetail{" +
+                "orderId=" + orderId +
+                ", materialId=" + materialId +
+                ", quantity=" + quantity +
+                ", lengthId=" + lengthId +
+                ", price=" + price +
+                '}';
     }
 }

@@ -1,8 +1,9 @@
 package app.services;
 
+
+import app.exceptions.DatabaseException;
 import app.persistence.ConnectionPool;
 import app.services.SVG;
-
 import static app.Main.connectionPool;
 
 public class CarportSVG {
@@ -16,7 +17,7 @@ public class CarportSVG {
     double scopeDisTop = 100; // Distance from top of scope to where carport drawing begin
     double scopeDisSide = 150; // Distance from top of scope to where carport drawing begin
 
-    public CarportSVG(double length, double width) {
+    public CarportSVG(double length, double width) throws DatabaseException {
         this.length = length;
         this.width = width;
 
@@ -34,10 +35,12 @@ public class CarportSVG {
 
     }
 
-    private void addRafters(int width, int height) {
+    private void addRafters(int width, int height) throws DatabaseException {
 
         double raftersWidth = 4.5; // With of rafters in the order details of the construct manual we got from the customer
+   
         CarportCalculator carportCalculator = new CarportCalculator(240,240, connectionPool); // Needed to use che raftersCalculator from the object
+
         int ammountOFRafters = carportCalculator.raftersCalculator(width);
         double actModDist = (width - raftersWidth) / (ammountOFRafters -1);    // Actual module distance. Ammount of rafters is reduced by one
         //because the first is placed at 0 width
@@ -60,11 +63,15 @@ public class CarportSVG {
         int maxFrontRoofOverhang = 100; // max distance from front post start to end of front roof part
         int maxBackRoofOverhang = 30;  // Max distance from back corner post to end of roof horizontally
         int maxRoofOverhang = maxBackRoofOverhang + maxFrontRoofOverhang;
+
+
+
         int maxPostDistanceBeamPostsOuterMeassure = 130 + 210; // From fist post begin to second post end.
             /* Assuming post number 2 from left (on side view drawing of carport in the delivered carport build manual)
             would have the same placement if there wasn´t any shed added 130 is the distance between end of arrows on same
             drawing between arrow heads on double arrow set number 3 and 210 is the next distance on arrow set 4 under the displayed shed*/
-        int maxCarportLenghtFourPosts = maxPostDistanceBeamPostsOuterMeassure + maxRoofOverhang; // assuming max total roof over hang is 130
+
+       int maxCarportLenghtFourPosts = maxPostDistanceBeamPostsOuterMeassure + maxRoofOverhang; // assuming max total roof over hang is 130
 
         int maxInnerPostDistBeamOrientedPosts = maxPostDistanceBeamPostsOuterMeassure - 2 * postDimension; // Longest accepted distance between based on side view sketch
         // if we assume post placement would be the same without shed
@@ -150,13 +157,13 @@ public class CarportSVG {
         }
     }
 
-/*
+
 private void addArrows(int width, int height) {
 
         carportSVGElements.addArrow(1,1,1,1,"ok");
 
  //   public void addArrow(int x1, int y1, int x2, int y2, String style)
-}  */
+}
 
     @Override
     public String toString()
@@ -165,6 +172,8 @@ private void addArrows(int width, int height) {
         return carportSVGElements.toString();
     }
 }
+
+
 
 
 

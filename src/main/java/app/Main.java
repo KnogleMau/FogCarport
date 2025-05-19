@@ -2,6 +2,7 @@ package app;
 
 import app.config.SessionConfig;
 import app.config.ThymeleafConfig;
+import app.controllers.AdminCalculatorController;
 import app.controllers.render;
 import app.exceptions.DatabaseException;
 import app.persistence.ProductMapper;
@@ -34,8 +35,12 @@ public class Main {
         }).start(7070);
 
 
-        render.routes(app, connectionPool);
-
+        //render.routes(app, connectionPool);
+        try {
+            new AdminCalculatorController().AdminCalcController();
+        } catch (DatabaseException e) {
+            e.printStackTrace();
+        }
 
     }
 }
