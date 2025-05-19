@@ -9,6 +9,11 @@ public class render {
           //  AdminUserController.addAdminRoutes(app, connectionPool);
 
         RequestController.AddRequestRoutes(app, connectionPool);
+        app.get("/",ctx ->
+
+        {
+            ctx.render("frontpage.html");
+        });
 
      /*   app.get("/carportBuilder", ctx -> {
             ctx.render("carportBuilder.html");
@@ -29,11 +34,8 @@ public class render {
         AdminUserController.addAdminRoutes(app, connectionPool);
 
 
-        app.get("/frontpage",ctx ->
 
-        {
-            ctx.render("frontpage.html");
-        });
+
 
 
     }

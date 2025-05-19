@@ -5,7 +5,7 @@ import app.entities.MaterialVariant;
 import app.entities.OrderDetail;
 import app.exceptions.DatabaseException;
 import app.persistence.ConnectionPool;
-import app.persistence.ProductMapper;
+import app.persistence.MaterialMapper;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,7 +18,7 @@ public class CarportCalculator {
     private ConnectionPool connectionPool;
     private int lenght;
     private int width;
-    ProductMapper productMapper = new ProductMapper();
+    MaterialMapper materialMapper = new MaterialMapper();
     // Stolper
 
 
@@ -36,8 +36,8 @@ public class CarportCalculator {
     public void calculatePole() throws DatabaseException {
 
         int quantity = poleCalc();
-        Material material = productMapper.selectProduct(POLE, connectionPool);
-        List<MaterialVariant> materialVariants = productMapper.selectMaterialVariant(POLE, 300, connectionPool);
+        Material material = materialMapper.selectProduct(POLE, connectionPool);
+        List<MaterialVariant> materialVariants = materialMapper.selectMaterialVariant(POLE, 300, connectionPool);
 
         OrderDetail detail = new OrderDetail(1, material.getId(), quantity, materialVariants.get(0).getLengthId(), material.getPrice() * (materialVariants.get(0).getLength() / 100 * quantity));
 
@@ -52,8 +52,8 @@ public class CarportCalculator {
     private void calculateRafter() throws DatabaseException {
         int quantity = raftersCalculator(width);
 
-        Material material = productMapper.selectProduct(BEAM, connectionPool);
-        List<MaterialVariant> materialVariants = productMapper.selectMaterialVariant(BEAM, width, connectionPool);
+        Material material = materialMapper.selectProduct(BEAM, connectionPool);
+        List<MaterialVariant> materialVariants = materialMapper.selectMaterialVariant(BEAM, width, connectionPool);
 
         OrderDetail detail = new OrderDetail(1, material.getId(), quantity, materialVariants.get(0).getLengthId(), material.getPrice() * (materialVariants.get(0).getLength() / 100) * quantity);
 

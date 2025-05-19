@@ -1,13 +1,8 @@
 package app.persistence;
 
-import app.entities.Material;
-import app.exceptions.DatabaseException;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-
-import static org.junit.jupiter.api.Assertions.*;
 
 class ProductMapperTest {
 
@@ -16,7 +11,7 @@ class ProductMapperTest {
     private static final String URL = "jdbc:postgresql://46.101.114.35:5432/%s?currentSchema=public";
     private static final String DB = "fogcarport";
 
-    ProductMapper instance = new ProductMapper();
+    MaterialMapper instance = new MaterialMapper();
 
     @BeforeAll
     static void setupConnectionPool() {

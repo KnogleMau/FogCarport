@@ -1,10 +1,8 @@
 package app.controllers;
 
+import app.entities.CarportRequest;
 import app.exceptions.DatabaseException;
-import app.persistence.CarportOrderMapper;
-import app.persistence.ConnectionPool;
-import app.persistence.CustomerMapper;
-import app.persistence.RequestMapper;
+import app.persistence.*;
 import io.javalin.Javalin;
 import io.javalin.http.Context;
 import org.bouncycastle.crypto.signers.Ed25519ctxSigner;
@@ -57,6 +55,7 @@ public class RequestController {
 
     public static void requestController(Context ctx, ConnectionPool connectionPool) {
         int customerId;
+        AdminCalculatorController acc = new AdminCalculatorController();
 
         try {
             int carportWidth = ctx.sessionAttribute("carport-width");
@@ -76,8 +75,16 @@ public class RequestController {
             CustomerMapper.customerMapper(firstname, lastname, address, zipcode, citySearch, phonenumber, email, connectionPool);
             //gets the customer id from the newly registered customer information so the request cam be registered with a customer ID
             customerId =  CustomerMapper.getCustomerId(firstname, lastname, email, phonenumber, connectionPool);
+
             // registers the carport request
             RequestMapper.requestMapper(carportWidth, carportLength, customerId);
+
+
+            OrdersMapper ordersMapper = new OrdersMapper();
+            CarportRequest carportRequest = RequestMapper.getCarportRequest(customerId);
+            ordersMapper.insertIntoOrders(customerId,carportRequest.getRequestID(), acc.calcPrice(carportLength,carportWidth), "pending");
+
+
 
             ctx.render("confirmationPageUser.html");
         }

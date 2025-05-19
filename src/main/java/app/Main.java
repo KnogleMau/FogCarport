@@ -5,10 +5,8 @@ import app.config.ThymeleafConfig;
 import app.controllers.AdminCalculatorController;
 import app.controllers.render;
 import app.exceptions.DatabaseException;
-import app.persistence.ProductMapper;
-import app.services.Sendgrid;
 import app.persistence.ConnectionPool;
-import app.services.CarportCalculator;
+import app.persistence.CustomerMapper;
 import io.javalin.Javalin;
 import io.javalin.rendering.template.JavalinThymeleaf;
 import java.util.logging.Logger;
@@ -35,12 +33,16 @@ public class Main {
         }).start(7070);
 
 
-        //render.routes(app, connectionPool);
-        try {
+        render.routes(app, connectionPool);
+        /*try {
             new AdminCalculatorController().AdminCalcController();
         } catch (DatabaseException e) {
             e.printStackTrace();
         }
+
+         */
+
+
 
     }
 }
