@@ -16,12 +16,12 @@ public class RequestController {
     public static void AddRequestRoutes(Javalin app, ConnectionPool connectionPool){
 
         app.get("/carportBuilder", ctx -> {
-            System.out.println("markør route 0: ");
+
             ctx.render("carportBuilder.html");
             });
 
         app.post("/showDrawing", ctx -> {
-            System.out.println("markør route 1: ");
+
             selectAndDisplayCarport(ctx, connectionPool);
         });
 

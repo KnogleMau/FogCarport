@@ -77,7 +77,6 @@ public class CarportRequestSVG {
         int totalOverhang = (length - maxPostDistanceBeamPostsOuterMeassure + postDimension);
 
         double addedFrontOverHang = (2.0 / 3.0) * totalOverhang;
-        System.out.println((length - (maxPostDistanceBeamPostsOuterMeassure+postDimension)));
 
         double addedBackOverHang = (1.0 / 3.0) * totalOverhang;
 
@@ -86,7 +85,6 @@ public class CarportRequestSVG {
             carportSVGElements.addRectangle(scopeDisSide, scopeDisTop, postHeight ,postDimension , " stroke:#000000; fill: #F5DEB3");
             // post two same beam row
             carportSVGElements.addRectangle(scopeDisSide + length - postDimension, scopeDisTop, postHeight ,postDimension , " stroke:#000000; fill: #F5DEB3");
-
 
         } else if (length > maxPostDistanceBeamPostsOuterMeassure && length <= maxCarportLenghtFourPosts) {
 
@@ -105,8 +103,10 @@ public class CarportRequestSVG {
         else if (length > maxCarportLenghtFourPosts) {
             // 20 is added to the distance calculated on, to make sure that roof over hang are even number at 2/# and 1/3 distributions
             int totalOverhangSixPosts = (length - maxCarportLenghtFourPosts + 20);
+
             double sixPostsAddedFrontOverHang = 0;
             sixPostsAddedFrontOverHang = (2.0 / 3.0) * totalOverhangSixPosts;
+
             double sixPostsAddedBackOverHang = 0;
             sixPostsAddedBackOverHang = (1.0 / 3.0) * totalOverhangSixPosts;
 
@@ -121,8 +121,6 @@ public class CarportRequestSVG {
 
             // Makes sure that the middle post is always placed with same distance to both corner posts in same beam row
             double midtPostPlacementY = (( length - sixPostsAddedFrontOverHang - sixPostsAddedBackOverHang) / 2 ) - (postDimension / 2);
-            System.out.println("Afstand stolpe 1 og 2: " + midtPostPlacementY);
-            System.out.println("sixpostfront: " + sixPostsAddedFrontOverHang + " sixpostback: " + sixPostsAddedBackOverHang);
 
             // Post one top left corner horizontally drawing in carport manual
             carportSVGElements.addRectangle(scopeDisSide + sixPostsAddedFrontOverHang, scopeDisTop, postHeight, postDimension, "stroke:#000000; fill: #F5DEB3");

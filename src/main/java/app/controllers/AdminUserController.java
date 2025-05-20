@@ -6,7 +6,6 @@ import app.entities.AdminUser;
 import app.exceptions.DatabaseException;
 import app.persistence.ConnectionPool;
 import app.persistence.OrderAndDetailsDTOMapper;
-import app.services.CarportRequestSVG;
 import app.services.CarportSVG;
 import io.javalin.Javalin;
 import io.javalin.http.Context;
