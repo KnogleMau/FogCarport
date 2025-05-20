@@ -7,8 +7,7 @@ import app.exceptions.DatabaseException;
 import app.persistence.ConnectionPool;
 import app.persistence.ProductMapper;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 public class CarportCalculator {
     private final List<OrderDetail> orderDetails = new ArrayList<>();
@@ -80,6 +79,31 @@ public class CarportCalculator {
 
     public List<OrderDetail> getOrderDetails() {
         return orderDetails;
+    }
+
+    public Map<MaterialVariant, Integer> beamCalculator(int materialId) throws DatabaseException {
+        Map<MaterialVariant, Integer> beamsNeeded = new HashMap<>();
+        int remaining = this.lenght;
+
+        List<MaterialVariant> variants = productMapper.selectMaterialVariant(materialId, 0, connectionPool);
+
+        //Sorts the boards by length, in reversed order so the biggest comes first. This allows the if-statement to work as intended.
+        variants.sort(Comparator.comparingInt(MaterialVariant::getLength).reversed());
+
+        while(remaining > 0) {
+            for(MaterialVariant variant : variants) {
+                int boardLength = variant.getLength();
+
+                if(boardLength <= remaining) {
+                    beamsNeeded.put(variant, beamsNeeded.getOrDefault(variant,0)+2);
+                    remaining -= boardLength;
+                    break;
+                }
+            }
+
+        }
+            return beamsNeeded;
+
     }
 
 }
