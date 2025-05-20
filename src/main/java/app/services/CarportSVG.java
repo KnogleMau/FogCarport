@@ -36,9 +36,15 @@ public class CarportSVG {
         addPosts(intLength, intWidth);
         addBeams(intLength, intWidth);
         addRafters(intLength, intWidth);
-      //  addArrows(intLength, intWidth);
+        // carportSVGElements = new SVG(0, 0, "0 0 400 400" , "100%");
 
+       // addArrows(intLength, intWidth);
+    }
 
+    public void addArrows(int width, int height) {
+        double widthD = (double) width;
+        double heightD = (double) height;
+        carportSVGElements.addArrow(widthD,heightD,widthD + 100, heightD,"stroke:#000000; fill: #000000");
     }
 
     private void addRafters(int width, int height) {
@@ -69,21 +75,17 @@ public class CarportSVG {
             would have the same placement if there wasn´t any shed added 130 is the distance between end of arrows on same
             drawing between arrow heads on double arrow set number 3 and 210 is the next distance on arrow set 4 under the displayed shed*/
         int maxCarportLenghtFourPosts = maxPostDistanceBeamPostsOuterMeassure + maxRoofOverhang; // assuming max total roof over hang is 130
-
         int maxInnerPostDistBeamOrientedPosts = maxPostDistanceBeamPostsOuterMeassure - 2 * postDimension; // Longest accepted distance between based on side view sketch
         // if we assume post placement would be the same without shed
         int secondPost = startPost + postDimension + maxInnerPostDistBeamOrientedPosts;
-
         /* Assuming two thirds of the overhang is added to the front and ont third to the back.
        Postdimension added to bring the value into the 30-times table */
-
         int totalOverhang = (width - maxPostDistanceBeamPostsOuterMeassure + postDimension);
 
         double addedFrontOverHang = (2.0 / 3.0) * totalOverhang;
         System.out.println((width - (maxPostDistanceBeamPostsOuterMeassure+postDimension)));
 
         double addedBackOverHang = (1.0 / 3.0) * totalOverhang;
-
 
         if (width <= maxPostDistanceBeamPostsOuterMeassure) {
             // Post one
@@ -97,14 +99,11 @@ public class CarportSVG {
 
         } else if (width > maxPostDistanceBeamPostsOuterMeassure && width <= maxCarportLenghtFourPosts) {
 
-
-
             // Makes sure that back roof over hang is never over 30 works because its the last increment
             if (addedBackOverHang > maxBackRoofOverhang) {
                 addedFrontOverHang += addedBackOverHang - maxBackRoofOverhang;
                 addedBackOverHang = maxBackRoofOverhang;
             }
-
             // Post one top left corner horizontally drawing in carport manual
             carportSVGElements.addRectangle(scopeDisSide + addedFrontOverHang, scopeDisTop + sideRoofOverhangToPost, postDimension, postDimension, "stroke-width:1px; stroke:#000000; fill: #000000");
             // post two same beam row
@@ -136,7 +135,6 @@ public class CarportSVG {
             System.out.println("Afstand stolpe 1 og 2: " + midtPostPlacementY);
             System.out.println("sixpostfront: " + sixPostsAddedFrontOverHang + " sixpostback: " + sixPostsAddedBackOverHang);
 
-
             // Post one top left corner horizontally drawing in carport manual
             carportSVGElements.addRectangle(scopeDisSide + sixPostsAddedFrontOverHang, scopeDisTop + sideRoofOverhangToPost, postDimension, postDimension, "stroke-width:1px; stroke:#000000; fill: #000000");
             // Post two in middle on same beam row
@@ -154,20 +152,9 @@ public class CarportSVG {
         }
     }
 
-
-
-/*
-private void addArrows(int width, int height) {
-
-        carportSVGElements.addArrow(1,1,1,1,"stroke-width:1px; stroke:#000000; fill: #000000");
-
- //   public void addArrow(int x1, int y1, int x2, int y2, String style)
-}
-*/
     @Override
     public String toString()
     {
-
         return carportSVGElements.toString();
     }
 }

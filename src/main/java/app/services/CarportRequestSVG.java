@@ -34,7 +34,6 @@ public class CarportRequestSVG {
         int basepoint = scopeDistSide + distDrawings + length;
         int sideRoofOverhang = (600 - 530) / 2;  // Values from delivered topVieW drawing in carport build guide (half dist roof width - post placements regards carport width).
 
-
         // First post from left.
         carportSVGElements.addRectangle(basepoint + sideRoofOverhang, scopeDisTop, postHeight, postDimension, "stroke:#000000; fill: #F5DEB3");
         // Last post from left. X = - sideRoofOverhang - postDimension to get a roof overhang

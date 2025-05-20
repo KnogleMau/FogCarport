@@ -15,7 +15,7 @@ public class SVG {
             "style=\"%s\" />";
 
     private static final String SVG_LineSpaces_Template ="<line x1=\"%.2f\" y1=\"%.2f\" x2=\"%.2f\" y2=\"%.2f\" " +
-            "style=\"%s\" " +   "stroke=\"black\" stroke-width=\"%d\" stroke-dasharray=\"5,5\" />";
+            "style=\"%s\" " +  "stroke=\"black\" stroke-width=\"%d\" stroke-dasharray=\"5,5\" />";
 
     private static final String SVG_Arrow_Def = "  <defs>\n" +
             "        <marker\n" + " id=\"beginArrow\" markerWidth=\"12\" markerHeight=\"10\" refX=\"0\" refY=\"6\"\n" +
@@ -24,6 +24,10 @@ public class SVG {
             "        <marker\n" + " id=\"endArrow\" markerWidth=\"12\" markerHeight=\"10\" refX=\"12\" refY=\"6\"\n" +
             "       orient=\"auto\"><path d=\"M0,0 L12,6 L0,10 L4,6 L0,0 \" style=\"fill: #000000;\" />\n" +
             "        </marker>\n" + "  </defs>";
+
+    private static final String SVG_Line_With_Arrows_Template ="<line x1=\"%.2f\" y1=\"%.2f\" x2=\"%.2f\" y2=\"%.2f\" " +
+            "style=\"%s\" " +  "marker-start=\"url(#beginArrow)\" " +
+            "marker-end=\"url(#endArrow)\" />";
 
     private static final String SVG_Text = "<text style=\"text-anchor: middle\" transform=\"translate(%d,%d) rotate(%d)\">%s</text>";
 
@@ -34,7 +38,7 @@ public class SVG {
     public SVG(int x, int y, String viewBox, String width){
 
         svg.append(String.format(SVG_Template, x, y, viewBox, width));
-      //  svg.append(SVG_Arrow_Def);
+        svg.append(SVG_Arrow_Def);
     }
 
     public void addRectangle(double x, double y, double height, double width, String style){
@@ -53,11 +57,13 @@ public class SVG {
         svg.append(String.format(SVG_LineSpaces_Template, x1, y1, x2, y2, style));
     }
 
-    public void addArrow(int x1, int y1, int x2, int y2, String style){
+    public void addArrow(double x1, double y1, double x2, double y2, String style){
 
+        //   svg.append(String.format(SVG_Arrow_Def, x1, y1, x2, y2, style));
         //Call addLine with a style containing Arrow heads
-        addLine(x1, y1, x2, y2, style);
+        svg.append(String.format(SVG_Line_With_Arrows_Template, x1, y1, x2, y2, style));
     }
+
     public void addText(int x, int y, int rotation, String text){
 
         svg.append(String.format(SVG_Text, x, y, rotation, text));

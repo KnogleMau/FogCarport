@@ -9,9 +9,8 @@ public class render {
 
         RequestController.AddRequestRoutes(app, connectionPool);
 
-     /*   app.get("/", ctx ->
-                ctx.render("adminlogin"));
-*/
+      /*  app.get("/", ctx ->
+                ctx.render("adminlogin"));  */
 
       /*  app.get("/", ctx -> {
             ctx.render("frontpage.html");
@@ -27,7 +26,6 @@ public class render {
         app.get("/confirmationPageUser", ctx -> {
             ctx.render("confirmationPageUser.html");
         });
-
 */
 
        /* app.get("/", ctx -> {

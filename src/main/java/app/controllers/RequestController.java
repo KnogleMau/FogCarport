@@ -25,7 +25,6 @@ public class RequestController {
             selectAndDisplayCarport(ctx, connectionPool);
         });
 
-
         app.post("/customerContactInformation", ctx ->
                 typeCustomerContactInformation(ctx, connectionPool) );
 
