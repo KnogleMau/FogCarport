@@ -29,7 +29,7 @@ public class SVG {
             "style=\"%s\" " +  "marker-start=\"url(#beginArrow)\" " +
             "marker-end=\"url(#endArrow)\" />";
 
-    private static final String SVG_Text = "<text style=\"text-anchor: middle\" transform=\"translate(%d,%d) rotate(%d)\">%s</text>";
+    private static final String SVG_Text = "<text style=\"text-anchor: middle\" transform=\"translate(%.2f,%.2f) rotate(%d)\">%s</text>";
 
     /* Java class used to make it easier to manipulate the string templates for the drawing objects
     and append the templates in to the drawing functions */
@@ -64,7 +64,7 @@ public class SVG {
         svg.append(String.format(SVG_Line_With_Arrows_Template, x1, y1, x2, y2, style));
     }
 
-    public void addText(int x, int y, int rotation, String text){
+    public void addText(double x, double y, int rotation, String text){
 
         svg.append(String.format(SVG_Text, x, y, rotation, text));
     }

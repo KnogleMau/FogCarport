@@ -3,12 +3,12 @@ package app.services;
 import app.persistence.ConnectionPool;
 import app.services.SVG;
 
+import java.awt.*;
+
 import static app.Main.connectionPool;
 
 public class CarportSVG {
 
- //   private int width;
- //   private int height;
     private double width;
     private double length;
     private SVG carportSVGElements;
@@ -19,6 +19,7 @@ public class CarportSVG {
     double beamWidth = 4.5; // As in // With of rafters in the order details of the construct manual we got from the customer
     int beamWidthInd = (int) beamWidth;
     int sideRoofOverhangToBeam = (600 - 530) / 2; // Values from delivered topVieW drawing in carport build guide (half dist roof width - post placements regards carport width).
+    double raftersWidth = 4.5; // With of rafters in the order details of the construct manual we got from the customer
     int sideRoofOverhangToPost = sideRoofOverhangToBeam - postDimension + beamWidthInd;
 
 
@@ -38,13 +39,37 @@ public class CarportSVG {
         addRafters(intLength, intWidth);
         // carportSVGElements = new SVG(0, 0, "0 0 400 400" , "100%");
 
-       // addArrows(intLength, intWidth);
+        addArrowsModuleArrows(intLength, intWidth);
     }
 
-    public void addArrows(int width, int height) {
-        double widthD = (double) width;
-        double heightD = (double) height;
-        carportSVGElements.addArrow(widthD,heightD,widthD + 100, heightD,"stroke:#000000; fill: #000000");
+    public void addArrowsModuleArrows(int lengthAr, int widthAr) {
+
+        CarportCalculator carportCalculator = new CarportCalculator(240, 240, connectionPool); // Needed to use che raftersCalculator from the object
+        int amountOFRafters = carportCalculator.raftersCalculator(lengthAr);
+        double actModDist = (lengthAr - raftersWidth) / (amountOFRafters - 1); // Actual module distance. Ammount of rafters is reduced by one
+        double moduleStartPoint = raftersWidth / 2; // Because a module begin at center of the rafters width
+        double spaceDrawingToModuleArrows = 35; // place Arrows outside the carport sketch
+        double arrowSpaceLength = 30; // Length of lines between the module arrows
+        double arrowSpacingStart = spaceDrawingToModuleArrows + 5;
+        double moduleTextPlacM = spaceDrawingToModuleArrows + 57;
+
+        double ActModDistEven = Math.round(actModDist);
+        String actModDistText = Double.toString(ActModDistEven);
+
+        // Top module arrows and space lines. lengthAr - actModDist because its the start point of the double arrow, and it ends inside the length dimension
+        for (double i = 0; i < lengthAr - actModDist; i += actModDist) {
+            carportSVGElements.addArrow(scopeDisSide + moduleStartPoint + i, scopeDisTop - spaceDrawingToModuleArrows,
+                    scopeDisSide + moduleStartPoint + i + actModDist, scopeDisTop - spaceDrawingToModuleArrows, "stroke:#000000; fill: #000000");
+        }
+        // arrowSpaceLines. amountOfRafters is used because there is a space line in each end of the moduls and there is always one more rafter than modules
+        for (double j = 0; j < lengthAr; j += actModDist) {
+            carportSVGElements.addLine(scopeDisSide + moduleStartPoint + j, scopeDisTop - arrowSpacingStart,
+                    scopeDisSide + moduleStartPoint + j, scopeDisTop - arrowSpacingStart + arrowSpaceLength, "stroke:#000000; fill: #000000");
+        }
+// Top module values. lengthAr - actModDist because its the start point of the double arrow, and it ends inside the length dimension
+        for (double k = 0; k < lengthAr -actModDist; k += actModDist) {
+            carportSVGElements.addText(scopeDisSide + moduleStartPoint + k +(actModDist/2), scopeDisSide - moduleTextPlacM, 0, actModDistText);
+        }
     }
 
     private void addRafters(int width, int height) {
@@ -53,7 +78,7 @@ public class CarportSVG {
         CarportCalculator carportCalculator = new CarportCalculator(240,240, connectionPool); // Needed to use che raftersCalculator from the object
         int ammountOFRafters = carportCalculator.raftersCalculator(width);
         double actModDist = (width - raftersWidth) / (ammountOFRafters -1);    // Actual module distance. Ammount of rafters is reduced by one
-        //because the first is placed at 0 width
+        // from 0one because the first is placed at 0 width
         for (double i = 0; i < width; i += actModDist) {
             carportSVGElements.addRectangle(scopeDisSide + i, scopeDisTop, height, raftersWidth, "stroke-width:1px; stroke:#000000; fill: #ffffff");
         }
@@ -83,7 +108,6 @@ public class CarportSVG {
         int totalOverhang = (width - maxPostDistanceBeamPostsOuterMeassure + postDimension);
 
         double addedFrontOverHang = (2.0 / 3.0) * totalOverhang;
-        System.out.println((width - (maxPostDistanceBeamPostsOuterMeassure+postDimension)));
 
         double addedBackOverHang = (1.0 / 3.0) * totalOverhang;
 
@@ -132,8 +156,6 @@ public class CarportSVG {
 
             // Makes sure that the middle post is always placed with same distance to both corner posts in same beam row
             double midtPostPlacementY = (( width - sixPostsAddedFrontOverHang - sixPostsAddedBackOverHang) / 2 ) - (postDimension / 2);
-            System.out.println("Afstand stolpe 1 og 2: " + midtPostPlacementY);
-            System.out.println("sixpostfront: " + sixPostsAddedFrontOverHang + " sixpostback: " + sixPostsAddedBackOverHang);
 
             // Post one top left corner horizontally drawing in carport manual
             carportSVGElements.addRectangle(scopeDisSide + sixPostsAddedFrontOverHang, scopeDisTop + sideRoofOverhangToPost, postDimension, postDimension, "stroke-width:1px; stroke:#000000; fill: #000000");
@@ -148,7 +170,6 @@ public class CarportSVG {
             carportSVGElements.addRectangle(scopeDisSide + sixPostsAddedFrontOverHang + midtPostPlacementY, scopeDisTop + height -0.5*postDimension - sideRoofOverhangToPost, postDimension, postDimension, "stroke-width:1px; stroke:#000000; fill: #000000");
             // Post six. Last post in bottom beaam row from topview
             carportSVGElements.addRectangle(scopeDisSide + width - sixPostsAddedBackOverHang - postDimension, scopeDisTop + height -0.5*postDimension - sideRoofOverhangToPost, postDimension, postDimension, "stroke-width:1px; stroke:#000000; fill: #000000");
-
         }
     }
 
