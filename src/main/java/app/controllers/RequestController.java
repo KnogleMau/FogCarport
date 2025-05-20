@@ -33,34 +33,18 @@ public class RequestController {
                 requestController(ctx, connectionPool));
     }
 
- /*   public static void carportBuilder(Javalin app, ConnectionPool connectionPool ){
-        app.post("/activeCarportBuilder", ctx -> {
-
-            selectAndDisplayCarport(ctx, connectionPool);
-        });
-    }  */
-
     public static void selectAndDisplayCarport(Context ctx, ConnectionPool connectionPool){
         Locale.setDefault(new Locale("US")); // Makes sure that decimals are displayed with.
-        // Instead of so it can be read by the SVG templates
-       // int width = 400;
-     //   int height = 300;
 
-      //  double width = 300;
-    //    double height = 300;
-
-
-        System.out.println("markør 1: ");
         int width = Integer.parseInt(ctx.formParam("carport-width"));
        int length = Integer.parseInt(ctx.formParam("carport-length"));
-        System.out.println("carport-width: " + width);
-        System.out.println("carport-height: " + length);
-        System.out.println("markør 2: ");
+
         CarportRequestSVG carportRequestSVG = new CarportRequestSVG(length, width );
+
         String carportSideView = carportRequestSVG.toString();
-        System.out.println("markør 3: ");
+
         ctx.attribute("drawing", carportSideView);
-        System.out.println("markør 4: ");
+
         ctx.render("carportBuilder.html");
     }
 

@@ -13,9 +13,9 @@ public class render {
                 ctx.render("adminlogin"));
 */
 
-        app.get("/", ctx -> {
+      /*  app.get("/", ctx -> {
             ctx.render("frontpage.html");
-        });
+        }); */
      /*   app.get("/carportBuilder", ctx -> {
             ctx.render("carportBuilder.html");
         });
