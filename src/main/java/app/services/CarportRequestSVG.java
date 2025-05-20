@@ -6,6 +6,7 @@ public class CarportRequestSVG {
     int postHeight = 290;
     double beamHeight = 19.5;
     int postDimension = 10;  // On both side
+    int movePostBelowBeam = 2;  // Currently for report part, because it makes the drawing more complex to read
 
     private SVG carportSVGElements;
 

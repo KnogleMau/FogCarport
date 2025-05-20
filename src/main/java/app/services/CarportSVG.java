@@ -15,6 +15,12 @@ public class CarportSVG {
 
     double scopeDisTop = 100; // Distance from top of scope to where carport drawing begin
     double scopeDisSide = 150; // Distance from top of scope to where carport drawing begin
+    int postDimension = 10;  // On both side
+    double beamWidth = 4.5; // As in // With of rafters in the order details of the construct manual we got from the customer
+    int beamWidthInd = (int) beamWidth;
+    int sideRoofOverhangToBeam = (600 - 530) / 2; // Values from delivered topVieW drawing in carport build guide (half dist roof width - post placements regards carport width).
+    int sideRoofOverhangToPost = sideRoofOverhangToBeam - postDimension + beamWidthInd;
+
 
     public CarportSVG(double length, double width) {
         this.length = length;
@@ -26,11 +32,12 @@ public class CarportSVG {
         carportSVGElements = new SVG(0, 0, "0 0 1430 700" , "90%");
         carportSVGElements.addRectangle(scopeDisSide, scopeDisTop, width, length, "stroke-width:1px; stroke:#000000; fill: #ffffff");
 
-
+        // Added first to show correct placement in relation to the beams.
+        addPosts(intLength, intWidth);
         addBeams(intLength, intWidth);
         addRafters(intLength, intWidth);
-        // Added last to make them more visible
-        addPosts(intLength, intWidth);
+      //  addArrows(intLength, intWidth);
+
 
     }
 
@@ -47,15 +54,12 @@ public class CarportSVG {
     }
     private void addBeams (int width, int height){
 
-        double beamWidth = 4.5; // As in // With of rafters in the order details of the construct manual we got from the customer
-
-        //mangler objekt order.get(); for korrekt height
-        carportSVGElements.addRectangle(scopeDisSide, scopeDisTop, beamWidth, width, "stroke-width:1px; stroke:#000000; fill: #ffffff");
-        carportSVGElements.addRectangle(scopeDisSide, scopeDisTop + height, beamWidth, width, "stroke-width:1px; stroke:#000000; fill: #ffffff");
+        carportSVGElements.addRectangle(scopeDisSide, scopeDisTop + sideRoofOverhangToBeam, beamWidth, width, "stroke-width:1px; stroke:#000000; fill: #ffffff");
+        carportSVGElements.addRectangle(scopeDisSide, scopeDisTop + height -sideRoofOverhangToBeam, beamWidth, width, "stroke-width:1px; stroke:#000000; fill: #ffffff");
     }
 
     private void addPosts(int width, int height) {
-        int postDimension = 10;  // On both side
+
         int startPost = 100; //  displayed distance from carport front to first post for all carports based on delivered sketch of carport in side view
         int maxFrontRoofOverhang = 100; // max distance from front post start to end of front roof part
         int maxBackRoofOverhang = 30;  // Max distance from back corner post to end of roof horizontally
@@ -83,13 +87,13 @@ public class CarportSVG {
 
         if (width <= maxPostDistanceBeamPostsOuterMeassure) {
             // Post one
-            carportSVGElements.addRectangle(scopeDisSide, scopeDisTop, postDimension, postDimension, "stroke-width:1px; stroke:#000000; fill: #ffffff");
+            carportSVGElements.addRectangle(scopeDisSide, scopeDisTop + sideRoofOverhangToPost, postDimension, postDimension, "stroke-width:1px; stroke:#000000; fill: #000000");
             // post two same beam row
-            carportSVGElements.addRectangle(scopeDisSide + width - postDimension, scopeDisTop, postDimension, postDimension, "stroke-width:1px; stroke:#000000; fill: #ffffff");
+            carportSVGElements.addRectangle(scopeDisSide + width - postDimension, scopeDisTop + sideRoofOverhangToPost, postDimension, postDimension, "stroke-width:1px; stroke:#000000; fill: #000000");
             // post three front bottom beaam row from topview
-            carportSVGElements.addRectangle(scopeDisSide, scopeDisTop + height - 0.5*postDimension, postDimension, postDimension, "stroke-width:1px; stroke:#000000; fill: #ffffff");
+            carportSVGElements.addRectangle(scopeDisSide, scopeDisTop + height - 0.5*postDimension - sideRoofOverhangToPost, postDimension, postDimension, "stroke-width:1px; stroke:#000000; fill: #000000");
             // post four
-            carportSVGElements.addRectangle(scopeDisSide + width - postDimension, scopeDisTop + height -0.5*postDimension, postDimension, postDimension, "stroke-width:1px; stroke:#000000; fill: #ffffff");
+            carportSVGElements.addRectangle(scopeDisSide + width - postDimension, scopeDisTop + height -0.5*postDimension - sideRoofOverhangToPost, postDimension, postDimension, "stroke-width:1px; stroke:#000000; fill: #000000");
 
         } else if (width > maxPostDistanceBeamPostsOuterMeassure && width <= maxCarportLenghtFourPosts) {
 
@@ -102,14 +106,14 @@ public class CarportSVG {
             }
 
             // Post one top left corner horizontally drawing in carport manual
-            carportSVGElements.addRectangle(scopeDisSide + addedFrontOverHang, scopeDisTop, postDimension, postDimension, "stroke-width:1px; stroke:#000000; fill: #ffffff");
+            carportSVGElements.addRectangle(scopeDisSide + addedFrontOverHang, scopeDisTop + sideRoofOverhangToPost, postDimension, postDimension, "stroke-width:1px; stroke:#000000; fill: #000000");
             // post two same beam row
-            carportSVGElements.addRectangle(scopeDisSide + width - addedBackOverHang - postDimension, scopeDisTop, postDimension, postDimension, "stroke-width:1px; stroke:#000000; fill: #ffffff");
+            carportSVGElements.addRectangle(scopeDisSide + width - addedBackOverHang - postDimension, scopeDisTop + sideRoofOverhangToPost, postDimension, postDimension, "stroke-width:1px; stroke:#000000; fill: #000000");
             // post three front bottom beaam row from topview
-            carportSVGElements.addRectangle(scopeDisSide + addedFrontOverHang, scopeDisTop + height - 0.5*postDimension, postDimension, postDimension, "stroke-width:1px; stroke:#000000; fill: #ffffff");
+            carportSVGElements.addRectangle(scopeDisSide + addedFrontOverHang, scopeDisTop + height - 0.5*postDimension - sideRoofOverhangToPost, postDimension, postDimension, "stroke-width:1px; stroke:#000000; fill: #000000");
             // post four
+            carportSVGElements.addRectangle(scopeDisSide + width - addedBackOverHang - postDimension, scopeDisTop + height - 0.5*postDimension - sideRoofOverhangToPost, postDimension, postDimension, "stroke-width:1px; stroke:#000000; fill: #000000");
 
-            carportSVGElements.addRectangle(scopeDisSide + width - addedBackOverHang - postDimension, scopeDisTop + height - 0.5*postDimension, postDimension, postDimension, "stroke-width:1px; stroke:#000000; fill: #ffffff");
         } else if (width > maxCarportLenghtFourPosts) {
             // 20 is added to the distance calculated on, to make sure that roof over hang are even number at 2/# and 1/3 distributions
             int totalOverhangSixPosts = (width - maxCarportLenghtFourPosts + 20);
@@ -134,30 +138,32 @@ public class CarportSVG {
 
 
             // Post one top left corner horizontally drawing in carport manual
-            carportSVGElements.addRectangle(scopeDisSide + sixPostsAddedFrontOverHang, scopeDisTop, postDimension, postDimension, "stroke-width:1px; stroke:#000000; fill: #ffffff");
+            carportSVGElements.addRectangle(scopeDisSide + sixPostsAddedFrontOverHang, scopeDisTop + sideRoofOverhangToPost, postDimension, postDimension, "stroke-width:1px; stroke:#000000; fill: #000000");
             // Post two in middle on same beam row
-            carportSVGElements.addRectangle(scopeDisSide + sixPostsAddedFrontOverHang + midtPostPlacementY, scopeDisTop, postDimension, postDimension, "stroke-width:1px; stroke:#000000; fill: #ffffff");
+            carportSVGElements.addRectangle(scopeDisSide + sixPostsAddedFrontOverHang + midtPostPlacementY, scopeDisTop + sideRoofOverhangToPost, postDimension, postDimension, "stroke-width:1px; stroke:#000000; fill: #000000");
             // Post three end of top beam row
-            carportSVGElements.addRectangle(scopeDisSide + width - sixPostsAddedBackOverHang -postDimension, scopeDisTop, postDimension, postDimension, "stroke-width:1px; stroke:#000000; fill: #ffffff");
+            carportSVGElements.addRectangle(scopeDisSide + width - sixPostsAddedBackOverHang -postDimension, scopeDisTop + sideRoofOverhangToPost, postDimension, postDimension, "stroke-width:1px; stroke:#000000; fill: #000000");
 
-            // Post four. First in front bottom beaam row from topview
-            carportSVGElements.addRectangle(scopeDisSide + sixPostsAddedFrontOverHang, scopeDisTop + height -0.5*postDimension, postDimension, postDimension, "stroke-width:1px; stroke:#000000; fill: #ffffff");
+            // Post four. First in bottom beaam row from topview
+            carportSVGElements.addRectangle(scopeDisSide + sixPostsAddedFrontOverHang, scopeDisTop + height -0.5*postDimension - sideRoofOverhangToPost, postDimension, postDimension, "stroke-width:1px; stroke:#000000; fill: #000000");
             // Post five. Middle one in second beam row topview
-            carportSVGElements.addRectangle(scopeDisSide + sixPostsAddedFrontOverHang + midtPostPlacementY, scopeDisTop + height -0.5*postDimension, postDimension, postDimension, "stroke-width:1px; stroke:#000000; fill: #ffffff");
+            carportSVGElements.addRectangle(scopeDisSide + sixPostsAddedFrontOverHang + midtPostPlacementY, scopeDisTop + height -0.5*postDimension - sideRoofOverhangToPost, postDimension, postDimension, "stroke-width:1px; stroke:#000000; fill: #000000");
             // Post six. Last post in bottom beaam row from topview
-            carportSVGElements.addRectangle(scopeDisSide + width - sixPostsAddedBackOverHang - postDimension, scopeDisTop + height -0.5*postDimension, postDimension, postDimension, "stroke-width:1px; stroke:#000000; fill: #ffffff");
+            carportSVGElements.addRectangle(scopeDisSide + width - sixPostsAddedBackOverHang - postDimension, scopeDisTop + height -0.5*postDimension - sideRoofOverhangToPost, postDimension, postDimension, "stroke-width:1px; stroke:#000000; fill: #000000");
 
         }
     }
 
+
+
 /*
 private void addArrows(int width, int height) {
 
-        carportSVGElements.addArrow(1,1,1,1,"ok");
+        carportSVGElements.addArrow(1,1,1,1,"stroke-width:1px; stroke:#000000; fill: #000000");
 
  //   public void addArrow(int x1, int y1, int x2, int y2, String style)
-}  */
-
+}
+*/
     @Override
     public String toString()
     {
