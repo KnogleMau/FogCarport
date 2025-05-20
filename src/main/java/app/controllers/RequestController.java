@@ -56,7 +56,7 @@ public class RequestController {
         System.out.println("carport-width: " + width);
         System.out.println("carport-height: " + length);
         System.out.println("markør 2: ");
-        CarportRequestSVG carportRequestSVG = new CarportRequestSVG(width, length);
+        CarportRequestSVG carportRequestSVG = new CarportRequestSVG(length, width );
         String carportSideView = carportRequestSVG.toString();
         System.out.println("markør 3: ");
         ctx.attribute("drawing", carportSideView);
