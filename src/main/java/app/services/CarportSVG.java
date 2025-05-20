@@ -4,6 +4,7 @@ import app.persistence.ConnectionPool;
 import app.services.SVG;
 
 import java.awt.*;
+import java.security.PrivateKey;
 
 import static app.Main.connectionPool;
 
@@ -20,8 +21,7 @@ public class CarportSVG {
     int beamWidthInd = (int) beamWidth;
     int sideRoofOverhangToBeam = (600 - 530) / 2; // Values from delivered topVieW drawing in carport build guide (half dist roof width - post placements regards carport width).
     double raftersWidth = 4.5; // With of rafters in the order details of the construct manual we got from the customer
-    int sideRoofOverhangToPost = sideRoofOverhangToBeam - postDimension + beamWidthInd;
-
+    int sideRoofOverhangToPost = sideRoofOverhangToBeam - postDimension + beamWidthInd;  // Assuming same roof owerhang for all possible width dimensions
 
     public CarportSVG(double length, double width) {
         this.length = length;
@@ -39,10 +39,11 @@ public class CarportSVG {
         addRafters(intLength, intWidth);
         // carportSVGElements = new SVG(0, 0, "0 0 400 400" , "100%");
 
-        addArrowsModuleArrows(intLength, intWidth);
+        addArrowsModuleArrowsAndValues(intLength, intWidth);
+        addTopViewDimensionArrows(intWidth);
     }
 
-    public void addArrowsModuleArrows(int lengthAr, int widthAr) {
+    private void addArrowsModuleArrowsAndValues(int lengthAr, int widthAr) {
 
         CarportCalculator carportCalculator = new CarportCalculator(240, 240, connectionPool); // Needed to use che raftersCalculator from the object
         int amountOFRafters = carportCalculator.raftersCalculator(lengthAr);
@@ -72,6 +73,25 @@ public class CarportSVG {
         }
     }
 
+    private void addTopViewDimensionArrows(int widthAr) {
+        int arroxDistanceSketchForWidth = 70;
+        int arrowXWidth = (int) scopeDisSide -arroxDistanceSketchForWidth;
+        int arrowXBeams = arrowXWidth + 35;
+        String widthText = Double.toString(widthAr);
+        int arrowLengthBeam = widthAr - (sideRoofOverhangToBeam * 2);
+        String beamWidthText = Double.toString(arrowLengthBeam);
+        int distanceTextAndArrow = 3;
+
+        // Arrow showing width
+        carportSVGElements.addArrow(arrowXWidth, scopeDisTop, arrowXWidth, scopeDisTop + widthAr, "stroke:#000000; fill: #000000");
+       // Text for Arrow showing width
+        carportSVGElements.addText(arrowXWidth -distanceTextAndArrow, scopeDisTop + (widthAr / 2 ) - distanceTextAndArrow, -90, widthText + " cm." );
+        // Arrow showing beam width
+        carportSVGElements.addArrow(arrowXBeams, scopeDisTop + sideRoofOverhangToBeam, arrowXBeams, scopeDisTop + widthAr - sideRoofOverhangToBeam + beamWidth, "stroke:#000000; fill: #000000");
+        // Text for beam width Arrow
+        carportSVGElements.addText(arrowXBeams - distanceTextAndArrow, scopeDisTop + (widthAr / 2 ), -90, beamWidthText + " cm." );
+    }
+
     private void addRafters(int width, int height) {
 
         double raftersWidth = 4.5; // With of rafters in the order details of the construct manual we got from the customer
@@ -95,23 +115,23 @@ public class CarportSVG {
         int maxFrontRoofOverhang = 100; // max distance from front post start to end of front roof part
         int maxBackRoofOverhang = 30;  // Max distance from back corner post to end of roof horizontally
         int maxRoofOverhang = maxBackRoofOverhang + maxFrontRoofOverhang;
-        int maxPostDistanceBeamPostsOuterMeassure = 130 + 210; // From fist post begin to second post end.
+        int maxPostDistanceBeamPostsOuterMeasure = 130 + 210; // From fist post begin to second post end.
             /* Assuming post number 2 from left (on side view drawing of carport in the delivered carport build manual)
             would have the same placement if there wasn´t any shed added 130 is the distance between end of arrows on same
             drawing between arrow heads on double arrow set number 3 and 210 is the next distance on arrow set 4 under the displayed shed*/
-        int maxCarportLenghtFourPosts = maxPostDistanceBeamPostsOuterMeassure + maxRoofOverhang; // assuming max total roof over hang is 130
-        int maxInnerPostDistBeamOrientedPosts = maxPostDistanceBeamPostsOuterMeassure - 2 * postDimension; // Longest accepted distance between based on side view sketch
+        int maxCarportLenghtFourPosts = maxPostDistanceBeamPostsOuterMeasure + maxRoofOverhang; // assuming max total roof over hang is 130
+        int maxInnerPostDistBeamOrientedPosts = maxPostDistanceBeamPostsOuterMeasure - 2 * postDimension; // Longest accepted distance between based on side view sketch
         // if we assume post placement would be the same without shed
         int secondPost = startPost + postDimension + maxInnerPostDistBeamOrientedPosts;
         /* Assuming two thirds of the overhang is added to the front and ont third to the back.
        Postdimension added to bring the value into the 30-times table */
-        int totalOverhang = (width - maxPostDistanceBeamPostsOuterMeassure + postDimension);
+        int totalOverhang = (width - maxPostDistanceBeamPostsOuterMeasure + postDimension);
 
         double addedFrontOverHang = (2.0 / 3.0) * totalOverhang;
 
         double addedBackOverHang = (1.0 / 3.0) * totalOverhang;
 
-        if (width <= maxPostDistanceBeamPostsOuterMeassure) {
+        if (width <= maxPostDistanceBeamPostsOuterMeasure) {
             // Post one
             carportSVGElements.addRectangle(scopeDisSide, scopeDisTop + sideRoofOverhangToPost, postDimension, postDimension, "stroke-width:1px; stroke:#000000; fill: #000000");
             // post two same beam row
@@ -121,7 +141,7 @@ public class CarportSVG {
             // post four
             carportSVGElements.addRectangle(scopeDisSide + width - postDimension, scopeDisTop + height -0.5*postDimension - sideRoofOverhangToPost, postDimension, postDimension, "stroke-width:1px; stroke:#000000; fill: #000000");
 
-        } else if (width > maxPostDistanceBeamPostsOuterMeassure && width <= maxCarportLenghtFourPosts) {
+        } else if (width > maxPostDistanceBeamPostsOuterMeasure && width <= maxCarportLenghtFourPosts) {
 
             // Makes sure that back roof over hang is never over 30 works because its the last increment
             if (addedBackOverHang > maxBackRoofOverhang) {

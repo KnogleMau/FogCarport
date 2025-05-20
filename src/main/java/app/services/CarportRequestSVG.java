@@ -52,7 +52,6 @@ public class CarportRequestSVG {
     public void sideViewBeam(int length) {
 
         carportSVGElements.addRectangle(scopeDisSide, scopeDisTop, beamHeight , length , "stroke:#000000; fill: #F5DEB3");
-
     }
 
     public void sideViewPost(int length, int width) {
