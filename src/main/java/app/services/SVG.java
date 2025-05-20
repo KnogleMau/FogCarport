@@ -19,10 +19,10 @@ public class SVG {
 
     private static final String SVG_Arrow_Def = "  <defs>\n" +
             "        <marker\n" + " id=\"beginArrow\" markerWidth=\"12\" markerHeight=\"10\" refX=\"0\" refY=\"6\"\n" +
-            "                orient=\"auto\"> <path d=\"M0,6 L12,0 L8,6 L12,10 \" style=\"fill: #000000;\" />\n" +
+            "                orient=\"auto\"> <path d=\"M0,5 L10,0 L7,5 L10,10, L0,5 \" style=\"fill: #000000;\" />\n" +
             "        </marker>\n" +
             "        <marker\n" + " id=\"endArrow\" markerWidth=\"12\" markerHeight=\"10\" refX=\"12\" refY=\"6\"\n" +
-            "       orient=\"auto\"><path d=\"M0,0 L12,6 L0,10 L4,6 L0,0 \" style=\"fill: #000000;\" />\n" +
+            "       orient=\"auto\"><path d=\"M0,0 L10,5 L0,10 L3,5 L0,0 \" style=\"fill: #000000;\" />\n" +
             "        </marker>\n" + "  </defs>";
 
     private static final String SVG_Line_With_Arrows_Template ="<line x1=\"%.2f\" y1=\"%.2f\" x2=\"%.2f\" y2=\"%.2f\" " +
@@ -78,11 +78,5 @@ public class SVG {
 
         return svg.append("</svg>").toString();
     }
-  /*  SVG carportSVG = new SVG(0, 0, "0, 0, 855, 690", "100%", "auto" );
-   ctx.attribute("svg thymrleaf navn", carportSVG.toString());
-    ctx.render(HTML);
-
-    i routes for at sætte det til . istedet for , eller lignenge (dyn vid 2 32.30): Locale.SetDefault(new Locale(US));
-    css.Styling for div omkring tegningen  max-width 600px;  max-height 600px;*/
 
 }
