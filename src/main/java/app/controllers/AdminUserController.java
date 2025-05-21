@@ -15,8 +15,14 @@ import java.util.Locale;
 public class AdminUserController {
 
     public static void addAdminRoutes(Javalin app, ConnectionPool connectionPool){
-        app.post("carport-top-svg", ctx -> showDrawingAtOrders(ctx, connectionPool));
 
+        // Til Login
+        app.get("/adminlogin", ctx -> showLoginPage(ctx));
+        app.post("/adminlogin", ctx -> handleLogin(ctx, connectionPool));
+        app.get("/adminMainMenu", ctx -> showAdminMenu(ctx));
+
+
+        app.post("carport-top-svg", ctx -> showDrawingAtOrders(ctx, connectionPool));
     }
 
     public static void showLoginPage(Context ctx) {
