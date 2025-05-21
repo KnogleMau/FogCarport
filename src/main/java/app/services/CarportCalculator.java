@@ -7,10 +7,13 @@ import app.exceptions.DatabaseException;
 import app.persistence.ConnectionPool;
 import app.persistence.ProductMapper;
 
-import java.util.HashMap;
+import java.util.ArrayList;
 import java.util.List;
 
 public class CarportCalculator {
+    private final List<OrderDetail> orderDetails = new ArrayList<>();
+    private static final int BEAM = 1;
+    private static final int RAFTER = 2;
     private static final int POLE = 3;
     private ConnectionPool connectionPool;
     private int lenght;
@@ -25,24 +28,39 @@ public class CarportCalculator {
         this.connectionPool = connectionPool;
     }
 
-   // public List<MaterialVariant> calcCarport() throws DatabaseException {
-      //  calculatePole();
-    //}
+    public void calcCarport() throws DatabaseException {
+        calculatePole();
+        calculateRafter();
+    }
 
     public void calculatePole() throws DatabaseException {
 
         int quantity = poleCalc();
+        Material material = productMapper.selectProduct(POLE, connectionPool);
         List<MaterialVariant> materialVariants = productMapper.selectMaterialVariant(POLE, 300, connectionPool);
-        HashMap<MaterialVariant, Integer> hs = new HashMap<>();
-        hs.put(materialVariants.get(0),quantity);
+
+        OrderDetail detail = new OrderDetail(1, material.getId(), quantity, materialVariants.get(0).getLengthId(), material.getPrice() * (materialVariants.get(0).getLength() / 100 * quantity));
+
+        orderDetails.add(detail);
+
     }
 
     private int poleCalc() {
             return 2 * (2 + (lenght - 130) / 340);
     }
 
-    public int raftersCalculator(int beamLengthCentimeters){
-        int numberOfRafters;
+    private void calculateRafter() throws DatabaseException {
+        int quantity = raftersCalculator(width);
+
+        Material material = productMapper.selectProduct(BEAM, connectionPool);
+        List<MaterialVariant> materialVariants = productMapper.selectMaterialVariant(BEAM, width, connectionPool);
+
+        OrderDetail detail = new OrderDetail(1, material.getId(), quantity, materialVariants.get(0).getLengthId(), material.getPrice() * (materialVariants.get(0).getLength() / 100) * quantity);
+
+        orderDetails.add(detail);
+    }
+
+    public int raftersCalculator(int beamLengthCentimeters) throws DatabaseException {
         double decimalNumberOfRafters;
         //Stand width for used rafters
         final double rafterWidth = 4.5;
@@ -57,9 +75,11 @@ public class CarportCalculator {
                 module length (even if the calculation resultet in 11.07 rafters the criteria for the given module
     length would notify() have been meet) */
 
-        numberOfRafters = (int) Math.ceil(decimalNumberOfRafters);
+        return (int) Math.ceil(decimalNumberOfRafters);
+    }
 
-        return numberOfRafters;
+    public List<OrderDetail> getOrderDetails() {
+        return orderDetails;
     }
 
 }

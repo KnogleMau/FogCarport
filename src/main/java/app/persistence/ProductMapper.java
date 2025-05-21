@@ -42,7 +42,7 @@ public class ProductMapper {
         }
     }
     public List<MaterialVariant> selectMaterialVariant(int productId, int minLength, ConnectionPool connectionPool) throws DatabaseException {
-        String sql = "SELECT * FROM material_length WHERE material_id = ? AND matelial_length >= ?";
+        String sql = "SELECT * FROM material_lengths WHERE material_id = ? AND material_length = ?";
 
         List<MaterialVariant> variants = new ArrayList<>();
 
@@ -58,7 +58,7 @@ public class ProductMapper {
 
             while (rs.next()) {
                 int lengthId = rs.getInt("length_id");
-                int length = rs.getInt("matelial_length");
+                int length = rs.getInt("material_length");
 
                 variants.add(new MaterialVariant(lengthId, length, material));
             }

@@ -18,8 +18,7 @@ public class AdminUserController {
     public static void addAdminRoutes(Javalin app, ConnectionPool connectionPool){
 
         app.post("/adminMainMenu", ctx -> {
-
-      ctx.render("AdminMainMenu");
+       ctx.render("AdminMainMenu");
         });
 
         app.post("/displayOrderDetails", ctx -> showOrderDetailsAndDrawing(ctx, connectionPool));
@@ -31,9 +30,7 @@ public class AdminUserController {
 
         try {
             ArrayList<OrderCustomerDTO> allOrders = OrderAndDetailsDTOMapper.getAllOrderCustomerDTOsMapper();
-
            ctx.attribute("allOrders", allOrders);
-
             ctx.render("adminViewOrders");
         }
         catch (DatabaseException e ){
@@ -49,7 +46,7 @@ public class AdminUserController {
         ctx.render("adminViewOrders");
     }
 
-    public static void showOrderDetailsAndDrawing(Context ctx, ConnectionPool connectionPool){
+        public static void showOrderDetailsAndDrawing(Context ctx, ConnectionPool connectionPool){
         Locale.setDefault(new Locale("US")); // Makes sure that decimals are displayed with . instead of so it can be read by the SVG templates
 
         double length = 0;
