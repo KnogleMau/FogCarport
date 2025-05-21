@@ -1,6 +1,8 @@
 package app.controllers;
 
+import app.entities.AdminUser;
 import app.exceptions.DatabaseException;
+import app.persistence.AdminUserMapper;
 import app.persistence.ConnectionPool;
 import app.services.CarportSVG;
 import io.javalin.Javalin;
@@ -15,6 +17,28 @@ public class AdminUserController {
     public static void addAdminRoutes(Javalin app, ConnectionPool connectionPool){
         app.post("carport-top-svg", ctx -> showDrawingAtOrders(ctx, connectionPool));
 
+    }
+
+    public static void login(Context ctx, ConnectionPool connectionPool) {
+
+        // hent form parametre
+        String email = ctx.formParam("email");
+        String password = ctx.formParam("password");
+
+        // check om bruger findes i db med email og password
+        try {
+            AdminUser user = AdminUserMapper.login(email, password, connectionPool);
+            ctx.sessionAttribute("currentUser", user); //gemmer user i den tid web applikation er tændt
+
+            //hvis ja send videre
+            ctx.render("adminMainMenu.html"); //Mangler siden den skal hen på
+
+
+        } catch (DatabaseException e) {
+            //hvis nej, send tilbage til login, med fejlbesked e
+            ctx.attribute("message", e.getMessage());
+            ctx.render("adminlogin.html");
+        }
     }
 
     public static void showDrawingAtOrders(Context ctx, ConnectionPool connectionPool) throws DatabaseException {
