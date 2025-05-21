@@ -19,25 +19,31 @@ public class AdminUserController {
 
     }
 
-    public static void login(Context ctx, ConnectionPool connectionPool) {
+    public static void showLoginPage(Context ctx) {
+        ctx.render("adminlogin.html");
+    }
 
-        // hent form parametre
+    public static void handleLogin(Context ctx, ConnectionPool connectionPool) {
         String email = ctx.formParam("email");
         String password = ctx.formParam("password");
 
-        // check om bruger findes i db med email og password
         try {
             AdminUser user = AdminUserMapper.login(email, password, connectionPool);
-            ctx.sessionAttribute("currentUser", user); //gemmer user i den tid web applikation er tændt
-
-            //hvis ja send videre
-            ctx.render("adminMainMenu.html"); //Mangler siden den skal hen på
-
-
+            ctx.sessionAttribute("currentUser", user);
+            ctx.redirect("/adminMainMenu");
         } catch (DatabaseException e) {
-            //hvis nej, send tilbage til login, med fejlbesked e
             ctx.attribute("message", e.getMessage());
             ctx.render("adminlogin.html");
+        }
+    }
+
+    public static void showAdminMenu(Context ctx) {
+        AdminUser user = ctx.sessionAttribute("currentUser");
+
+        if (user == null) {
+            ctx.redirect("/adminlogin");
+        } else {
+            ctx.render("adminMainMenu.html");
         }
     }
 

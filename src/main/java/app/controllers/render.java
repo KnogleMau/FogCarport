@@ -8,10 +8,11 @@ public class render {
     public static void routes(Javalin app, ConnectionPool connectionPool) {
         RequestController.AddRequestRoutes(app, connectionPool);
 
-        app.get("/adminlogin", ctx -> {
-            AdminUserController.login(ctx, connectionPool);
-            ctx.render("adminlogin.html");
-        });
+        app.get("/adminlogin", ctx -> AdminUserController.showLoginPage(ctx));
+
+        app.post("/adminlogin", ctx -> AdminUserController.handleLogin(ctx, connectionPool));
+
+        app.get("/adminMainMenu", ctx -> AdminUserController.showAdminMenu(ctx));
 
         app.get("/", ctx -> {
             ctx.render("frontpage.html");
@@ -31,7 +32,7 @@ public class render {
 
 */
 
-        app.get("/", ctx -> {
+        app.get("/123", ctx -> {
             ctx.render("adminViewOrders");
         });
 
