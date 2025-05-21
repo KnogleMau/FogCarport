@@ -6,12 +6,13 @@ import io.javalin.Javalin;
 public class render {
 
     public static void routes(Javalin app, ConnectionPool connectionPool) {
-        RequestController.AddRequestRoutes(app, connectionPool);
-
 
         app.get("/", ctx -> {
             ctx.render("frontpage.html");
-        });
+        })
+
+         AdminUserController.addAdminRoutes(app, connectionPool);
+        RequestController.AddRequestRoutes(app, connectionPool);
 
      /*   app.get("/carportBuilder", ctx -> {
             ctx.render("carportBuilder.html");
@@ -27,18 +28,15 @@ public class render {
 
 */
 
+
         app.get("/123", ctx -> {
+
+       /* app.get("/", ctx -> {
+
+        app.get("/adminViewOrders", ctx -> {
+
             ctx.render("adminViewOrders");
-        });
-
-        AdminUserController.addAdminRoutes(app, connectionPool);
-
-
-        app.get("/frontpage",ctx ->
-        {
-            ctx.render("frontpage.html");
-        });
-
+        });  */
 
     }
 }

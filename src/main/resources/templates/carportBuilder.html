@@ -41,11 +41,11 @@
     </section>
 
     <section class="carportBuilder-content">
-        <form method="post" action="/activeCarportBuilder">
+        <form method="post" action="/carportBuilder">
             <div class="chooseDimensions-content">
                 <div class="chooseLength">
                     <label for="request-length">Vælg længde:</label>
-                    <select id="request-length" name="carport-length">
+                    <select id="request-length" name="carport-length" required>
                         <option value="">Vælg længde</option>
                         <option value="240">240 cm</option>
                         <option value="270">270 cm</option>
@@ -71,7 +71,7 @@
 
                 <div class="chooseWidth">
                     <label for="request-width">Vælg bredde:</label>
-                    <select id="request-width" name="carport-width">
+                    <select id="request-width" name="carport-width" required>
                         <option value="">Vælg bredde</option>
                         <option value="240">240 cm</option>
                         <option value="270">270 cm</option>
@@ -91,20 +91,25 @@
                         <option value="690">690 cm</option>
                         <option value="720">720 cm</option>
                         <option value="750">750 cm</option>
-
                         <option value="780">780 cm</option>
                     </select>
 
                 </div>
             </div>
+<div class="drawingButton">
+            <button type="submit" formaction="/showDrawing" >Se tegning af carport dimensionerne</button>
 
+</div>
             <button type="submit" formaction="/customerContactInformation" class="next-button-container">Videre</button>
-            <div><p th:text="${message}"></p></div>
+
 
         </form>
         <div class="drawing-content">
             <div class="drawing-from-side">
                 <p>Set fra siden</p>
+
+                <div><p th:utext="${drawing}"></p></div>
+
                 <div class="drawing-box-side"></div>
             </div>
             <div class="drawing-from-top">
@@ -118,3 +123,4 @@
 
 </body>
 </html>
+

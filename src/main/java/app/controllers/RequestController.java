@@ -1,44 +1,48 @@
 package app.controllers;
 
 import app.exceptions.DatabaseException;
-import app.persistence.CarportOrderMapper;
 import app.persistence.ConnectionPool;
 import app.persistence.CustomerMapper;
 import app.persistence.RequestMapper;
+import app.services.CarportRequestSVG;
 import io.javalin.Javalin;
 import io.javalin.http.Context;
-import org.bouncycastle.crypto.signers.Ed25519ctxSigner;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.util.Locale;
 
-import static app.persistence.CustomerMapper.getCustomerId;
 
 public class RequestController {
 
     public static void AddRequestRoutes(Javalin app, ConnectionPool connectionPool){
 
         app.get("/carportBuilder", ctx -> {
-            // requestController(ctx, connectionPool);
-            ctx.render("carportBuilder.html");});
+
+            ctx.render("carportBuilder.html");
+            });
+
+        app.post("/showDrawing", ctx -> {
+
+            selectAndDisplayCarport(ctx, connectionPool);
+        });
 
         app.post("/customerContactInformation", ctx ->
-                typeCustomerContactInformation(ctx, connectionPool)  );
+                typeCustomerContactInformation(ctx, connectionPool) );
 
         app.post("/sendRequest", ctx ->
                 requestController(ctx, connectionPool));
     }
 
-    public static void carportBuilder(Javalin app, ConnectionPool connectionPool ){
-        app.post("/activeCarportBuilder", ctx -> {
-
-            selectAndDisplayCarport(ctx, connectionPool);
-        });
-    }
-
     public static void selectAndDisplayCarport(Context ctx, ConnectionPool connectionPool){
+        Locale.setDefault(new Locale("US")); // Makes sure that decimals are displayed with.
+
+        int width = Integer.parseInt(ctx.formParam("carport-width"));
+       int length = Integer.parseInt(ctx.formParam("carport-length"));
+
+        CarportRequestSVG carportRequestSVG = new CarportRequestSVG(length, width );
+
+        String carportSideView = carportRequestSVG.toString();
+
+        ctx.attribute("drawing", carportSideView);
 
         ctx.render("carportBuilder.html");
     }
@@ -49,8 +53,7 @@ public class RequestController {
 
         int width = Integer.parseInt(ctx.formParam("carport-width"));
         int length = Integer.parseInt(ctx.formParam("carport-length"));
-        System.out.println("i typeCustomerContactInformation width: " + width);
-        System.out.println("i typeCustomerContactInformation length: " + length);
+
         ctx.sessionAttribute("carport-width", width);
         ctx.sessionAttribute("carport-length", length);
     }
