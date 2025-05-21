@@ -13,6 +13,11 @@ public class render {
 
          AdminUserController.addAdminRoutes(app, connectionPool);
         RequestController.AddRequestRoutes(app, connectionPool);
+        app.get("/",ctx ->
+
+        {
+            ctx.render("frontpage.html");
+        });
 
      /*   app.get("/carportBuilder", ctx -> {
             ctx.render("carportBuilder.html");
@@ -27,16 +32,10 @@ public class render {
         });
 
 */
-
-
         app.get("/123", ctx -> {
 
-       /* app.get("/", ctx -> {
-
-        app.get("/adminViewOrders", ctx -> {
-
             ctx.render("adminViewOrders");
-        });  */
+        }); 
 
     }
 }
