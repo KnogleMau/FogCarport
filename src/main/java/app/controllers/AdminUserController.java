@@ -1,15 +1,16 @@
 package app.controllers;
 
+
 import app.dto.OrderCustomerDTO;
 import app.dto.OrderDetailsMaterialLengthDTO;
 import app.entities.AdminUser;
 import app.exceptions.DatabaseException;
+import app.persistence.AdminUserMapper;
 import app.persistence.ConnectionPool;
 import app.persistence.OrderAndDetailsDTOMapper;
 import app.services.CarportSVG;
 import io.javalin.Javalin;
 import io.javalin.http.Context;
-
 import java.util.ArrayList;
 import java.util.Locale;
 
@@ -17,6 +18,42 @@ public class AdminUserController {
 
     public static void addAdminRoutes(Javalin app, ConnectionPool connectionPool){
 
+        // Til Login
+        app.get("/adminlogin", ctx -> showLoginPage(ctx));
+        app.post("/adminlogin", ctx -> handleLogin(ctx, connectionPool));
+        app.get("/adminMainMenu", ctx -> showAdminMenu(ctx));
+
+        app.post("carport-top-svg", ctx -> showDrawingAtOrders(ctx, connectionPool));
+    }
+
+    public static void showLoginPage(Context ctx) {
+        ctx.render("adminlogin.html");
+    }
+
+    public static void handleLogin(Context ctx, ConnectionPool connectionPool) {
+        String email = ctx.formParam("email");
+        String password = ctx.formParam("password");
+
+        try {
+            AdminUser user = AdminUserMapper.login(email, password, connectionPool);
+            ctx.sessionAttribute("currentUser", user);
+            ctx.redirect("/adminMainMenu");
+        } catch (DatabaseException e) {
+            ctx.attribute("message", e.getMessage());
+            ctx.render("adminlogin.html");
+        }
+    }
+
+    public static void showAdminMenu(Context ctx) {
+        AdminUser user = ctx.sessionAttribute("currentUser");
+
+        if (user == null) {
+            ctx.redirect("/adminlogin");
+        } else {
+            ctx.render("adminMainMenu.html");
+        }
+    }
+/*
         app.post("/adminMainMenu", ctx -> {
        ctx.render("AdminMainMenu");
         });
@@ -25,6 +62,7 @@ public class AdminUserController {
 
         app.get("/adminViewOrders", ctx -> displayAllOrders(ctx, connectionPool));
     }
+    */
 
     public static void displayAllOrders( Context ctx, ConnectionPool connectionPool){
 
@@ -37,6 +75,7 @@ public class AdminUserController {
 
             ctx.attribute("message", "Der er et problem med databasen.");
             ctx.render("/adminViewOrders");
+
         }
     }
 

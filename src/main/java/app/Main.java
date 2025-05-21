@@ -35,12 +35,8 @@ public class Main {
         }).start(7070);
 
 
-        //render.routes(app, connectionPool);
-        try {
-            new AdminCalculatorController().AdminCalcController();
-        } catch (DatabaseException e) {
-            e.printStackTrace();
-        }
+        render.routes(app, connectionPool);
+
 
     }
 }
