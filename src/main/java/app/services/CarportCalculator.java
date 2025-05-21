@@ -7,11 +7,11 @@ import app.exceptions.DatabaseException;
 import app.persistence.ConnectionPool;
 import app.persistence.MaterialMapper;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 public class CarportCalculator {
     private final List<OrderDetail> orderDetails = new ArrayList<>();
+    private List<Integer> polePositions;
     private static final int BEAM = 1;
     private static final int RAFTER = 2;
     private static final int POLE = 3;
@@ -31,6 +31,8 @@ public class CarportCalculator {
     public void calcCarport() throws DatabaseException {
         calculatePole();
         calculateRafter();
+        polePositions();
+
     }
 
     public void calculatePole() throws DatabaseException {
@@ -80,6 +82,59 @@ public class CarportCalculator {
 
     public List<OrderDetail> getOrderDetails() {
         return orderDetails;
+    }
+
+    public Map<MaterialVariant, Integer> beamCalculator(int materialId) throws DatabaseException {
+        Map<MaterialVariant, Integer> beamsNeeded = new HashMap<>();
+        int remaining = this.lenght;
+
+        List<MaterialVariant> variants = productMapper.selectMaterialVariant(materialId, 0, connectionPool);
+
+        //Sorts the boards by length, in reversed order so the biggest comes first. This allows the if-statement to work as intended.
+        variants.sort(Comparator.comparingInt(MaterialVariant::getLength).reversed());
+
+        while(remaining > 0) {
+            for(MaterialVariant variant : variants) {
+                int boardLength = variant.getLength();
+
+                if(boardLength <= remaining) {
+                    beamsNeeded.put(variant, beamsNeeded.getOrDefault(variant,0)+2);
+                    remaining -= boardLength;
+                    break;
+                }
+            }
+
+        }
+            return beamsNeeded;
+
+    }
+
+    public List<Integer> polePositionCalculator(int carportLength, int maxSpaceBetweenPoles, int startOffset, int maxEndOverhang) {
+
+        List<Integer> polePositions = new ArrayList<>();
+
+        int position = startOffset;
+
+        while (position < carportLength) {
+            polePositions.add(position);
+            position += maxSpaceBetweenPoles;
+        }
+
+        int lastPost = polePositions.get(polePositions.size() - 1);
+        if (carportLength - lastPost > maxEndOverhang) {
+            polePositions.add(carportLength);
+        }
+
+        return polePositions;
+    }
+
+    public void polePositions(){
+        int carportLength = this.lenght;
+        int startOffset = 30;
+        int maxSpaceBetweenPoles = 340;
+        int maxEndOverhang = 100;
+
+        this.polePositions = polePositionCalculator(carportLength, maxSpaceBetweenPoles, startOffset, maxEndOverhang);
     }
 
 }
