@@ -23,7 +23,7 @@ public class AdminUserController {
         app.post("/adminlogin", ctx -> handleLogin(ctx, connectionPool));
         app.get("/adminMainMenu", ctx -> showAdminMenu(ctx));
 
-        app.post("carport-top-svg", ctx -> showDrawingAtOrders(ctx, connectionPool));
+        app.post("carport-top-svg", ctx -> showOrderDetailsAndDrawing(ctx, connectionPool));
     }
 
     public static void showLoginPage(Context ctx) {

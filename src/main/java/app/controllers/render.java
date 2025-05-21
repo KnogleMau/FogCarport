@@ -9,7 +9,7 @@ public class render {
 
         app.get("/", ctx -> {
             ctx.render("frontpage.html");
-        })
+        });
 
          AdminUserController.addAdminRoutes(app, connectionPool);
         RequestController.AddRequestRoutes(app, connectionPool);
