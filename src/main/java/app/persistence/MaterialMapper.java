@@ -68,5 +68,36 @@ public class MaterialMapper {
             throw new RuntimeException(e);
         }
     }
+    public List<MaterialVariant> selectAllMaterialVariant(int productId, int minLength, ConnectionPool connectionPool) throws DatabaseException {
+        String sql = "SELECT * FROM material_lengths WHERE material_id = ? AND material_length >= ?";
+
+        List<MaterialVariant> variants = new ArrayList<>();
+
+        try (Connection connection = connectionPool.getConnection();
+             PreparedStatement ps = connection.prepareStatement(sql)) {
+
+            ps.setInt(1, productId);
+            ps.setInt(2, minLength);
+
+            ResultSet rs = ps.executeQuery();
+
+            Material material = selectProduct(productId, connectionPool); // kun én gang
+
+            while (rs.next()) {
+                int lengthId = rs.getInt("length_id");
+                int length = rs.getInt("material_length");
+
+                variants.add(new MaterialVariant(lengthId, length, material));
+            }
+
+            for(MaterialVariant variant : variants){
+                System.out.println(variant);
+            }
+            return variants;
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
 
 }
