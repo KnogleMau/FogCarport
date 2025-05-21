@@ -31,6 +31,7 @@ public class CarportCalculator {
     public void calcCarport() throws DatabaseException {
         calculatePole();
         calculateRafter();
+        calculateBeam();
     }
 
     public void calculatePole() throws DatabaseException {
@@ -82,30 +83,6 @@ public class CarportCalculator {
         return orderDetails;
     }
 
-    public Map<MaterialVariant, Integer> beamCalculator(int materialId) throws DatabaseException {
-        Map<MaterialVariant, Integer> beamsNeeded = new HashMap<>();
-        int remaining = this.lenght;
-
-        List<MaterialVariant> variants = materialMapper.selectAllMaterialVariant(materialId, 0, connectionPool);
-
-        //Sorts the boards by length, in reversed order so the biggest comes first. This allows the if-statement to work as intended.
-        variants.sort(Comparator.comparingInt(MaterialVariant::getLength).reversed());
-
-        while (remaining > 0) {
-            for (MaterialVariant variant : variants) {
-                int boardLength = variant.getLength();
-
-                if (boardLength <= remaining) {
-                    beamsNeeded.put(variant, beamsNeeded.getOrDefault(variant, 0) + 2);
-                    remaining -= boardLength;
-                    break;
-                }
-            }
-
-        }
-        return beamsNeeded;
-
-    }
 
     public void calculateBeam() throws DatabaseException {
         int quantity = calcBeam();
@@ -114,8 +91,12 @@ public class CarportCalculator {
         if (quantity == 2) {
             int mLength = 420;
             List<MaterialVariant> materialVariants = materialMapper.selectMaterialVariant(BEAM, mLength , connectionPool);
+            OrderDetail detail = new OrderDetail(5, material.getId(), quantity * 2, materialVariants.get(0).getLengthId(), material.getPrice() * (materialVariants.get(0).getLength() / 100) * (quantity * 2));
+            orderDetails.add(detail);
         } else if(quantity == 1) {
             List<MaterialVariant> materialVariants = materialMapper.selectMaterialVariant(BEAM, lenght, connectionPool);
+            OrderDetail detail = new OrderDetail(5, material.getId(), quantity * 2, materialVariants.get(0).getLengthId(), material.getPrice() * (materialVariants.get(0).getLength() / 100) * (quantity * 2));
+            orderDetails.add(detail);
         } else {
             System.out.println("FEJL");
         }
