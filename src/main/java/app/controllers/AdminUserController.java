@@ -23,8 +23,16 @@ public class AdminUserController {
         app.post("/adminlogin", ctx -> handleLogin(ctx, connectionPool));
         app.get("/adminMainMenu", ctx -> showAdminMenu(ctx));
 
-        app.post("carport-top-svg", ctx -> showDrawingAtOrders(ctx, connectionPool));
+       // app.post("carport-top-svg", ctx -> showDrawingAtOrders(ctx, connectionPool));
+
+
+
+        app.post("/displayOrderDetails", ctx -> showOrderDetailsAndDrawing(ctx, connectionPool));
+
+        app.get("/adminViewOrders", ctx -> displayAllOrders(ctx, connectionPool));
     }
+
+
 
     public static void showLoginPage(Context ctx) {
         ctx.render("adminlogin.html");
@@ -53,16 +61,8 @@ public class AdminUserController {
             ctx.render("adminMainMenu.html");
         }
     }
-/*
-        app.post("/adminMainMenu", ctx -> {
-       ctx.render("AdminMainMenu");
-        });
 
-        app.post("/displayOrderDetails", ctx -> showOrderDetailsAndDrawing(ctx, connectionPool));
 
-        app.get("/adminViewOrders", ctx -> displayAllOrders(ctx, connectionPool));
-    }
-    */
 
     public static void displayAllOrders( Context ctx, ConnectionPool connectionPool){
 
@@ -78,12 +78,12 @@ public class AdminUserController {
 
         }
     }
-
+/*
     public void adminMainMenu(Context ctx, ConnectionPool connectionPool){
         AdminUser admin = ctx.sessionAttribute("adminUser");
         ctx.render("adminMainMenu");
         ctx.render("adminViewOrders");
-    }
+    }  */
 
         public static void showOrderDetailsAndDrawing(Context ctx, ConnectionPool connectionPool){
         Locale.setDefault(new Locale("US")); // Makes sure that decimals are displayed with . instead of so it can be read by the SVG templates

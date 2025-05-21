@@ -19,6 +19,7 @@ public class CarportSVG {
     int roofOverhangToBeam = (600 - 530) / 2; // Values from delivered topVieW drawing in carport build guide (half dist roof width - post placements regards carport width).
     double rafterWidth = 4.5; // With of rafters in the order details of the construct manual we got from the customer
     int sideRoofOverhangPost = roofOverhangToBeam - postDimension + beamWidthInt;  // Assuming same roof owerhang for all possible width dimensions
+    double rafterModuleLength = 59.5;
 
     public CarportSVG(double length, double width) throws DatabaseException {
         this.length = length;
@@ -49,7 +50,9 @@ public class CarportSVG {
     private void addModuleArrowsAndValues(int lengthAr) {
 
         CarportCalculator carportCalculator = new CarportCalculator(240, 240, connectionPool); // Needed to use che raftersCalculator from the object
-        int amountOFRafters = carportCalculator.raftersCalculator(lengthAr);
+
+        double amountOFRafters  =  (lengthAr -rafterWidth)/rafterModuleLength + 1;
+       // int amountOFRafters = carportCalculator.raftersCalculator(lengthAr);
         double actModDist = (lengthAr - rafterWidth) / (amountOFRafters - 1); // Actual module distance. Ammount of rafters is reduced by one
         double moduleStartPoint = rafterWidth / 2; // Because a module begin at center of the rafters width
         double spaceDrawingToModuleArrows = 35; // place Arrows outside the carport sketch
@@ -137,8 +140,6 @@ public class CarportSVG {
             drawing between arrow heads on double arrow set number 3 and 210 is the next distance on arrow set 4 under the displayed shed*/
 
        int maxCarportLenghtFourPosts = maxPostDistanceBeamPostsOuterMeassure + maxRoofOverhang; // assuming max total roof over hang is 130
-
-        int maxInnerPostDistBeamOrientedPosts = maxPostDistanceBeamPostsOuterMeassure - 2 * postDimension; // Longest accepted distance between based on side view sketch
 
         // if we assume post placement would be the same without shed
         int secondPost = startPost + postDimension + maxInnerPostDistBeamOrientedPosts;
