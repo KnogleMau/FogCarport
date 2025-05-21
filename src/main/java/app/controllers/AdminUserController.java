@@ -60,7 +60,6 @@ public class AdminUserController {
         try {
             ArrayList<OrderDetailsMaterialLengthDTO> detailsDTO = OrderAndDetailsDTOMapper.getOrderDetailsMapper(orderId);
         for(OrderDetailsMaterialLengthDTO dto : detailsDTO){
-
             if(dto.getMaterialDescription().substring(0,2).toLowerCase().equals("sp"));{
                    width = dto.getMaterialLength(); }
             if(dto.getMaterialDescription().substring(0,2).toLowerCase().equals("re")) {
