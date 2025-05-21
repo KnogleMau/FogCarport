@@ -22,7 +22,6 @@ class CarportCalculatorTest {
     @Test
     void carportCalculator() throws DatabaseException {
 
-
     }
 
     @Test
