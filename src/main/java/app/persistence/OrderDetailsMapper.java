@@ -23,9 +23,11 @@ public class OrderDetailsMapper {
                 ps.setInt(3, detail.getQuantity());
                 ps.setInt(4, detail.getLengthId());
                 ps.setDouble(5, detail.getPrice());
+
+                ps.addBatch();
             }
 
-            ps.executeUpdate();
+            ps.executeBatch();
 
         } catch (SQLException e) {
             throw new RuntimeException(e);

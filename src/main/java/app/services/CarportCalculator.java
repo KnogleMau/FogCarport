@@ -39,7 +39,7 @@ public class CarportCalculator {
         Material material = materialMapper.selectProduct(POLE, connectionPool);
         List<MaterialVariant> materialVariants = materialMapper.selectMaterialVariant(POLE, 300, connectionPool);
 
-        OrderDetail detail = new OrderDetail(1, material.getId(), quantity, materialVariants.get(0).getLengthId(), material.getPrice() * (materialVariants.get(0).getLength() / 100 * quantity));
+        OrderDetail detail = new OrderDetail(5, material.getId(), quantity, materialVariants.get(0).getLengthId(), material.getPrice() * (materialVariants.get(0).getLength() / 100 * quantity));
 
         orderDetails.add(detail);
 
@@ -55,7 +55,7 @@ public class CarportCalculator {
         Material material = materialMapper.selectProduct(BEAM, connectionPool);
         List<MaterialVariant> materialVariants = materialMapper.selectMaterialVariant(BEAM, width, connectionPool);
 
-        OrderDetail detail = new OrderDetail(1, material.getId(), quantity, materialVariants.get(0).getLengthId(), material.getPrice() * (materialVariants.get(0).getLength() / 100) * quantity);
+        OrderDetail detail = new OrderDetail(5, material.getId(), quantity, materialVariants.get(0).getLengthId(), material.getPrice() * (materialVariants.get(0).getLength() / 100) * quantity);
 
         orderDetails.add(detail);
     }

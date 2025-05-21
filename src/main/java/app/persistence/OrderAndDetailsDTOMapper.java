@@ -48,14 +48,14 @@ public class OrderAndDetailsDTOMapper {
 
     public static ArrayList<OrderDetailsMaterialLengthDTO> getOrderDetailsMapper(int orderId) throws DatabaseException {
         ArrayList<OrderDetailsMaterialLengthDTO> orderDetails = new ArrayList<>();
-        System.out.println("5");
+
         String sqlOrderDetails = "SELECT order_details.quantity, material_name, material_unit, material_description, material_length " +
                 "FROM orders INNER JOIN order_details ON orders.order_id = order_details.order_id INNER JOIN material_list ON " +
                 "order_details.material_id = material_list.material_id INNER JOIN material_lengths ON order_details.length_id = " +
                 "material_lengths.length_id WHERE orders.order_id = ?";
-        System.out.println("4");
+
         ConnectionPool connectionPool = ConnectionPool.getInstance();
-        System.out.println("3");
+
         try (
                 Connection connection = connectionPool.getConnection();
                 PreparedStatement ps = connection.prepareStatement(sqlOrderDetails)) {
@@ -77,7 +77,6 @@ public class OrderAndDetailsDTOMapper {
         catch(SQLException e){
             e.printStackTrace();
             throw new DatabaseException("Der er ikke nogen forbindelse til databasen lige nu. Prøv igen senere.");
-
         }
         return orderDetails;
     }

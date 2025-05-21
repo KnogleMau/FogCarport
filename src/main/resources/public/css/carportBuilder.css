@@ -51,8 +51,6 @@
     align-self: center;
 }
 
-
-
 @keyframes image-marquee {
     0% {
         transform: translateX(65%);  /* Start completely off the screen to the right */
@@ -155,4 +153,16 @@
 
 .next-button:hover {
     background-color: #bfbfbf;
+}
+
+.drawingButton button {
+    padding: 12px 18px;
+    border: none;            /* Ingen synlig kant */
+    cursor: pointer;
+    border-radius: 7px;
+    color: white;
+    font-size: 18px;
+    font-weight: bold;
+
+    background: #002090;
 }
