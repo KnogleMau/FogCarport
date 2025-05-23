@@ -2,6 +2,7 @@ package app.controllers;
 
 import app.entities.OrderDetail;
 import app.exceptions.DatabaseException;
+import app.persistence.ConnectionPool;
 import app.persistence.OrderDetailsMapper;
 import app.services.CarportCalculator;
 
@@ -14,17 +15,20 @@ public class AdminCalculatorController {
 
 
     public void calcController(int length, int width, int orderId) throws DatabaseException {
-        new CarportCalculator(length, width, connectionPool);
+        calculator  = new CarportCalculator(length, width, connectionPool);
         calculator.calcCarport();
         List<OrderDetail> details = calculator.getOrderDetails();
 
-        OrderDetailsMapper o = new OrderDetailsMapper();
+        for(OrderDetail detail : details){
+            System.out.println(detail);
+        }
+      /*  OrderDetailsMapper o = new OrderDetailsMapper();
         for(OrderDetail detail : details){
         detail.setOrderId(orderId);
         }
 
         o.insertOrderDetails(details, connectionPool);
-
+       */
     }
 
     public int calcPrice(int length, int width){

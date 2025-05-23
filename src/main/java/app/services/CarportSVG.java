@@ -46,7 +46,7 @@ public class CarportSVG {
 
     }  */
 
-    private void addModuleArrowsAndValues(int lengthAr) {
+    private void addModuleArrowsAndValues(int lengthAr) throws DatabaseException {
 
         CarportCalculator carportCalculator = new CarportCalculator(240, 240, connectionPool); // Needed to use che raftersCalculator from the object
         int amountOFRafters = carportCalculator.raftersCalculator(lengthAr);
@@ -138,7 +138,7 @@ public class CarportSVG {
 
        int maxCarportLenghtFourPosts = maxPostDistanceBeamPostsOuterMeassure + maxRoofOverhang; // assuming max total roof over hang is 130
 
-        int maxInnerPostDistBeamOrientedPosts = maxPostDistanceBeamPostsOuterMeassure - 2 * postDimension; // Longest accepted distance between based on side view sketch
+        maxInnerPostDistBeamOrientedPosts = maxPostDistanceBeamPostsOuterMeassure - 2 * postDimension; // Longest accepted distance between based on side view sketch
 
         // if we assume post placement would be the same without shed
         int secondPost = startPost + postDimension + maxInnerPostDistBeamOrientedPosts;
