@@ -14,8 +14,7 @@ public class RequestMapper {
 
     public static void requestMapper(int carportWidth, int carportLength, int customerId) throws DatabaseException {
 
-        int carportHeight = 210;  // As in delivered sketch because we currently dont let the customer select height:
-
+        int carportHeight = 210;  // As in delivered sketch because we currently don't let the customer select height:
 
         String sql = "insert into requests (request_width, request_length, request_height, customer_id) values (?, ?, ?, ?)";
 
@@ -23,23 +22,21 @@ public class RequestMapper {
                 Connection connection = connectionPool.getConnection();
                 PreparedStatement ps = connection.prepareStatement(sql)
         ) {
+            System.out.println("requestMapper carportWidth: " + carportWidth + " carportLength: " + carportLength + " customerId: " + customerId);
             ps.setInt(1, carportWidth);
             ps.setInt(2, carportLength);
             ps.setInt(3, carportHeight);
             ps.setInt(4, customerId);
 
-
             int rowsAffected = ps.executeUpdate();
-            // ResultSet rsThree = ps.executeQuery();
+
             if (rowsAffected == 0) {
                 throw new DatabaseException("Ingen rækker blev indsat i requests-tabellen.");
             }
         } catch (SQLException e) {
             throw new DatabaseException("Fejl ved indsætning af customerId med mere i requests", e.getMessage());
-
         }
     }
-
 
     public static CarportRequest getCarportRequest(int userID) throws DatabaseException {
         CarportRequest carportRequest;
@@ -50,7 +47,7 @@ public class RequestMapper {
                 PreparedStatement ps = connection.prepareStatement(sql)
         ) {
             ps.setInt(1, userID);
-
+            System.out.println("getCarportReques : customerID = " + userID);
             ResultSet rs = ps.executeQuery();
             if (rs.next()) {
                 int requestID = rs.getInt("request_id");
