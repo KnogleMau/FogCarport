@@ -7,6 +7,7 @@ import app.controllers.render;
 import app.exceptions.DatabaseException;
 import app.persistence.ConnectionPool;
 import app.persistence.CustomerMapper;
+import app.services.CarportCalculator;
 import io.javalin.Javalin;
 import io.javalin.rendering.template.JavalinThymeleaf;
 import java.util.logging.Logger;
@@ -32,8 +33,10 @@ public class Main {
             config.fileRenderer(new JavalinThymeleaf(ThymeleafConfig.templateEngine()));
         }).start(7070);
 
+        CarportCalculator c = new CarportCalculator(780,600,connectionPool);
+        c.calcBeam();
 
-        render.routes(app, connectionPool);
+        //render.routes(app, connectionPool);
 
 
     }

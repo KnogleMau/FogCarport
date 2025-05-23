@@ -24,9 +24,13 @@ public class AdminUserController {
         app.get("/adminMainMenu", ctx -> showAdminMenu(ctx));
 
 
+
         app.post("/displayOrderDetails", ctx -> showOrderDetailsAndDrawing(ctx, connectionPool));
 
         app.get("/adminViewOrders", ctx -> displayAllOrders(ctx, connectionPool));
+
+        app.post("carport-top-svg", ctx -> showOrderDetailsAndDrawing(ctx, connectionPool));
+
     }
 
 
