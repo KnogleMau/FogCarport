@@ -23,9 +23,6 @@ public class AdminUserController {
         app.post("/adminlogin", ctx -> handleLogin(ctx, connectionPool));
         app.get("/adminMainMenu", ctx -> showAdminMenu(ctx));
 
-       // app.post("carport-top-svg", ctx -> showDrawingAtOrders(ctx, connectionPool));
-
-
 
         app.post("/displayOrderDetails", ctx -> showOrderDetailsAndDrawing(ctx, connectionPool));
 
@@ -61,8 +58,6 @@ public class AdminUserController {
             ctx.render("adminMainMenu.html");
         }
     }
-
-
 
     public static void displayAllOrders( Context ctx, ConnectionPool connectionPool){
 
