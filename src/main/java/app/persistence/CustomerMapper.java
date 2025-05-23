@@ -1,7 +1,6 @@
 package app.persistence;
 
 import app.exceptions.DatabaseException;
-import org.eclipse.jetty.util.thread.TryExecutor;
 
 import java.sql.*;
 
@@ -20,11 +19,15 @@ public class CustomerMapper {
                 ResultSet rs = psTwo.executeQuery();
 
                 if (rs.next()) {
+
                     String correctCity = rs.getString("city");
+                    // makes sure that typed city can match the coresponding city in the database
+                    city = city.toLowerCase();
+                    correctCity =  correctCity.toLowerCase();
 
                     if (correctCity.equals(city)) {
 
-                        String sqlTwo = "insert into customer_information ( first_name, last_name, address, zip_code, phone_number, customer_email ) values (?,?,?,?,?,?)";
+                        String sqlTwo = "insert into customer_information (first_name, last_name, address, zip_code, phone_number, customer_email ) values (?,?,?,?,?,?)";
 
                         try (
                                 PreparedStatement ps = connection.prepareStatement(sqlTwo);
@@ -39,10 +42,17 @@ public class CustomerMapper {
                             ps.executeUpdate();
 
                         } catch (SQLException e) {
+
+                            System.out.println("customerMapper SQLException m1:");
                             throw new DatabaseException("Database fejl ved indsætning af kundens data i customer_information");
                         }
-                    } }
+                    }
+                    else{ System.out.println("customerMapper m1b: City og zip stemmer ikke overens");
+                        throw new DatabaseException("Din by og postnummer matcher ikke");}
+
+                }
                 else{
+                    System.out.println("customerMapper m2:");
                     throw new DatabaseException("Din indtastede by matchede ikke med postnummeret");
                 }
             }
@@ -51,6 +61,9 @@ public class CustomerMapper {
             System.out.println("customerMapper SQL catch m3: ");
 
             throw new DatabaseException("Din by og postnummer skal udfyldes");
+        }
+        catch (NullPointerException e){
+            throw new DatabaseException("Din indtastede by matchede ikke med postnummeret");
         }
     }
 
@@ -64,7 +77,6 @@ public class CustomerMapper {
                 PreparedStatement ps = connection.prepareStatement(sql)
         )
         {
-
             ps.setString(1, firstname);
             ps.setString(2, lastname);
             ps.setString(3, email);
