@@ -18,17 +18,16 @@ public class AdminCalculatorController {
         calculator  = new CarportCalculator(length, width, connectionPool);
         calculator.calcCarport();
         List<OrderDetail> details = calculator.getOrderDetails();
-
         for(OrderDetail detail : details){
             System.out.println(detail);
         }
-      /*  OrderDetailsMapper o = new OrderDetailsMapper();
+        OrderDetailsMapper o = new OrderDetailsMapper();
         for(OrderDetail detail : details){
         detail.setOrderId(orderId);
         }
 
         o.insertOrderDetails(details, connectionPool);
-       */
+
     }
 
     public int calcPrice(int length, int width){

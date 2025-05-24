@@ -12,7 +12,7 @@ import java.io.IOException;
 
 public class Sendgrid {
 
-    public void sendGridAction(String email, String name, String template) throws IOException {
+    public void sendGridAction(String email, String name) throws IOException {
         Email from = new Email("mav.solver@hotmail.com");
         from.setName("Johannes Fog Byggemarked");
 
@@ -39,7 +39,7 @@ public class Sendgrid {
             request.setEndpoint("mail/send");
 
             // indsæt dit skabelonid herunder
-            mail.templateId = template;
+            mail.templateId = "d-1dc8cdf4e45d44139c6ac4711ea45adc";
             request.setBody(mail.build());
             Response response = sg.api(request);
             System.out.println(response.getStatusCode());
