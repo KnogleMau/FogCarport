@@ -7,6 +7,7 @@ import app.persistence.*;
 
 import app.persistence.CustomerMapper;
 import app.persistence.RequestMapper;
+import app.services.CarportCalculator;
 import app.services.CarportRequestSVG;
 
 import io.javalin.Javalin;
@@ -93,9 +94,14 @@ public class RequestController {
             // registers the carport request
             RequestMapper.requestMapper(carportWidth, carportLength, customerId);
 
-            OrdersMapper ordersMapper = new OrdersMapper();
             CarportRequest carportRequest = RequestMapper.getCarportRequest(customerId);
-            //    ordersMapper.insertIntoOrders(customerId,carportRequest.getRequestID(), 4000, "pending");
+
+
+            OrdersMapper ordersMapper = new OrdersMapper();
+            ordersMapper.insertIntoOrders(customerId,carportRequest.getRequestID(), 4000, "pending");
+            int orderId = ordersMapper.getOrderId(customerId, carportRequest.getRequestID());
+            acc.calcController(carportLength, carportWidth, orderId);
+
 
             ctx.render("confirmationPageUser.html");
         }

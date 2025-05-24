@@ -33,10 +33,9 @@ public class Main {
             config.fileRenderer(new JavalinThymeleaf(ThymeleafConfig.templateEngine()));
         }).start(7070);
 
-        CarportCalculator c = new CarportCalculator(780,600,connectionPool);
-        c.calcBeam();
 
-        //render.routes(app, connectionPool);
+
+        render.routes(app, connectionPool);
 
 
     }
