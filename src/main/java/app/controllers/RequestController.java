@@ -10,8 +10,11 @@ import app.persistence.RequestMapper;
 import app.services.CarportCalculator;
 import app.services.CarportRequestSVG;
 
+import app.services.Sendgrid;
 import io.javalin.Javalin;
 import io.javalin.http.Context;
+
+import java.io.IOException;
 import java.util.Locale;
 
 public class RequestController {
@@ -101,7 +104,8 @@ public class RequestController {
             ordersMapper.insertIntoOrders(customerId,carportRequest.getRequestID(), 4000, "pending");
             int orderId = ordersMapper.getOrderId(customerId, carportRequest.getRequestID());
             acc.calcController(carportLength, carportWidth, orderId);
-
+            Sendgrid sendgrid = new Sendgrid();
+            sendgrid.sendGridAction(email, firstname + lastname);
 
             ctx.render("confirmationPageUser.html");
         }
@@ -120,6 +124,8 @@ public class RequestController {
             System.out.println("requestController catch m3: ");
             ctx.attribute("message", "Det skete en fejl, med dit valg af carport dimensionerm, prøv venligst igen.");
             ctx.render("carportBuilder.html");
+        } catch (IOException e) {
+            throw new RuntimeException(e);
         }
     }
 }
