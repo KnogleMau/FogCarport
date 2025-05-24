@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>AdminMainMenu</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="../public/css/adminMainMenu.css" th:href="@{/css/adminMainMenu.css}" rel="stylesheet"/>
+</head>
+
+<body>
+<div class="mainMenu">
+    <div class ="diaplayCurrentAdminPlusBack">
+        <div class="emailPlacement">
+            <!--  <span class="email"  th:text="${user.email}">brugernavn@email.com</span> -->
+        </div>
+        <a href="/adminlogin">
+                <button type="button" class="anybutton">Log ud</button>
+            </a>
+
+    </div>
+    <div class="routesArea">
+        <div class ="topbottonsPlacement">
+            <a href="/adminProducts">
+                <button type="button" class="anybutton">Produkter</button>
+            </a>
+
+            <a href="/adminCarportRequests">
+                <button type="button" class="anybutton">Carport anmodninger</button>
+            </a>
+        </div>
+        <div class ="secondRowBottonsPlacement">
+            <a href="/addAdmin">
+                <button type="button" class="anybutton">Tilføj administrator</button>
+            </a>
+
+            <a href="/adminViewOrders">
+                <button type="button" class="anybutton">Se ordre</button>
+            </a>
+        </div>
+
+
+    </div>
+
+</div>
+</body>
+</html>

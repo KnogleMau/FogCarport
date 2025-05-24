@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="/css/customerContactInformation.css" rel="stylesheet">
+    <title>customerContactInformation</title>
+</head>
+<body>
+
+<div class="customerContactInformation">
+
+    <header class ="customerContactInformation-header">
+        <div class ="FOG-imgLogo">
+            <img src="/images/fogLogo.png" alt="FogLogo img" class="fogLogo">
+        </div>
+        <div class ="customerContactInformation-topbar">
+            <div class="marquee-images">
+                <img src="/images/fogLogo.png" alt="smallFogLogo img" class="smallFoglogo">
+                <img src="/images/Scene_1.png" alt="Scene_1 img">
+                <img src="/images/Scene_2.png" alt="Scene_2 img">
+                <img src="/images/Scene_3.png" alt="Scene_3 img">
+                <img src="/images/Scene_4.png" alt="Scene_4 img">
+                <img src="/images/Scene_5.png" alt="Scene_5 img">
+                <img src="/images/fogLogo.png" alt="smallFogLogo img" class="smallFoglogo">
+                <img src="/images/Scene_1.png" alt="Scene_1 img">
+                <img src="/images/Scene_2.png" alt="Scene_2 img">
+                <img src="/images/Scene_3.png" alt="Scene_3 img">
+                <img src="/images/Scene_4.png" alt="Scene_4 img">
+                <img src="/images/Scene_5.png" alt="Scene_5 img">
+            </div>
+        </div>
+    </header> <!-- customerContactInformation-header -->
+
+    <section class="h2-box">
+        <div>
+            <h2 class="h2-text">Indtast venligst dine kontaktoplysninger nedenfor:</h2>
+        </div>
+    </section>
+    <form method="post" >
+        <section class="contactInformationWrapper">
+            <div class="contactInformationFields">
+
+                <div class="row">
+                    <div class="form-field">
+                        <label for="first-name">Navn: <span class="required">*</span></label>
+                        <input type="text" id="first-name" name="first-name" required>
+                    </div>
+                    <div class="form-field">
+                        <label for="last-name">Efternavn: <span class="required">*</span></label>
+                        <input type="text" id="last-name" name="last-name" required>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-field">
+                        <label for="address">Adresse: <span class="required">*</span></label>
+                        <input type="text" id="address" name="address" required>
+                    </div>
+
+                    <div class="form-field">
+                        <label for="city">By: <span class="required">*</span></label>
+                        <input type="text" id="city" name="city" required>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-field">
+                        <label for="phone-number">Telefonnummer: <span class="required">*</span></label>
+                        <input type="text" id="phone-number" name="phone-number" required>
+                    </div>
+                    <div class="form-field">
+                        <label for="zip-code">Postnummer: <span class="required">*</span></label>
+                        <input type="text" id="zip-code" name="zip-code" required>
+                    </div>
+                </div>
+                <div class="row center-email">
+                    <div class="form-field">
+                        <label for="e-mail">E-mail: <span class="required" >*</span></label>
+                        <input type="email" id="e-mail" name="e-mail" required>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <button type="submit"  formaction="/sendRequest" class="button-selvbyg">Bestil tilbud</button>
+
+    </form>
+
+</div> <!-- Frontpage div -->
+
+</body>
+</html>

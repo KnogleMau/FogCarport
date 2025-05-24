@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+<title>Admin panel</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link href="../public/css/adminlogin.css" th:href="@{/css/adminlogin.css}" rel="stylesheet"/>
+</head>
+
+<body>
+<div class="adminlogin">
+  <div class="loginPanel">
+    <h1 class="admin-h1">Admin login</h1>
+
+    <div class="input-box">
+      <form method="post" action="/adminlogin">
+        <div class="row_h2-input_box">
+          <label class="input-box-label" for="email">Brugernavn:</label>
+          <input class="admin-input_box" id="email" type="email" name="email" placeholder="indtast din email" required/>
+        </div>
+        <div class="row_h2-input_box">
+          <label class="input-box-label" for="password">Kodeord:</label>
+          <input class="admin-input_box" id="password" type="password" name="password" placeholder="indtast dit kodeord" required/>
+        </div>
+        <button class="login-button" type="submit">Log på</button>
+        <br>
+        <a class="text-box" href="/createAdminUser">Opret ny administrator</a>
+
+        <!-- <div><p th:text="${message}"></p></div> -->
+       </form>
+     </div>
+   </div>
+
+ </div>
+
+ </body>
+ </html>

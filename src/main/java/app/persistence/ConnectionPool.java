@@ -23,6 +23,10 @@ public class  ConnectionPool {
     private ConnectionPool() {
         // Prevent instantiation
     }
+    public static ConnectionPool getInstance() {
+        return  getInstance("", "", "", "");
+
+    }
 
     /***
      * Getting a singleton instance of a Hikari Connection Pool with specific credentials

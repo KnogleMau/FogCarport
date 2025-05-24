@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta charset="UTF-8">
+    <link href="/css/adminViewOrders.css" rel="stylesheet">
+    <title>Vis Carport</title>
+</head>
+<body>
+<div class="background">
+<div>
+    <form th:action="@{/adminMainMenu}" method="post">
+        <button class="buttonShape colorRed placement" type="submit">Admin menu</button>
+    </form>
+</div>
+<div class="message">
+
+</div>
+    <div class="display">
+<div>
+    <h2 class="headerOne">Ordre</h2>
+
+    <table class="orderTable">
+        <tr class="orderTable">
+            <th class="orderTableDescription">ID-nr</th>
+            <th class="orderTableDescription">pris</th>
+            <th class="orderTableDescription">Status</th>
+            <th class="orderTableDescription">Navn</th>
+            <th class="orderTableDescription">Efternavn</th>
+            <th class="orderTableDescription">MobilNr</th>
+            <th class="orderTableDescription">E-mail</th>
+        </tr>
+        <tr th:each= "OrderCustomerDTO : ${allOrders}">
+
+            <td th:text="${OrderCustomerDTO.orderID}"></td>
+            <td th:text="${OrderCustomerDTO.totalPrice}"></td>
+            <td th:text="${OrderCustomerDTO.orderStatus}"></td>
+            <td th:text="${OrderCustomerDTO.firstName}"></td>
+            <td th:text="${OrderCustomerDTO.lastName}"></td>
+            <td th:text="${OrderCustomerDTO.phoneNumber}"></td>
+            <td th:text="${OrderCustomerDTO.email}"></td>
+
+            <td>
+                <form th:action="@{/displayOrderDetails}" method="post">
+                    <input  type="hidden" name="orderId" th:value="${OrderCustomerDTO.orderID}">
+                    <button class="buttonShape colorBlue" type="submit">Se ordren</button>
+                </form>
+            </td>
+        </tr>
+    </table>
+    <!-- Rette formularstruktur og route -->
+</div>
+
+<div>
+    <h3>Ordre detaljer</h3>
+
+    <div  th:if="${detailsDTO}">
+        <table>
+            <tr>
+                <th class="orderTableDescription">materiale</th>
+                <th class="orderTableDescription">Længde</th>
+                <th class="orderTableDescription">Antal</th>
+                <th class="orderTableDescription">stk</th>
+                <th class="orderTableDescription">Beskrivelse</th>
+            </tr>
+            <tr th:each="OrderDetailsMaterialLengthDTO : ${detailsDTO}">
+                <td th:text="${OrderDetailsMaterialLengthDTO.materialName}"></td>
+                <td th:text="${OrderDetailsMaterialLengthDTO.materialLength}"></td>
+                <td th:text="${OrderDetailsMaterialLengthDTO.quantity}"></td>
+                <td th:text="${OrderDetailsMaterialLengthDTO.materialUnit}"></td>
+                <td th:text="${OrderDetailsMaterialLengthDTO.materialDescription}"></td>
+
+            </tr>
+
+        </table>
+
+    </div>
+
+    <p>Tegning</p>
+
+    <div class="carport-svg">
+        <div type="hidden" th:utext="${svg}"></div>
+
+    </div>
+</div>
+</div>
+</div>
+</body>
+</html>
