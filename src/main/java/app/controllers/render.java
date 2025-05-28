@@ -14,23 +14,5 @@ public class render {
          AdminUserController.addAdminRoutes(app, connectionPool);
         RequestController.AddRequestRoutes(app, connectionPool);
 
-     /*   app.get("/carportBuilder", ctx -> {
-            ctx.render("carportBuilder.html");
-        });
-
-        app.get("/customerContactInformation", ctx -> {
-            ctx.render("customerContactInformation.html");
-        });
-
-        app.get("/confirmationPageUser", ctx -> {
-            ctx.render("confirmationPageUser.html");
-        });
-
-*/
-        app.get("/123", ctx -> {
-
-            ctx.render("adminViewOrders");
-        }); 
-
     }
 }
