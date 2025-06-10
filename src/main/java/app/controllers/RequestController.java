@@ -7,7 +7,6 @@ import app.persistence.*;
 
 import app.persistence.CustomerMapper;
 import app.persistence.RequestMapper;
-import app.services.CarportCalculator;
 import app.services.CarportRequestSVG;
 
 import app.services.Sendgrid;
@@ -21,21 +20,10 @@ public class RequestController {
 
     public static void AddRequestRoutes(Javalin app, ConnectionPool connectionPool){
 
-        app.get("/carportBuilder", ctx -> {
-
-            ctx.render("carportBuilder.html");
-        });
-
-        app.post("/showDrawing", ctx -> {
-
-            selectAndDisplayCarport(ctx, connectionPool);
-        });
-
-        app.post("/customerContactInformation", ctx ->
-                typeCustomerContactInformation(ctx, connectionPool) );
-
-        app.post("/sendRequest", ctx ->
-                requestController(ctx, connectionPool));
+        app.get("/carportBuilder", ctx -> ctx.render("carportBuilder.html"));
+        app.post("/showDrawing", ctx -> selectAndDisplayCarport(ctx, connectionPool));
+        app.post("/customerContactInformation", ctx -> typeCustomerContactInformation(ctx, connectionPool) );
+        app.post("/sendRequest", ctx -> requestController(ctx, connectionPool));
     }
 
     public static void selectAndDisplayCarport(Context ctx, ConnectionPool connectionPool){
