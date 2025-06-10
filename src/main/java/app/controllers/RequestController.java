@@ -117,7 +117,7 @@ public class RequestController {
         catch (DatabaseException e ){
             System.out.println("requestController m7 catch m1: ");
             //   ctx.attribute("message", "Dit valg af by og postkode matcher ikke");
-            ctx.attribute("error", "Der skete desværre en fejl med valg af by og postnummer, der gør at vi har behov for valget af dinensioner igen.");
+            ctx.attribute("error", "Der skete desværre en fejl med valg af by og postnummer, der gør at vi har behov for valget af dimensioner igen.");
             ctx.render("/carportBuilder.html");
         }
         catch(IllegalArgumentException e){
