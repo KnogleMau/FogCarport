@@ -54,4 +54,18 @@ public class OrdersMapper {
         return 0; // returner 0 så vi altid vil få det smidt i databasen, men vi kan se hvilke ordrers der er forkerte og det er her man kan lave en funktion som manuelt opdaterer order_id i order_Details så kunden har den rigtige order_id i sin bestilling.
 
     }
+
+    public void updatePriceOrder(int id, int price){
+        String sql = "UPDATE orders SET order_totalprice = ? WHERE order_id = ?";
+
+        try(Connection connection = connectionPool.getConnection();
+            PreparedStatement ps = connection.prepareStatement(sql) ) {
+            ps.setInt(1, price);
+            ps.setInt(2, id);
+
+            ps.executeUpdate();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
 }

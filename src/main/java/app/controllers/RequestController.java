@@ -102,8 +102,13 @@ public class RequestController {
 
             OrdersMapper ordersMapper = new OrdersMapper();
             ordersMapper.insertIntoOrders(customerId,carportRequest.getRequestID(), 4000, "pending");
+
             int orderId = ordersMapper.getOrderId(customerId, carportRequest.getRequestID());
             acc.calcController(carportLength, carportWidth, orderId);
+
+            int price = acc.calcPrice(carportLength, carportWidth);
+            ordersMapper.updatePriceOrder(orderId, price);
+
             Sendgrid sendgrid = new Sendgrid();
             sendgrid.sendGridAction(email, firstname + lastname);
 
