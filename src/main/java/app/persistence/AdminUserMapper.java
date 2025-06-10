@@ -28,7 +28,6 @@ public class AdminUserMapper {
                     throw new DatabaseException("Forkert Login, ellers har du ikke Admin permission");
                 }
         } catch(SQLException e) {
-        System.out.println(e.getMessage());
         throw new DatabaseException("Databasefejl", e.getMessage());
         }
     }
