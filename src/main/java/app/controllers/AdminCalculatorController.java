@@ -30,8 +30,7 @@ public class AdminCalculatorController {
 
     }
 
-    public int calcPrice(int length, int width){
-        new CarportCalculator(length, width, connectionPool);
+    public int calcPrice(){
         List<OrderDetail> details = calculator.getOrderDetails();
         int price = 0;
         for(OrderDetail detail : details){

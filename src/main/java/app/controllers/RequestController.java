@@ -106,7 +106,7 @@ public class RequestController {
             int orderId = ordersMapper.getOrderId(customerId, carportRequest.getRequestID());
             acc.calcController(carportLength, carportWidth, orderId);
 
-            int price = acc.calcPrice(carportLength, carportWidth);
+            int price = acc.calcPrice();
             ordersMapper.updatePriceOrder(orderId, price);
 
             Sendgrid sendgrid = new Sendgrid();
